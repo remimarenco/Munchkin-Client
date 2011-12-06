@@ -20,11 +20,9 @@ public class Message {
         public static final int CONNECT=0;
         public static final int DISCONNECT=1;
         public static final int MESSAGE=2;
-        public static final int LISTE=3;
-        public static final int FILE=4;
+        public static final int LISTE=3;       
         public static final int NICKEXIST=5;
-        public static final int DEMANDEAVATAR=6;
-        public static final int ENVOIAVATAR=7;
+     
 
         private int type;
         private String nick_src=new String("");
@@ -65,40 +63,10 @@ public class Message {
             this.message=msg;
            
         }
- public Message(int type,String nick_src,String nick_dest,String msg,ImageIcon icon){
-            this.type=type;
-
-            this.nick_src=nick_src;
-
-
-            this.nick_dest=nick_dest;
-
-
-            this.message=msg;
-            this.avatar=icon;
-
-        }
-
+ 
   
  
-  public Message(int type,String nick_src,String nick_dest,String fileName,byte[] file,String totalSize){
-
-            try{
-            this.type=type;
-            
-            this.nick_src=nick_src;      
-
-          
-            this.nick_dest=nick_dest;
-
-             this.message=fileName;
-          
-            this.file=new byte[file.length];
-            this.file=file;
-            this.totalSize=totalSize;
-            }
-            catch(Exception e){System.out.println("bouhhhhhhhhhhhhhhhhhhhhhhh");}
-        }
+  
 
 
         
@@ -112,20 +80,7 @@ public class Message {
                 if(type>DISCONNECT){                      
                 nick_dest=new String(in.readUTF());
                 
-                message=new String(in.readUTF());
-                if(type==FILE ){
-
-                
-                    int lenght=in.readInt();
-                    file= new byte[lenght];
-                   ObjectInputStream ois= new ObjectInputStream(in);
-                   file=(byte[]) ois.readObject();
-                   totalSize=in.readUTF();
-                }
-                else if ( type ==ENVOIAVATAR){
-                    ObjectInputStream ois= new ObjectInputStream(in);
-                    avatar=(ImageIcon) ois.readObject();
-                }
+                message=new String(in.readUTF());             
                
                 }
                  return true;
@@ -143,18 +98,7 @@ public class Message {
                 if(type>DISCONNECT){
                     out.writeUTF(nick_dest);
                     
-                    out.writeUTF(message);
-                    if(type==FILE ){
-                        out.writeInt(file.length);
-                        ObjectOutputStream oos=new ObjectOutputStream(out);
-                        oos.writeObject(file);
-                        out.writeUTF(totalSize);
-                    }
-                    else if(type==ENVOIAVATAR){
-                        ObjectOutputStream oos=new ObjectOutputStream(out);
-                        oos.writeObject(avatar);
-                    }
-                    
+                    out.writeUTF(message);                   
                  
                 }
                return true;

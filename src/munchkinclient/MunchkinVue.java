@@ -18,7 +18,6 @@ import javax.swing.JFrame;
  */
 public class MunchkinVue extends javax.swing.JFrame {
     private boolean nickexist=false;
-
     /** Creates new form MunchkinVue */
     public MunchkinVue() {
         initComponents();
