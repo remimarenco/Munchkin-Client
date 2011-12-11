@@ -6,18 +6,31 @@
 /*
  * MunchkinVue.java
  *
- * Created on 6 déc. 2011, 18:59:57
+ * Created on 11 déc. 2011, 15:56:41
  */
 package munchkinclient;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.ConnectException;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.StringTokenizer;
+import java.util.Vector;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 /**
  *
  * @author Meg4mi
  */
-public class MunchkinVue extends javax.swing.JFrame {
-    private boolean nickexist=false;
+public class MunchkinVue extends JFrame {
+
     /** Creates new form MunchkinVue */
     public MunchkinVue() {
         initComponents();
@@ -32,21 +45,456 @@ public class MunchkinVue extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel = new javax.swing.JPanel();
+        send_button = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jSeparator1 = new javax.swing.JSeparator();
+        avatar_icon = new javax.swing.JLabel();
+        avatar_destIcon = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        javax.swing.JMenu fileMenu = new javax.swing.JMenu();
+        connexion_item = new javax.swing.JMenuItem();
+        deconnexion_Item = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        send_button.setText("Envoyer");
+        send_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                send_buttonActionPerformed(evt);
+            }
+        });
+
+        jTextField1.setText("Tapez votre texte ici");
+        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField1MouseClicked(evt);
+            }
+        });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
+
+        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jList1);
+
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setEditable(false);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
+
+        jTabbedPane1.addTab("tab1", jScrollPane2);
+
+        avatar_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        avatar_icon.setText("avatar");
+        avatar_icon.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        avatar_icon.setMaximumSize(new java.awt.Dimension(160, 160));
+
+        avatar_destIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        avatar_destIcon.setText("avatar destinataire");
+        avatar_destIcon.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        avatar_destIcon.setMaximumSize(new java.awt.Dimension(160, 160));
+        avatar_destIcon.setPreferredSize(new java.awt.Dimension(160, 160));
+
+        javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
+        jPanel.setLayout(jPanelLayout);
+        jPanelLayout.setHorizontalGroup(
+            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
+                        .addGap(29, 29, 29)
+                        .addComponent(send_button)
+                        .addGap(23, 23, 23))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, 0, 0, Short.MAX_VALUE)
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(avatar_destIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(avatar_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(22, 22, 22))))))
+            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 827, Short.MAX_VALUE)
+        );
+        jPanelLayout.setVerticalGroup(
+            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelLayout.createSequentialGroup()
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(avatar_destIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(avatar_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(send_button))
+                .addContainerGap())
+        );
+
+        fileMenu.setText("File");
+
+        connexion_item.setText("Connexion");
+        connexion_item.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                connexion_itemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(connexion_item);
+
+        deconnexion_Item.setText("Deconnexion");
+        deconnexion_Item.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deconnexion_ItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(deconnexion_Item);
+
+        jMenuBar1.add(fileMenu);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 827, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 733, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    
+     public void interpretMessage(Message msg, Communication com) {        
+        switch (msg.getType()) {
+            case Message.MESSAGE:
+                miseaJour(msg);
+                break;
+            case Message.LISTE:
+                miseaJourListe(msg.getMessage());
+                break;
+            
+            case Message.NICKEXIST:
+                nickexist = true;
+                miseaJour(msg);
+                break;          
+
+        }
+    }
+
+    public void miseaJour(Message message) {
+
+        if (message.getNick_dest().equals("General")) {
+            jTextArea1.append(message.getNick_src() + " dit : " + message.getMessage());
+            jTextArea1.append("\n");
+        } else if (message.getNick_dest().equals("deconnexion")) {
+            int i = 0;
+            while (i < jTabbedPane1.getTabCount() - 1 && jTabbedPane1.getTitleAt(i) != message.getMessage()) {
+                i++;
+            }
+            if (jTabbedPane1.getTitleAt(i).equals(message.getNick_src()) || message.getNick_src().equals("admin")) {
+                if (jTextArea2 != null && jTextArea2.getName().equals(login_dest)) {
+                    jTextArea2.append(message.getNick_src() + " dit : " + message.getMessage() + " est maintenant deconnecté !");
+                    jTextArea2.append("\n");
+                }
+            }
+
+        } else if (message.getNick_dest().equals("connexion")) {
+            int i = 0;
+            while (i < jTabbedPane1.getTabCount() - 1 && jTabbedPane1.getTitleAt(i) != message.getMessage()) {
+                i++;
+            }
+            if (jTabbedPane1.getTitleAt(i).equals(message.getNick_src()) || message.getNick_src().equals("admin")) {
+                if (jTextArea2 != null && jTextArea2.getName().equals(login_dest)) {
+                    jTextArea2.append(message.getNick_src() + " dit : " + message.getMessage() + " est maintenant connecté !");
+                    jTextArea2.append("\n");
+                }
+
+
+            }
+
+        } else if (message.getNick_dest().equals(login)) {
+
+            int i = 0;
+            while (i < jTabbedPane1.getTabCount() - 1 && jTabbedPane1.getTitleAt(i) != message.getNick_src()) {
+                i++;
+            }
+            if (jTabbedPane1.getTitleAt(i).equals(message.getNick_src()) || message.getNick_src().equals("admin")) {
+                if (jTextArea2 != null && jTextArea2.getName().equals(login_dest)) {
+                    jTextArea2.append(message.getNick_src() + " dit : " + message.getMessage());
+                    jTextArea2.append("\n");
+
+                    if (jTabbedPane1.getSelectedIndex() != i) {
+                        jTabbedPane1.setBackgroundAt(i, Color.RED);
+                    }
+
+
+                }
+            } else {
+                login_dest = message.getNick_src();
+                jScrollpane = new JScrollPane();
+                jTextArea2 = new JTextArea();
+                jTextArea2.setName(message.getNick_src());
+                jTextArea2.setEditable(false);
+                jTabbedPane1.addTab(message.getNick_src(), jScrollpane);
+                jScrollpane.setViewportView(jTextArea2);
+                jTextArea2.append(message.getNick_src() + " dit : " + message.getMessage());
+                jTextArea2.append("\n");
+                jTabbedPane1.setSelectedIndex(i + 1);
+               //message = new Message(Message.DEMANDEAVATAR, login, login_dest, "");
+                this.com.sendMessage(message);
+            }
+        }
+
+
+    }
+
+    public void miseaJourListe(String liste) {
+
+        Vector<String> listData = new Vector<String>();
+        StringTokenizer l2 = new StringTokenizer(liste, ";");
+        while (l2.hasMoreTokens()) {
+            listData.add(l2.nextToken());
+        }
+        jList1.setListData(listData);
+    }
+
+    
+private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connexion_itemActionPerformed
+        try {            
+            Connexion connexion = new Connexion(this,true);
+           connexion.setLocationRelativeTo(this);     
+           connexion.setVisible(true);
+           if (connexion.getEtat()) {
+
+                login = connexion.getLogin();               
+                socket = new Socket(connexion.getServeur(), connexion.getPort());
+
+                com = new Communication(socket, this);
+                com.start();
+
+                Message msg = new Message(Message.CONNECT, login);
+                connected = com.sendMessage(msg);                
+               
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+                   
+                }
+                if (nickexist) {
+
+                    deconnexion_Item.setEnabled(false);
+                } else {
+                    deconnexion_Item.setEnabled(true);
+                    connexion_item.setEnabled(false);
+                }
+                nickexist = false;
+            }
+        } catch (ConnectException e) {
+            jTextArea1.append("Le serveur n'est sans doute pas demarré ");
+            jTextArea1.append("\n");
+        } catch (UnknownHostException e) {
+            System.out.println("Serveur : " + socket.getInetAddress().getHostName() + " inconnu");
+        } catch (Exception e) {
+            System.out.println("Exception :" + e.toString());
+        }
+
+
+}//GEN-LAST:event_connexion_itemActionPerformed
+
+private void deconnexion_ItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deconnexion_ItemActionPerformed
+        try {
+            // TODO add your handling code here:
+            Message msg = new Message(Message.DISCONNECT, login);
+            com.sendMessage(msg);
+
+            connexion_item.setEnabled(true);
+            deconnexion_Item.setEnabled(false);
+            connected = false;            
+
+
+        } catch (Exception ex) {
+            System.out.println("exception deco");
+        }
+
+
+}//GEN-LAST:event_deconnexion_ItemActionPerformed
+
+private void send_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_send_buttonActionPerformed
+        try {
+            String text = jTextField1.getText();
+
+            if (connected) {
+                if (login_dest != "General") {
+                    jTextArea2.append(login + " dit : " + text);
+                    jTextArea2.append("\n");
+
+                }
+                Message msg = new Message(Message.MESSAGE, login, login_dest, text);
+
+                com.sendMessage(msg);
+
+            }
+
+            jTextField1.setText("");
+
+        } catch (Exception e) {
+            System.out.println("Exception :" + e.toString());
+        }
+}//GEN-LAST:event_send_buttonActionPerformed
+
+private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseClicked
+        jTextField1.setText("");        // TODO add your handling code here:
+}//GEN-LAST:event_jTextField1MouseClicked
+
+private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            try {
+                String text = jTextField1.getText();
+
+                if (connected) {
+                    if (login_dest != "General") {
+                        jTextArea2.append(login + " dit : " + text);
+                        jTextArea2.append("\n");
+
+                    }
+                    Message msg = new Message(Message.MESSAGE, login, login_dest, text);
+
+                    com.sendMessage(msg);
+
+                }
+                jTextField1.setText("");
+
+
+
+            } catch (Exception e) {
+                System.out.println("Exception :" + e.toString());
+            }
+            jTextField1.setText("");
+        }// TODO add your handling code here:
+}//GEN-LAST:event_jTextField1KeyPressed
+
+private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        if (evt.getClickCount() == 2) {
+
+
+            login_dest = jList1.getSelectedValue().toString();
+            jScrollpane = new JScrollPane();
+            jTextArea2 = new JTextArea();
+            jTextArea2.setName(login_dest);
+            jTextArea2.setEditable(false);
+            jTabbedPane1.addTab(login_dest, jScrollpane);
+            jScrollpane.setViewportView(jTextArea2);
+
+        } else if (evt.getButton() == evt.BUTTON3) {
+            JPopupMenu popup = new JPopupMenu();
+            JMenuItem menuItem1 = new JMenuItem("Conversation privée");
+            JMenuItem menuItem2 = new JMenuItem("Envoyer un fichier");
+
+            menuItem1.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent e) {
+                     
+                    login_dest = jList1.getSelectedValue().toString();
+                    jScrollpane = new JScrollPane();
+                    jTextArea2 = new JTextArea();
+                    jTextArea2.setName(login_dest);
+                    jTextArea2.setEditable(false);
+                    jTabbedPane1.addTab(login_dest, jScrollpane);
+                    jScrollpane.setViewportView(jTextArea2);
+
+                }
+            });
+            menuItem2.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent e) {
+                   login_dest=jList1.getSelectedValue().toString();
+                   
+                }
+            });
+
+            popup.add(menuItem1);
+            popup.add(menuItem2);
+            popup.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+}//GEN-LAST:event_jList1MouseClicked
+
+private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        if (evt.getButton() == evt.BUTTON1) {
+            login_dest = jTabbedPane1.getTitleAt(jTabbedPane1.getSelectedIndex());
+            jTabbedPane1.setBackgroundAt(jTabbedPane1.getSelectedIndex(), null);
+            jTextArea2.setName(login_dest);
+            if (login_dest != "General" && connected) {
+//                Message message = new Message(Message.DEMANDEAVATAR, login, login_dest, "");
+//                this.com.sendMessage(message);                
+            } else {                
+            }
+        } else if (evt.getButton() == evt.BUTTON3) {
+            final JPopupMenu popup = new JPopupMenu();
+            final JMenuItem menuItem2 = new JMenuItem("Fermer");
+            if (jTabbedPane1.getSelectedIndex() == 0) {
+                menuItem2.setEnabled(false);
+            }
+
+            menuItem2.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent e) {
+
+                    if (jTabbedPane1.getSelectedIndex() != 0) {
+                        jTabbedPane1.removeTabAt(jTabbedPane1.getSelectedIndex());
+                    }
+                }
+            });
+            popup.add(menuItem2);
+            popup.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+
+
+}//GEN-LAST:event_jTabbedPane1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -84,32 +532,30 @@ public class MunchkinVue extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel avatar_destIcon;
+    private javax.swing.JLabel avatar_icon;
+    private javax.swing.JMenuItem connexion_item;
+    private javax.swing.JMenuItem deconnexion_Item;
+    private javax.swing.JList jList1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton send_button;
     // End of variables declaration//GEN-END:variables
-  public void interpretMessage(Message msg, Communication com) {
-
-       
-        switch (msg.getType()) {
-            case Message.MESSAGE:
-                miseaJour(msg);
-                break;
-            case Message.LISTE:
-                miseaJourListe(msg.getMessage());
-                break;            
-            case Message.NICKEXIST:
-                nickexist = true;
-                miseaJour(msg);
-                break;
-            
-
-        }
-    }
-
-    private void miseaJour(Message msg) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    private void miseaJourListe(String message) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
+   private Communication com = null;
+    private Socket socket = null;
+    private String login = null;
+    private String fileName = new String("");
+    private String login_dest = null;
+    private JScrollPane jScrollpane;
+    private JTextArea jTextArea2;
+    private int pourcent = 0;
+    private boolean connected = false;
+    private boolean nickexist = false;
 }
 
