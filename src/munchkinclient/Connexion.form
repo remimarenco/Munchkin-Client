@@ -118,7 +118,7 @@
               <StringArray count="3">
                 <StringItem index="0" value="localhost"/>
                 <StringItem index="1" value="127.0.0.1"/>
-                <StringItem index="2" value="meg4mi.dyndns.org"/>
+                <StringItem index="2" value="meg4mi.no-ip.org"/>
               </StringArray>
             </Property>
           </Properties>
