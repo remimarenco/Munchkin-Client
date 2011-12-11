@@ -10,6 +10,7 @@
  */
 package munchkinclient;
 
+import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
@@ -74,7 +75,7 @@ public class Connexion extends JDialog {
             }
         });
 
-        serveur_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "172.0.0.1" }));
+        serveur_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "localhost", "127.0.0.1" }));
 
         jLabel2.setText("Login :");
 
@@ -138,14 +139,14 @@ public class Connexion extends JDialog {
 private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
 // TODO add your handling code here:
     try {
-            serveur = InetAddress.getByName(serveur_ComboBox.getSelectedItem().toString());
+            serveur = (Inet4Address) Inet4Address.getByName(serveur_ComboBox.getSelectedItem().toString());
         } catch (UnknownHostException ex) {
             Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
         }
 login=login_field.getText();
 port=8767;
 saisie_effectué=true;
-
+this.dispose();
 
 }//GEN-LAST:event_connectButtonActionPerformed
 
@@ -164,7 +165,7 @@ private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JComboBox serveur_ComboBox;
     // End of variables declaration//GEN-END:variables
 private String login;
-private InetAddress serveur;
+private Inet4Address serveur;
 private int port;
 private boolean saisie_effectué=false;
 }

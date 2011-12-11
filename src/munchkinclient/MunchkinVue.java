@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.ConnectException;
+import java.net.Inet4Address;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.StringTokenizer;
@@ -311,9 +312,9 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
            connexion.setVisible(true);
            if (connexion.getEtat()) {
 
-                login = connexion.getLogin();               
-                socket = new Socket(connexion.getServeur(), connexion.getPort());
-
+                login = connexion.getLogin();      
+                Inet4Address ip=(Inet4Address) connexion.getServeur();
+                socket = new Socket(ip, connexion.getPort());                
                 com = new Communication(socket, this);
                 com.start();
 
@@ -321,7 +322,7 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 connected = com.sendMessage(msg);                
                
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(10);
                 } catch (InterruptedException ex) {
                    
                 }
@@ -335,8 +336,8 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 nickexist = false;
             }
         } catch (ConnectException e) {
-            jTextArea1.append("Le serveur n'est sans doute pas demarré ");
-            jTextArea1.append("\n");
+            jTextArea1.append("Le serveur n'est sans doute pas demarré\n ");
+       
         } catch (UnknownHostException e) {
             System.out.println("Serveur : " + socket.getInetAddress().getHostName() + " inconnu");
         } catch (Exception e) {
