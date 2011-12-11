@@ -57,7 +57,7 @@ public class Connexion extends JDialog {
 
         setTitle("Connexion");
         setAlwaysOnTop(true);
-        setMinimumSize(new java.awt.Dimension(300, 200));
+        setMinimumSize(new java.awt.Dimension(350, 200));
 
         connectButton.setText("Connect");
         connectButton.setName("connectButton"); // NOI18N

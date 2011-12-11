@@ -19,12 +19,16 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.StringTokenizer;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -34,7 +38,20 @@ public class MunchkinVue extends JFrame {
 
     /** Creates new form MunchkinVue */
     public MunchkinVue() {
-        initComponents();
+        try {
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        initComponents();        
+        
+        login_dest="Partie";
     }
 
     /** This method is called from within the constructor to
@@ -102,7 +119,7 @@ public class MunchkinVue extends JFrame {
         jTextArea1.setRows(5);
         jScrollPane2.setViewportView(jTextArea1);
 
-        jTabbedPane1.addTab("tab1", jScrollPane2);
+        jTabbedPane1.addTab("Partie", jScrollPane2);
 
         avatar_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         avatar_icon.setText("avatar");
@@ -229,9 +246,9 @@ public class MunchkinVue extends JFrame {
 
     public void miseaJour(Message message) {
 
-        if (message.getNick_dest().equals("General")) {
-            jTextArea1.append(message.getNick_src() + " dit : " + message.getMessage());
-            jTextArea1.append("\n");
+        if (message.getNick_dest().equals("Partie")) {
+            if(!message.getNick_src().equals(login))
+            jTextArea1.append( message.getNick_src() +" : " + message.getMessage()+"\n");            
         } else if (message.getNick_dest().equals("deconnexion")) {
             int i = 0;
             while (i < jTabbedPane1.getTabCount() - 1 && jTabbedPane1.getTitleAt(i) != message.getMessage()) {
@@ -239,8 +256,7 @@ public class MunchkinVue extends JFrame {
             }
             if (jTabbedPane1.getTitleAt(i).equals(message.getNick_src()) || message.getNick_src().equals("admin")) {
                 if (jTextArea2 != null && jTextArea2.getName().equals(login_dest)) {
-                    jTextArea2.append(message.getNick_src() + " dit : " + message.getMessage() + " est maintenant deconnecté !");
-                    jTextArea2.append("\n");
+                    jTextArea2.append(message.getNick_src() + " dit : " + message.getMessage() + " est maintenant deconnecté !\n");                    
                 }
             }
 
@@ -251,8 +267,7 @@ public class MunchkinVue extends JFrame {
             }
             if (jTabbedPane1.getTitleAt(i).equals(message.getNick_src()) || message.getNick_src().equals("admin")) {
                 if (jTextArea2 != null && jTextArea2.getName().equals(login_dest)) {
-                    jTextArea2.append(message.getNick_src() + " dit : " + message.getMessage() + " est maintenant connecté !");
-                    jTextArea2.append("\n");
+                    jTextArea2.append(message.getNick_src() + " dit : " + message.getMessage() + " est maintenant connecté \n!");                    
                 }
 
 
@@ -266,14 +281,11 @@ public class MunchkinVue extends JFrame {
             }
             if (jTabbedPane1.getTitleAt(i).equals(message.getNick_src()) || message.getNick_src().equals("admin")) {
                 if (jTextArea2 != null && jTextArea2.getName().equals(login_dest)) {
-                    jTextArea2.append(message.getNick_src() + " dit : " + message.getMessage());
-                    jTextArea2.append("\n");
+                    jTextArea2.append(message.getNick_src() + " dit : " + message.getMessage()+"\n");      
 
                     if (jTabbedPane1.getSelectedIndex() != i) {
                         jTabbedPane1.setBackgroundAt(i, Color.RED);
                     }
-
-
                 }
             } else {
                 login_dest = message.getNick_src();
@@ -283,11 +295,11 @@ public class MunchkinVue extends JFrame {
                 jTextArea2.setEditable(false);
                 jTabbedPane1.addTab(message.getNick_src(), jScrollpane);
                 jScrollpane.setViewportView(jTextArea2);
-                jTextArea2.append(message.getNick_src() + " dit : " + message.getMessage());
-                jTextArea2.append("\n");
+                jTextArea2.append(message.getNick_src() + " dit : " + message.getMessage()+"\n ");
+               
                 jTabbedPane1.setSelectedIndex(i + 1);
                //message = new Message(Message.DEMANDEAVATAR, login, login_dest, "");
-                this.com.sendMessage(message);
+                //this.com.sendMessage(message);
             }
         }
 
@@ -365,20 +377,19 @@ private void deconnexion_ItemActionPerformed(java.awt.event.ActionEvent evt) {//
 
 }//GEN-LAST:event_deconnexion_ItemActionPerformed
 
-private void send_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_send_buttonActionPerformed
-        try {
+
+private void sendMessage(){
+     try {
             String text = jTextField1.getText();
 
             if (connected) {
-                if (login_dest != "General") {
-                    jTextArea2.append(login + " dit : " + text);
-                    jTextArea2.append("\n");
-
-                }
+                if (login_dest != "Partie")
+                    jTextArea2.append(/*login +*/ "Moi : " + text +" \n");                    
+                else
+                    jTextArea1.append("Moi : "+text +"\n");
+                
                 Message msg = new Message(Message.MESSAGE, login, login_dest, text);
-
                 com.sendMessage(msg);
-
             }
 
             jTextField1.setText("");
@@ -386,6 +397,10 @@ private void send_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         } catch (Exception e) {
             System.out.println("Exception :" + e.toString());
         }
+}
+
+private void send_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_send_buttonActionPerformed
+       sendMessage();
 }//GEN-LAST:event_send_buttonActionPerformed
 
 private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseClicked
@@ -394,29 +409,8 @@ private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST
 
 private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            try {
-                String text = jTextField1.getText();
-
-                if (connected) {
-                    if (login_dest != "General") {
-                        jTextArea2.append(login + " dit : " + text);
-                        jTextArea2.append("\n");
-
-                    }
-                    Message msg = new Message(Message.MESSAGE, login, login_dest, text);
-
-                    com.sendMessage(msg);
-
-                }
-                jTextField1.setText("");
-
-
-
-            } catch (Exception e) {
-                System.out.println("Exception :" + e.toString());
-            }
-            jTextField1.setText("");
-        }// TODO add your handling code here:
+           sendMessage();
+        }
 }//GEN-LAST:event_jTextField1KeyPressed
 
 private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
@@ -468,12 +462,13 @@ private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRS
         if (evt.getButton() == evt.BUTTON1) {
             login_dest = jTabbedPane1.getTitleAt(jTabbedPane1.getSelectedIndex());
             jTabbedPane1.setBackgroundAt(jTabbedPane1.getSelectedIndex(), null);
-            jTextArea2.setName(login_dest);
-            if (login_dest != "General" && connected) {
+            if(jTextArea2!=null)
+                jTextArea2.setName(login_dest);            
+                
+            if (login_dest != "Partie" && connected) {
 //                Message message = new Message(Message.DEMANDEAVATAR, login, login_dest, "");
 //                this.com.sendMessage(message);                
-            } else {                
-            }
+            }             
         } else if (evt.getButton() == evt.BUTTON3) {
             final JPopupMenu popup = new JPopupMenu();
             final JMenuItem menuItem2 = new JMenuItem("Fermer");
