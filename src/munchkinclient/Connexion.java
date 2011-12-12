@@ -75,7 +75,7 @@ public class Connexion extends JDialog {
             }
         });
 
-        serveur_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "localhost", "127.0.0.1", "meg4mi.no-ip.org" }));
+        serveur_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "localhost", "127.0.0.1", "90.57.5.109", "meg4mi.no-ip.org" }));
 
         jLabel2.setText("Login :");
 
@@ -139,7 +139,7 @@ public class Connexion extends JDialog {
 private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
 // TODO add your handling code here:
     try {
-            serveur = (Inet4Address) Inet4Address.getByName(serveur_ComboBox.getSelectedItem().toString());
+            serveur = (InetAddress) Inet4Address.getByName(serveur_ComboBox.getSelectedItem().toString());
         } catch (UnknownHostException ex) {
             Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -165,7 +165,7 @@ private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JComboBox serveur_ComboBox;
     // End of variables declaration//GEN-END:variables
 private String login;
-private Inet4Address serveur;
+private InetAddress serveur;
 private int port;
 private boolean saisie_effectué=false;
 }

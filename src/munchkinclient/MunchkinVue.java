@@ -325,8 +325,8 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
            if (connexion.getEtat()) {
 
                 login = connexion.getLogin();      
-                Inet4Address ip=(Inet4Address) connexion.getServeur();
-                socket = new Socket(ip, connexion.getPort());                
+             
+                socket = new Socket(connexion.getServeur(), connexion.getPort());                
                 com = new Communication(socket, this);
                 com.start();
 
