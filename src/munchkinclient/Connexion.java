@@ -139,7 +139,7 @@ public class Connexion extends JDialog {
 private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
 // TODO add your handling code here:
     try {
-            serveur = (InetAddress) Inet4Address.getByName(serveur_ComboBox.getSelectedItem().toString());
+            serveur = InetAddress.getByName(serveur_ComboBox.getSelectedItem().toString());
         } catch (UnknownHostException ex) {
             Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
         }
