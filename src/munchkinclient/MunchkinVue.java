@@ -380,7 +380,7 @@ private void deconnexion_ItemActionPerformed(java.awt.event.ActionEvent evt) {//
 
 private void sendMessage(){
      try {
-            String text = jTextField1.getText();
+            String text = jTextField1.getText()+"\n";
 
             if (connected) {
                 if (login_dest != "Partie")
