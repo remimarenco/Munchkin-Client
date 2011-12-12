@@ -6,15 +6,8 @@
 package munchkinclient;
 
 import java.io.*;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 
-/**
- *
- * @author tavernas
- */
 public class Message {
 
         public static final int CONNECT=0;
@@ -25,16 +18,13 @@ public class Message {
      
 
         private int type;
-        private String nick_src=new String("");
-        
+        private String nick_src=new String("");        
      
-        private String nick_dest=new String("");
-     
-       private String message=new String("");
-       private ImageIcon avatar=new ImageIcon();
+        private String nick_dest=new String("");     
+       private String message=new String("");    
         private byte[] file = null;
         private String totalSize;
-        public ImageIcon getAvatar(){return avatar;}
+     
         public String getNick_src(){return nick_src;}
            public String getNick_dest(){return nick_dest;}
             public String getMessage(){return message;}
