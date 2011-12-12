@@ -348,7 +348,7 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 nickexist = false;
             }
         } catch (ConnectException e) {
-            jTextArea1.append("Le serveur n'est sans doute pas demarré\n ");
+            jTextArea1.append("Le serveur n'est sans doute pas demarré\n  " +e.toString());
        
         } catch (UnknownHostException e) {
             System.out.println("Serveur : " + socket.getInetAddress().getHostName() + " inconnu");
