@@ -75,7 +75,7 @@ public class Connexion extends JDialog {
             }
         });
 
-        serveur_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "localhost", "127.0.0.1", "90.57.5.109", "meg4mi.no-ip.org" }));
+        serveur_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "localhost", "127.0.0.1", "192.168.1.2", "meg4mi.no-ip.org", "90.57.5.109" }));
 
         jLabel2.setText("Login :");
 
