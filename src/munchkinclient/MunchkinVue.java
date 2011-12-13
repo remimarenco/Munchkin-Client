@@ -254,7 +254,9 @@ public class MunchkinVue extends JFrame {
     }
 
     public void miseaJour(Message message) {
-
+       if(message.getColor()!=null)
+           jTextArea1.setForeground(message.getColor());
+       
         if (message.getNick_dest().equals("Partie")) {
             if(!message.getNick_src().equals(login))
             jTextArea1.append( message.getNick_src() +" : " + message.getMessage()+"\n");            
@@ -395,8 +397,7 @@ private void sendMessage(){
                 if (login_dest != "Partie")
                     jTextArea2.append(/*login +*/ "Moi : " + text +" \n");                    
                 else
-                    jTextArea1.append("Moi : "+text +"\n");
-                
+                    jTextArea1.append("Moi : "+text +"\n");                
                 Message msg = new Message(Message.MESSAGE, login, login_dest, text);
                 com.sendMessage(msg);
             }

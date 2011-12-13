@@ -5,6 +5,7 @@
 
 package munchkinclient;
 
+import java.awt.Color;
 import java.io.*;
 
 
@@ -19,7 +20,7 @@ public class Message {
 
         private int type;
         private String nick_src=new String("");        
-     
+        private Color color;
         private String nick_dest=new String("");     
        private String message=new String("");    
         private byte[] file = null;
@@ -29,7 +30,7 @@ public class Message {
            public String getNick_dest(){return nick_dest;}
             public String getMessage(){return message;}
             public byte[] getFile(){return file;}
-          
+          public Color getColor() {return color;}
             public String getTotalSize(){return totalSize;}
 
  public Message(){}
@@ -46,6 +47,20 @@ public class Message {
             
             this.nick_src=nick_src;      
 
+          
+            this.nick_dest=nick_dest;
+
+        
+            this.message=msg;
+           
+        }
+ 
+  public Message(int type,String nick_src,String nick_dest,String msg,Color color){
+            this.type=type;
+            
+            this.nick_src=nick_src;      
+            
+            this.color=color;
           
             this.nick_dest=nick_dest;
 
