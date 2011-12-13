@@ -36,6 +36,17 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class MunchkinVue extends JFrame {
 
+    private Communication com = null;
+    private Socket socket = null;
+    private String login = null;
+    private String fileName = new String("");
+    private String login_dest = "Partie";
+    private JScrollPane jScrollpane;
+    private JTextArea jTextArea2;
+    private int pourcent = 0;
+    private boolean connected = false;
+    private boolean nickexist = false;
+    
     /** Creates new form MunchkinVue */
     public MunchkinVue() {
         try {
@@ -49,9 +60,7 @@ public class MunchkinVue extends JFrame {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
         }
-        initComponents();        
-        
-        login_dest="Partie";
+        initComponents();     
     }
 
     /** This method is called from within the constructor to
@@ -543,15 +552,6 @@ private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRS
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton send_button;
     // End of variables declaration//GEN-END:variables
-   private Communication com = null;
-    private Socket socket = null;
-    private String login = null;
-    private String fileName = new String("");
-    private String login_dest = null;
-    private JScrollPane jScrollpane;
-    private JTextArea jTextArea2;
-    private int pourcent = 0;
-    private boolean connected = false;
-    private boolean nickexist = false;
+  
 }
 
