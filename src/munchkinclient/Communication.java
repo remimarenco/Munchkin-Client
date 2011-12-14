@@ -46,10 +46,10 @@ public class Communication extends Thread{
   synchronized  public void run(){
        try{           
         while(true){
-            if(msg.read(in)){
-                if(parent instanceof MunchkinVue){
-                    
-                       ((MunchkinVue)parent).interpretMessage(msg,this);
+            this.msg= new Message();//Important pour distinguer les messages
+            if(this.msg.read(in)){
+                if(this.parent instanceof MunchkinVue){                    
+                       ((MunchkinVue)this.parent).interpretMessage(this.msg,this);
                 }
             }
         }
