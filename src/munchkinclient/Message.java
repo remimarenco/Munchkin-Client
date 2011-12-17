@@ -16,6 +16,8 @@ public class Message {
         public static final int MESSAGE=2;
         public static final int LISTE=3;       
         public static final int NICKEXIST=5;
+        public static final int ANSWER=6;
+        public static final int QUESTION=7;
      
 
         private int type;
@@ -63,7 +65,6 @@ public class Message {
             this.color=color;
           
             this.nick_dest=nick_dest;
-
         
             this.message=msg;
            

@@ -81,6 +81,9 @@ public class MunchkinVue extends JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jSeparator1 = new javax.swing.JSeparator();
+        labelActionPrompt = new javax.swing.JLabel();
+        buttonNon = new javax.swing.JButton();
+        buttonYes = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         connexion_item = new javax.swing.JMenuItem();
@@ -132,6 +135,24 @@ public class MunchkinVue extends JFrame {
 
         jTabbedPane1.addTab("Partie", jScrollPane2);
 
+        labelActionPrompt.setText("Action :");
+
+        buttonNon.setText("Non");
+        buttonNon.setEnabled(false);
+        buttonNon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonNonActionPerformed(evt);
+            }
+        });
+
+        buttonYes.setText("Oui");
+        buttonYes.setEnabled(false);
+        buttonYes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonYesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
         jPanelLayout.setHorizontalGroup(
@@ -140,16 +161,26 @@ public class MunchkinVue extends JFrame {
                 .addContainerGap()
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
                         .addGap(29, 29, 29)
                         .addComponent(send_button)
                         .addGap(23, 23, 23))
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
-                        .addContainerGap())))
-            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelActionPrompt))
+                                .addContainerGap())
+                            .addGroup(jPanelLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(buttonNon)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                                .addComponent(buttonYes)
+                                .addGap(25, 25, 25))))))
+            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,7 +189,16 @@ public class MunchkinVue extends JFrame {
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelLayout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addComponent(labelActionPrompt))
+                            .addGroup(jPanelLayout.createSequentialGroup()
+                                .addGap(99, 99, 99)
+                                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(buttonNon)
+                                    .addComponent(buttonYes))))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -194,12 +234,12 @@ public class MunchkinVue extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 713, Short.MAX_VALUE)
+            .addGap(0, 739, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 719, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,7 +251,7 @@ public class MunchkinVue extends JFrame {
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-729)/2, (screenSize.height-650)/2, 729, 650);
+        setBounds((screenSize.width-755)/2, (screenSize.height-650)/2, 755, 650);
     }// </editor-fold>//GEN-END:initComponents
 
     
@@ -222,12 +262,13 @@ public class MunchkinVue extends JFrame {
                 break;
             case Message.LISTE:
                 miseaJourListe(msg.getMessage());
-                break;
-            
+                break;            
             case Message.NICKEXIST:
                 nickexist = true;
                 miseaJour(msg);
-                break;          
+                break;
+            case Message.QUESTION:
+                miseajourAction(msg);
 
         }
     }
@@ -294,6 +335,12 @@ public class MunchkinVue extends JFrame {
         }
 
 
+    }
+    
+    private void miseajourAction(Message msg) {
+       this.labelActionPrompt.setText(msg.getMessage());
+       this.buttonNon.setEnabled(true);
+       this.buttonYes.setEnabled(true);
     }
 
     public void miseaJourListe(String liste) {
@@ -481,6 +528,18 @@ private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRS
 
 }//GEN-LAST:event_jTabbedPane1MouseClicked
 
+private void buttonNonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNonActionPerformed
+  com.sendMessage(new Message(Message.ANSWER, login, login_dest, "Non"));
+  this.buttonNon.setEnabled(false);
+  this.buttonYes.setEnabled(false);
+}//GEN-LAST:event_buttonNonActionPerformed
+
+private void buttonYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonYesActionPerformed
+  com.sendMessage(new Message(Message.ANSWER, login, login_dest, "Yes"));
+  this.buttonNon.setEnabled(false);
+  this.buttonYes.setEnabled(false);
+}//GEN-LAST:event_buttonYesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -517,6 +576,8 @@ private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRS
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonNon;
+    private javax.swing.JButton buttonYes;
     private javax.swing.JMenuItem connexion_item;
     private javax.swing.JMenuItem deconnexion_Item;
     private javax.swing.JList jList1;
@@ -528,8 +589,10 @@ private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRS
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel labelActionPrompt;
     private javax.swing.JButton send_button;
     // End of variables declaration//GEN-END:variables
+    
   
 }
 
