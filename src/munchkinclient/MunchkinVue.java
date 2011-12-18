@@ -254,7 +254,12 @@ public class MunchkinVue extends JFrame {
         setBounds((screenSize.width-755)/2, (screenSize.height-650)/2, 755, 650);
     }// </editor-fold>//GEN-END:initComponents
 
-    
+    /**
+     * Appelé par la classe de communication lors de la reception d'un message.
+     * Traite le message reçu en focntion de sont ype et son contenu
+     * @param msg
+     * @param com 
+     */
      public void interpretMessage(Message msg, Communication com) {        
         switch (msg.getType()) {
             case Message.MESSAGE:
@@ -273,6 +278,10 @@ public class MunchkinVue extends JFrame {
         }
     }
 
+     /**
+      * Appelé apres avoir reçu un message de type messageet met a jour l'interface en fonction de son contenu
+      * @param message 
+      */
     public void miseaJour(Message message) {
        if(message.getColor()!=null)
            jTextArea1.setForeground(message.getColor());
@@ -300,8 +309,6 @@ public class MunchkinVue extends JFrame {
                 if (jTextArea2 != null && jTextArea2.getName().equals(login_dest)) {
                     jTextArea2.append(message.getNick_src() + " dit : " + message.getMessage() + " est maintenant connecté \n!");                    
                 }
-
-
             }
 
         } else if (message.getNick_dest().equals(login)) {
@@ -336,13 +343,20 @@ public class MunchkinVue extends JFrame {
 
 
     }
-    
+    /**
+     * Met a jour l'action proposé par le serveur
+     * @param msg 
+     */
     private void miseajourAction(Message msg) {
        this.labelActionPrompt.setText(msg.getMessage());
        this.buttonNon.setEnabled(true);
        this.buttonYes.setEnabled(true);
     }
-
+  
+    /**
+     * met a jour la liste des connectés
+     * @param liste 
+     */    
     public void miseaJourListe(String liste) {
 
         Vector<String> listData = new Vector<String>();
@@ -414,7 +428,9 @@ private void deconnexion_ItemActionPerformed(java.awt.event.ActionEvent evt) {//
 
 }//GEN-LAST:event_deconnexion_ItemActionPerformed
 
-
+/**
+ * Methode appelée lorsque le joueur envoi un message sur la chat
+ */
 private void sendMessage(){
      try {
             String text = jTextField1.getText()+"\n";
@@ -448,7 +464,10 @@ private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:eve
            sendMessage();
         }
 }//GEN-LAST:event_jTextField1KeyPressed
-
+/**
+ * Appelé lors d'un click dans la liste de joueur
+ * @param evt 
+ */
 private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         if (evt.getClickCount() == 2) {
 
@@ -493,7 +512,10 @@ private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
             popup.show(evt.getComponent(), evt.getX(), evt.getY());
         }
 }//GEN-LAST:event_jList1MouseClicked
-
+/**
+ * Appelée lors d'un clic sur les onglet
+ * @param evt 
+ */
 private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
         if (evt.getButton() == evt.BUTTON1) {
             login_dest = jTabbedPane1.getTitleAt(jTabbedPane1.getSelectedIndex());

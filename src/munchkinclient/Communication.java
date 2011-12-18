@@ -10,8 +10,8 @@ import java.io.*;
 import java.net.Socket;
 
 /**
- *
- * @author tavernas
+ * 
+ * @author Meg4mi
  */
 public class Communication extends Thread{
     private Message msg=new Message();
@@ -27,22 +27,20 @@ public class Communication extends Thread{
         catch(Exception e){
             
         }
-    }
+    }   
 
-    public void sendList(String list){
-        new Message(Message.LISTE,"admin","General",list).write(out);
-
-    }
-
+    /**
+     * Envoi le message via la methode write
+     * @param message
+     * @return vrai quand message envoyer;
+     */
     public boolean sendMessage(Message message){message.write(out); return true;}
     
   
-    public boolean sendMessage(String message,String nick_dest){
-
-        new Message(Message.MESSAGE,getName(),nick_dest,message).write(out);
-        return true;
-    }
-
+   
+  /**
+     * Methode executer lorsque l'on lance le tread
+     */
   synchronized  public void run(){
        try{           
         while(true){
