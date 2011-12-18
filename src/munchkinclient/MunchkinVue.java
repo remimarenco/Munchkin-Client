@@ -10,6 +10,7 @@
  */
 package munchkinclient;
 
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,8 +29,13 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 /**
  *
@@ -80,7 +86,7 @@ public class MunchkinVue extends JFrame {
         jList1 = new javax.swing.JList();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jTextPane1 = new javax.swing.JTextPane();
         jSeparator1 = new javax.swing.JSeparator();
         labelActionPrompt = new javax.swing.JLabel();
         buttonNon = new javax.swing.JButton();
@@ -136,10 +142,8 @@ public class MunchkinVue extends JFrame {
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setEditable(false);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        jTextPane1.setEditable(false);
+        jScrollPane2.setViewportView(jTextPane1);
 
         jTabbedPane1.addTab("Partie", jScrollPane2);
 
@@ -319,6 +323,7 @@ public class MunchkinVue extends JFrame {
         switch (msg.getType()) {
             case Message.MESSAGE:
                 miseaJour(msg);
+                jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
                 break;
             case Message.LISTE:
                 miseaJourListe(msg.getMessage());
@@ -336,17 +341,28 @@ public class MunchkinVue extends JFrame {
         }
     }
 
+     private void appendText(JTextPane jpane,String str,Color color){
+         StyledDocument doc = jpane.getStyledDocument();
+        try {
+             Style style = doc.addStyle("StyleName", null);
+            StyleConstants.setForeground(style,color );
+            
+            doc.insertString(doc.getLength(), str,style );
+        } catch (BadLocationException ex) {
+            Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
      /**
       * Appelé apres avoir reçu un message de type messageet met a jour l'interface en fonction de son contenu
       * @param message 
       */
     public void miseaJour(Message message) {
        if(message.getColor()!=null)
-           jTextArea1.setForeground(message.getColor());
+           jTextPane1.setForeground(message.getColor());
        
         if (message.getNick_dest().equals("Partie")) {
             if(!message.getNick_src().equals(login))
-            jTextArea1.append( message.getNick_src() +" : " + message.getMessage()+"\n");            
+            appendText(jTextPane1, message.getNick_src() +" : " + message.getMessage()+"\n",message.getColor());            
         } else if (message.getNick_dest().equals("deconnexion")) {
             int i = 0;
             while (i < jTabbedPane1.getTabCount() - 1 && jTabbedPane1.getTitleAt(i) != message.getMessage()) {
@@ -464,7 +480,7 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 nickexist = false;
             }
         } catch (ConnectException e) {
-            jTextArea1.append("Le serveur n'est sans doute pas demarré\n  " +e.toString());
+            appendText(jTextPane1, "Le serveur n'est sans doute pas demarré\n  " +e.toString(),Color.BLACK);
        
         } catch (UnknownHostException e) {
             System.out.println("Serveur : " + socket.getInetAddress().getHostName() + " inconnu");
@@ -504,7 +520,7 @@ private void sendMessage(){
                 if (login_dest != "Partie")
                     jTextArea2.append(/*login +*/ "Moi : " + text +" \n");                    
                 else
-                    jTextArea1.append("Moi : "+text +"\n");                
+                    appendText(jTextPane1,"Moi : "+text +"\n",Color.BLACK);                
                 Message msg = new Message(Message.MESSAGE, login, login_dest, text);
                 com.sendMessage(msg);
             }
@@ -548,7 +564,7 @@ private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
         } else if (evt.getButton() == evt.BUTTON3) {
             JPopupMenu popup = new JPopupMenu();
             JMenuItem menuItem1 = new JMenuItem("Conversation privée");
-            JMenuItem menuItem2 = new JMenuItem("Envoyer un fichier");
+            
 
             menuItem1.addActionListener(new ActionListener() {
 
@@ -563,17 +579,9 @@ private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
                     jScrollpane.setViewportView(jTextArea2);
 
                 }
-            });
-            menuItem2.addActionListener(new ActionListener() {
+            });           
 
-                public void actionPerformed(ActionEvent e) {
-                   login_dest=jList1.getSelectedValue().toString();
-                   
-                }
-            });
-
-            popup.add(menuItem1);
-            popup.add(menuItem2);
+            popup.add(menuItem1);          
             popup.show(evt.getComponent(), evt.getX(), evt.getY());
         }
         else if(evt.getClickCount() == 1){
@@ -587,6 +595,18 @@ private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
  * Appelée lors d'un clic sur les onglet
  * @param evt 
  */
+private void buttonNonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNonActionPerformed
+  com.sendMessage(new Message(Message.QUESTION, login, login_dest, "Non"));
+  this.buttonNon.setEnabled(false);
+  this.buttonYes.setEnabled(false);
+}//GEN-LAST:event_buttonNonActionPerformed
+
+private void buttonYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonYesActionPerformed
+  com.sendMessage(new Message(Message.QUESTION, login, login_dest, "Yes"));
+  this.buttonNon.setEnabled(false);
+  this.buttonYes.setEnabled(false);
+}//GEN-LAST:event_buttonYesActionPerformed
+
 private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
         if (evt.getButton() == evt.BUTTON1) {
             login_dest = jTabbedPane1.getTitleAt(jTabbedPane1.getSelectedIndex());
@@ -618,20 +638,7 @@ private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRS
             popup.show(evt.getComponent(), evt.getX(), evt.getY());
         }
 
-
 }//GEN-LAST:event_jTabbedPane1MouseClicked
-
-private void buttonNonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNonActionPerformed
-  com.sendMessage(new Message(Message.QUESTION, login, login_dest, "Non"));
-  this.buttonNon.setEnabled(false);
-  this.buttonYes.setEnabled(false);
-}//GEN-LAST:event_buttonNonActionPerformed
-
-private void buttonYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonYesActionPerformed
-  com.sendMessage(new Message(Message.QUESTION, login, login_dest, "Yes"));
-  this.buttonNon.setEnabled(false);
-  this.buttonYes.setEnabled(false);
-}//GEN-LAST:event_buttonYesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -685,8 +692,8 @@ private void buttonYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JLabel labelActionPrompt;
     private javax.swing.JLabel labelJoueurSelectionné;
     private javax.swing.JButton send_button;
