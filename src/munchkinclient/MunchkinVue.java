@@ -12,6 +12,7 @@ package munchkinclient;
 
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.ConnectException;
@@ -49,7 +50,7 @@ public class MunchkinVue extends JFrame {
     private String fileName = new String("");
     private String login_dest = "Partie";
     private JScrollPane jScrollpane;
-    private JTextArea jTextArea2;
+    private JTextPane jTextPane2;
     private int pourcent = 0;
     private boolean connected = false;
     private boolean nickexist = false;
@@ -67,7 +68,8 @@ public class MunchkinVue extends JFrame {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
         }
-        initComponents();     
+        initComponents();    
+        jTabbedPane1.setTitleAt(0, "Partie");
     }
 
     /** This method is called from within the constructor to
@@ -369,8 +371,8 @@ public class MunchkinVue extends JFrame {
                 i++;
             }
             if (jTabbedPane1.getTitleAt(i).equals(message.getNick_src()) || message.getNick_src().equals("admin")) {
-                if (jTextArea2 != null && jTextArea2.getName().equals(login_dest)) {
-                    jTextArea2.append(message.getNick_src() + " dit : " + message.getMessage() + " est maintenant deconnecté !\n");                    
+                if (jTextPane2 != null && jTextPane2.getName().equals(login_dest)) {
+                    appendText(jTextPane2, message.getNick_src() + " dit : " + message.getMessage() + " est maintenant deconnecté !\n",Color.BLACK);                    
                 }
             }
 
@@ -380,42 +382,65 @@ public class MunchkinVue extends JFrame {
                 i++;
             }
             if (jTabbedPane1.getTitleAt(i).equals(message.getNick_src()) || message.getNick_src().equals("admin")) {
-                if (jTextArea2 != null && jTextArea2.getName().equals(login_dest)) {
-                    jTextArea2.append(message.getNick_src() + " dit : " + message.getMessage() + " est maintenant connecté \n!");                    
+                if (jTextPane2 != null && jTextPane2.getName().equals(login_dest)) {
+                    appendText(jTextPane2, message.getNick_src() + " dit : " + message.getMessage() + " est maintenant connecté \n!",Color.BLACK);                    
                 }
             }
 
         } else if (message.getNick_dest().equals(login)) {
 
-            int i = 0;
-            while (i < jTabbedPane1.getTabCount() - 1 && jTabbedPane1.getTitleAt(i) != message.getNick_src()) {
-                i++;
+            
+            if(ongletExist(message.getNick_src())){
+                 appendText(jTextPane2, message.getNick_src() + " dit : " + message.getMessage()+"\n",Color.BLACK);
+                
             }
-            if (jTabbedPane1.getTitleAt(i).equals(message.getNick_src()) || message.getNick_src().equals("admin")) {
-                if (jTextArea2 != null && jTextArea2.getName().equals(login_dest)) {
-                    jTextArea2.append(message.getNick_src() + " dit : " + message.getMessage()+"\n");      
-
-                    if (jTabbedPane1.getSelectedIndex() != i) {
-                        jTabbedPane1.setBackgroundAt(i, Color.RED);
-                    }
-                }
-            } else {
-                login_dest = message.getNick_src();
+            
+//            int i = 0;
+//            while (i < jTabbedPane1.getTabCount()-1 && jTabbedPane1.getTitleAt(i) != message.getNick_src()) {
+//                i++;
+//            }
+//            if (jTabbedPane1.getTitleAt(i).equals(message.getNick_src()) || message.getNick_src().equals("admin")) {
+//                if (jTextPane2 != null && jTextPane2.getName().equals(login_dest)) {
+//                    appendText(jTextPane2, message.getNick_src() + " dit : " + message.getMessage()+"\n",Color.BLACK);      
+//
+//                    if (jTabbedPane1.getSelectedIndex() != i) {
+//                        jTabbedPane1.setBackgroundAt(i, Color.RED);
+//                    }
+//                }
+             else {
+                //login_dest = message.getNick_src();
                 jScrollpane = new JScrollPane();
-                jTextArea2 = new JTextArea();
-                jTextArea2.setName(message.getNick_src());
-                jTextArea2.setEditable(false);
-                jTabbedPane1.addTab(message.getNick_src(), jScrollpane);
-                jScrollpane.setViewportView(jTextArea2);
-                jTextArea2.append(message.getNick_src() + " dit : " + message.getMessage()+"\n ");
-               
-                jTabbedPane1.setSelectedIndex(i + 1);
+                newTab(message.getNick_src());                
+                appendText(jTextPane2, message.getNick_src() + " dit : " + message.getMessage()+"\n ",Color.BLACK);               
+               // jTabbedPane1.setSelectedIndex(i + 1);
                //message = new Message(Message.DEMANDEAVATAR, login, login_dest, "");
                 //this.com.sendMessage(message);
             }
         }
 
 
+    }
+    
+    private void newTab(String name){
+        if(!name.equals(login) && !ongletExist(name)){
+         jTextPane2 = new JTextPane();
+         jTextPane2.setName(name);
+         jTextPane2.setEditable(false);
+         jTabbedPane1.addTab(name, jScrollpane);
+         jScrollpane.setViewportView(jTextPane2);      
+        }
+    }
+    
+    private boolean ongletExist(String name){
+        boolean ret=false;
+        for(int i=0;i<jTabbedPane1.getTabCount();i++){           
+            
+            if(jTabbedPane1.getTitleAt(i).equals(name)){
+                ret=true;
+                break;
+            }
+        }
+        return ret;
     }
     
     private void miseaJourInfoJoueur(Message msg){
@@ -518,7 +543,7 @@ private void sendMessage(){
 
             if (connected) {
                 if (login_dest != "Partie")
-                    jTextArea2.append(/*login +*/ "Moi : " + text +" \n");                    
+                    appendText(jTextPane2, "Moi : " + text +" \n",Color.BLACK);                    
                 else
                     appendText(jTextPane1,"Moi : "+text +"\n",Color.BLACK);                
                 Message msg = new Message(Message.MESSAGE, login, login_dest, text);
@@ -555,11 +580,8 @@ private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
 
             login_dest = jList1.getSelectedValue().toString();
             jScrollpane = new JScrollPane();
-            jTextArea2 = new JTextArea();
-            jTextArea2.setName(login_dest);
-            jTextArea2.setEditable(false);
-            jTabbedPane1.addTab(login_dest, jScrollpane);
-            jScrollpane.setViewportView(jTextArea2);
+            newTab(login_dest);            
+            //jScrollpane.setViewportView(jTextPane2);
 
         } else if (evt.getButton() == evt.BUTTON3) {
             JPopupMenu popup = new JPopupMenu();
@@ -572,11 +594,8 @@ private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
                      
                     login_dest = jList1.getSelectedValue().toString();
                     jScrollpane = new JScrollPane();
-                    jTextArea2 = new JTextArea();
-                    jTextArea2.setName(login_dest);
-                    jTextArea2.setEditable(false);
-                    jTabbedPane1.addTab(login_dest, jScrollpane);
-                    jScrollpane.setViewportView(jTextArea2);
+                    newTab(login_dest);
+                    //jScrollpane.setViewportView(jTextPane2);
 
                 }
             });           
@@ -611,8 +630,8 @@ private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRS
         if (evt.getButton() == evt.BUTTON1) {
             login_dest = jTabbedPane1.getTitleAt(jTabbedPane1.getSelectedIndex());
             jTabbedPane1.setBackgroundAt(jTabbedPane1.getSelectedIndex(), null);
-            if(jTextArea2!=null)
-                jTextArea2.setName(login_dest);            
+            if(jTextPane2!=null)
+                jTextPane2.setName(login_dest);            
                 
             if (login_dest != "Partie" && connected) {
 //                Message message = new Message(Message.DEMANDEAVATAR, login, login_dest, "");
