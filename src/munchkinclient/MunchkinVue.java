@@ -577,9 +577,9 @@ private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
             popup.show(evt.getComponent(), evt.getX(), evt.getY());
         }
         else if(evt.getClickCount() == 1){
-            this.login_dest=jList1.getSelectedValue().toString();
-            this.labelJoueurSelectionné.setText(this.login_dest);
-            Message msg= new Message(Message.INFO_JOUEUR, login,this.login_dest );
+           
+            this.labelJoueurSelectionné.setText(jList1.getSelectedValue().toString());
+            Message msg= new Message(Message.INFO_JOUEUR, login,this.labelJoueurSelectionné.getText());
             com.sendMessage(msg);
         }
 }//GEN-LAST:event_jList1MouseClicked
