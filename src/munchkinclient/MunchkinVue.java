@@ -32,9 +32,13 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -78,24 +82,47 @@ public class MunchkinVue extends JFrame {
             Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
         }
         initComponents();            
-       
+        initFont();
+        
+    }
+
+    private void initFont() throws FontFormatException, IOException, URISyntaxException{
         Font font1= Font.createFont(Font.TRUETYPE_FONT, new File(this.getClass().getResource("resources/text.ttf").toURI()));
         Font font2= Font.createFont(Font.TRUETYPE_FONT, new File(this.getClass().getResource("resources/Windlass.ttf").toURI()));
-        
         
         font1=font1.deriveFont(18f);
         font1=font1.deriveFont(Font.BOLD);
         font2=font2.deriveFont(18f);
         
-        jMenuBar1.getMenu(0).setFont(font2);
-        
-        for(Component mc :jMenuBar1.getMenu(0).getMenuComponents())
-            mc.setFont(font2);
-        jTextPane1.setFont(font1);
-        jTextField1.setFont(font1);
-        jTabbedPane1.setTitleAt(0, "Partie");
+        for(Component c2 : jPanel.getComponents())
+            if(c2 instanceof JPanel)
+                applyFontPanel((JPanel)c2, font2);
+            else
+                c2.setFont(font2);
+          
+        this.applyFont(jMenuBar1, font2);
+        for(int i = 0; i < jMenuBar1.getMenuCount(); i++)
+            this.applyFontMenu(jMenuBar1.getMenu(0), font2);
     }
-
+    
+    private void applyFont(JComponent c, Font f){
+        for(Component c2 : c.getComponents())
+            this.applyFont((JComponent)c2, f);
+        c.setFont(f);
+    }
+    
+    private void applyFontPanel(JPanel c, Font f){
+        for(Component c2 : c.getComponents())
+            this.applyFont((JComponent)c2, f);
+        c.setFont(f);
+    }
+    
+    private void applyFontMenu(JMenu c, Font f){
+        for(Component c2 : c.getMenuComponents())
+            this.applyFont((JComponent)c2, f);
+        c.setFont(f);
+    }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
