@@ -13,17 +13,25 @@ package munchkinclient;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.MenuComponent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.ConnectException;
 import java.net.Inet4Address;
 import java.net.Socket;
+import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Resource;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
@@ -33,6 +41,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.FontUIResource;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
@@ -56,7 +65,7 @@ public class MunchkinVue extends JFrame {
     private boolean nickexist = false;
     
     /** Creates new form MunchkinVue */
-    public MunchkinVue() {
+    public MunchkinVue() throws FontFormatException, IOException, URISyntaxException {
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (ClassNotFoundException ex) {
@@ -68,7 +77,22 @@ public class MunchkinVue extends JFrame {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
         }
-        initComponents();    
+        initComponents();            
+       
+        Font font1= Font.createFont(Font.TRUETYPE_FONT, new File("src/munchkinclient/resources/text.ttf"));
+        Font font2= Font.createFont(Font.TRUETYPE_FONT, new File("src/munchkinclient/resources/Windlass.ttf"));
+        
+        
+        font1=font1.deriveFont(18f);
+        font1=font1.deriveFont(Font.BOLD);
+        font2=font2.deriveFont(18f);
+        
+        jMenuBar1.getMenu(0).setFont(font2);
+        
+        for(Component mc :jMenuBar1.getMenu(0).getMenuComponents())
+            mc.setFont(font2);
+        jTextPane1.setFont(font1);
+        jTextField1.setFont(font1);
         jTabbedPane1.setTitleAt(0, "Partie");
     }
 
@@ -108,8 +132,10 @@ public class MunchkinVue extends JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Munchkin");
 
+        jPanel.setBackground(new java.awt.Color(235, 213, 193));
         jPanel.setPreferredSize(new java.awt.Dimension(693, 500));
 
+        send_button.setBackground(new java.awt.Color(168, 137, 59));
         send_button.setText("Envoyer");
         send_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,7 +169,9 @@ public class MunchkinVue extends JFrame {
             }
         });
 
-        jTextPane1.setBackground(new java.awt.Color(2, 155, 47));
+        jScrollPane2.setBackground(new java.awt.Color(50, 148, 45));
+
+        jTextPane1.setBackground(new java.awt.Color(254, 254, 254));
         jTextPane1.setEditable(false);
         jScrollPane2.setViewportView(jTextPane1);
 
@@ -268,6 +296,9 @@ public class MunchkinVue extends JFrame {
                     .addComponent(send_button))
                 .addContainerGap())
         );
+
+        jMenuBar1.setBackground(new java.awt.Color(179, 127, 81));
+        jMenuBar1.setFont(new java.awt.Font("DejaVu Sans Light", 0, 13)); // NOI18N
 
         fileMenu.setText("File");
 
@@ -690,7 +721,15 @@ private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRS
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new MunchkinVue().setVisible(true);
+                try {
+                    new MunchkinVue().setVisible(true);
+                } catch (FontFormatException ex) {
+                    Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (URISyntaxException ex) {
+                    Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
