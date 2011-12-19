@@ -79,8 +79,8 @@ public class MunchkinVue extends JFrame {
         }
         initComponents();            
        
-        Font font1= Font.createFont(Font.TRUETYPE_FONT, new File("src/munchkinclient/resources/text.ttf"));
-        Font font2= Font.createFont(Font.TRUETYPE_FONT, new File("src/munchkinclient/resources/Windlass.ttf"));
+        Font font1= Font.createFont(Font.TRUETYPE_FONT, new File(this.getClass().getResource("resources/text.ttf").toURI()));
+        Font font2= Font.createFont(Font.TRUETYPE_FONT, new File(this.getClass().getResource("resources/Windlass.ttf").toURI()));
         
         
         font1=font1.deriveFont(18f);
