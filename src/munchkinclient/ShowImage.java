@@ -8,6 +8,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,7 +22,7 @@ import javax.swing.JPanel;
  *
  * @author guillaume.renoult
  */
-public class ShowImage extends JPanel implements FocusListener{
+public class ShowImage extends JPanel implements MouseListener{
     BufferedImage  image;
   public ShowImage(String name) {
   try { 
@@ -40,13 +42,30 @@ public class ShowImage extends JPanel implements FocusListener{
       g.drawImage( image, 0, 0,width,height, null);
   }
 
+
     @Override
-    public void focusGained(FocusEvent e) {        
-        paintOver(this.getGraphics(),120,220);
+    public void mouseClicked(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void focusLost(FocusEvent e) {       
+    public void mousePressed(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+         paintOver(this.getGraphics(),120,220);
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
    
   
