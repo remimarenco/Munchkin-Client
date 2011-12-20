@@ -116,7 +116,9 @@ public class MunchkinVue extends JFrame {
         font1=font1.deriveFont(18f);
         //font1=font1.deriveFont(Font.BOLD);
         font2=font2.deriveFont(18f);
-        
+        this.jTextPane1.setFont(font1);            
+        this.textAreaInfos.setFont(font1);
+        this.jList1.setFont(font1);
         for(Component c2 : jPanel.getComponents())
             if(c2 instanceof JPanel)
                 applyFontPanel((JPanel)c2, font2);
@@ -127,9 +129,7 @@ public class MunchkinVue extends JFrame {
         for(int i = 0; i < jMenuBar1.getMenuCount(); i++)
             this.applyFontMenu(jMenuBar1.getMenu(0), font2);
         
-        this.jTextPane1.setFont(font1);            
-        this.textAreaInfos.setFont(font1);
-        this.jList1.setFont(font1);
+       
     }
     
     private void applyFont(JComponent c, Font f){
@@ -392,10 +392,11 @@ public class MunchkinVue extends JFrame {
     }
 
      private void appendText(JTextPane jpane,String str,Color color){
-         StyledDocument doc = jpane.getStyledDocument();
+         
+         StyledDocument doc = jpane.getStyledDocument();         
         try {
-             Style style = doc.addStyle("StyleName", null);
-            StyleConstants.setForeground(style,color );           
+            Style style = doc.addStyle("StyleName", null);
+            StyleConstants.setForeground(style,color );             
             doc.insertString(doc.getLength(), str,style );
         } catch (BadLocationException ex) {
             Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
