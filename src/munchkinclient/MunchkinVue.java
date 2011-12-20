@@ -73,6 +73,9 @@ public class MunchkinVue extends JFrame {
     private boolean connected = false;
     private boolean nickexist = false;
     private HashMap<String,JTextArea> mapInfosJoueurs=new HashMap<String, JTextArea>();
+    private HashMap<String,JTextPane> mapTxtToJoueurs=new HashMap<String, JTextPane>();
+    private HashMap<String,JPanel> mapCartesJoueurs=new HashMap<String, JPanel>();
+    
     
     /** Creates new form MunchkinVue */
     public MunchkinVue() throws FontFormatException, IOException, URISyntaxException {
@@ -421,7 +424,8 @@ public class MunchkinVue extends JFrame {
 
             
             if(ongletExist(jTabbedPane1,message.getNick_src())){
-                 appendText(jTextPane2, message.getNick_src() + " dit : " + message.getMessage()+"\n",Color.BLACK);
+                
+                 appendText(this.mapTxtToJoueurs.get(message.getNick_src()), message.getNick_src() + " dit : " + message.getMessage()+"\n",Color.BLACK);
                 
             }
             
@@ -438,10 +442,9 @@ public class MunchkinVue extends JFrame {
 //                    }
 //                }
              else {
-                //login_dest = message.getNick_src();
-                jScrollpane = new JScrollPane();
+                //login_dest = message.getNick_src();                
                 newTab(message.getNick_src());                
-                appendText(jTextPane2, message.getNick_src() + " dit : " + message.getMessage()+"\n ",Color.BLACK);               
+                appendText(this.mapTxtToJoueurs.get(message.getNick_src()), message.getNick_src() + " dit : " + message.getMessage()+"\n ",Color.BLACK);               
                // jTabbedPane1.setSelectedIndex(i + 1);
                //message = new Message(Message.DEMANDEAVATAR, login, login_dest, "");
                 //this.com.sendMessage(message);
@@ -453,11 +456,10 @@ public class MunchkinVue extends JFrame {
     
     private void newTab(String name){
         if(!name.equals(login) && !ongletExist(jTabbedPane1,name)){
-         jTextPane2 = new JTextPane();
-         jTextPane2.setName(name);
-         jTextPane2.setEditable(false);         
+         jScrollpane=new JScrollPane();
+         jScrollpane.setViewportView(createTextAreaChatToJoueurs(name));       
          jTabbedPane1.addTab(name, jScrollpane);
-         jScrollpane.setViewportView(jTextPane2);     
+             
         }
     }
     
@@ -478,12 +480,10 @@ public class MunchkinVue extends JFrame {
         for(Map.Entry<String,String> m: msg.getMap().entrySet())
             out+=m.getKey()+":" +m.getValue()+"\n";    
         
-        for(int i=0;i<tabbedPaneInfosJoueurs.getTabCount();i++)
-            if(tabbedPaneInfosJoueurs.getTitleAt(i).equals(msg.getNick_dest())){
-                
-                this.textAreaInfos.setName(msg.getNick_dest());
-                this.textAreaInfos.setText(out);
-            }
+        for(Map.Entry<String,JTextArea> m: this.mapInfosJoueurs.entrySet())
+            if(m.getKey().equals(msg.getNick_dest()))
+                m.getValue().setText(out);
+            
                 
           //this.textAreaInfos.setText(out);  
     }
@@ -507,19 +507,28 @@ public class MunchkinVue extends JFrame {
         StringTokenizer l2 = new StringTokenizer(liste, ";");
         while (l2.hasMoreTokens()) {
             String str= l2.nextToken();
-            listData.add(str);
+            listData.add(str);            
             createTabInfoJouers(str);
             createTabCartesJouers(str);
         }
         jList1.setListData(listData);
     }
 
+    private JTextArea createTextAreaInfoJoueurs(String name){
+        JTextArea txtA= new JTextArea();
+        this.mapInfosJoueurs.put(name,txtA);
+        return txtA;
+    }
+    
+    private JTextPane createTextAreaChatToJoueurs(String name){
+        JTextPane txtA= new JTextPane();
+        this.mapTxtToJoueurs.put(name,txtA);
+        return txtA;
+    }
     private void createTabInfoJouers(String name){
-        if(!ongletExist(tabbedPaneInfosJoueurs, name)){
-            scrollPaneInfos=new JScrollPane();
-            textAreaInfos=new JTextArea();
-            textAreaInfos.setName(name);
-            scrollPaneInfos.setViewportView(textAreaInfos);           
+        if(!ongletExist(tabbedPaneInfosJoueurs, name)){            
+            scrollPaneInfos=new JScrollPane();           
+            scrollPaneInfos.setViewportView(createTextAreaInfoJoueurs(name));           
             this.tabbedPaneInfosJoueurs.addTab(name, scrollPaneInfos);
             
         }
@@ -602,7 +611,7 @@ private void sendMessage(){
 
             if (connected) {
                 if (login_dest != "Partie")
-                    appendText(jTextPane2, "Moi : " + text +" \n",Color.BLACK);                    
+                    appendText(this.mapTxtToJoueurs.get(login_dest), "Moi : " + text +" \n",Color.BLACK);                    
                 else
                     appendText(jTextPane1,"Moi : "+text +"\n",Color.BLACK);                
                 Message msg = new Message(Message.MESSAGE, login, login_dest, text);
@@ -637,8 +646,7 @@ private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
         if (evt.getClickCount() == 2) {
 
 
-            login_dest = jList1.getSelectedValue().toString();
-            jScrollpane = new JScrollPane();
+            login_dest = jList1.getSelectedValue().toString();            
             newTab(login_dest);            
             //jScrollpane.setViewportView(jTextPane2);
 
@@ -651,8 +659,7 @@ private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
 
                 public void actionPerformed(ActionEvent e) {
                      
-                    login_dest = jList1.getSelectedValue().toString();
-                    jScrollpane = new JScrollPane();
+                    login_dest = jList1.getSelectedValue().toString();                    
                     newTab(login_dest);
                     //jScrollpane.setViewportView(jTextPane2);
 
