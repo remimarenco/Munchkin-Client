@@ -13,9 +13,13 @@ package munchkinclient;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.LayoutManager2;
 import java.awt.MenuComponent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +32,7 @@ import java.net.Inet4Address;
 import java.net.Socket;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -55,6 +60,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+import javax.swing.text.html.ImageView;
 
 /**
  *
@@ -92,6 +98,14 @@ public class MunchkinVue extends JFrame {
         }
         initComponents();        
         initFont();
+       JPanel imgView=new JPanel(new FlowLayout(FlowLayout.LEFT));      
+       imgView.add(
+           new ShowImage("src/munchkinclient/resources/cartes/1.jpg"));
+       imgView.add(
+              new ShowImage("src/munchkinclient/resources/cartes/2.jpg"));
+       imgView.add(
+              new ShowImage("src/munchkinclient/resources/cartes/3.jpg"));
+        this.scrollPaneCartes.setViewportView(imgView);        
         
     }
 
