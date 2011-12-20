@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 
 /**
  *
@@ -29,6 +30,7 @@ public class ShowImage extends JPanel implements MouseListener{
    setPreferredSize(new Dimension(60, 110));         
   File input = new File(name);
   image = ImageIO.read(input);
+  addMouseListener(this);
   } catch (IOException ie) {
   System.out.println("Error:"+ie.getMessage());
   }
@@ -59,13 +61,13 @@ public class ShowImage extends JPanel implements MouseListener{
     }
 
     @Override
-    public void mouseEntered(MouseEvent e) {
+    public void mouseEntered(MouseEvent e) {        
          paintOver(this.getGraphics(),120,220);
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        paint(this.getGraphics());
     }
    
   
