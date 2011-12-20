@@ -15,9 +15,11 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.Graphics;
 import java.awt.MenuComponent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,12 +28,14 @@ import java.net.Inet4Address;
 import java.net.Socket;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -41,6 +45,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
@@ -67,6 +72,7 @@ public class MunchkinVue extends JFrame {
     private int pourcent = 0;
     private boolean connected = false;
     private boolean nickexist = false;
+    private HashMap<String,JTextArea> mapInfosJoueurs=new HashMap<String, JTextArea>();
     
     /** Creates new form MunchkinVue */
     public MunchkinVue() throws FontFormatException, IOException, URISyntaxException {
@@ -81,7 +87,7 @@ public class MunchkinVue extends JFrame {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
         }
-        initComponents();            
+        initComponents();        
         initFont();
         
     }
@@ -250,8 +256,8 @@ public class MunchkinVue extends JFrame {
                         .addComponent(buttonNon)
                         .addGap(18, 18, 18)
                         .addComponent(buttonYes))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tabbedPaneInfosJoueurs, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE))
+                    .addComponent(tabbedPaneInfosJoueurs, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
             .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE)
             .addGroup(jPanelLayout.createSequentialGroup()
@@ -293,7 +299,7 @@ public class MunchkinVue extends JFrame {
         );
 
         jMenuBar1.setBackground(new java.awt.Color(179, 127, 81));
-        jMenuBar1.setFont(new java.awt.Font("DejaVu Sans Light", 0, 13)); // NOI18N
+        jMenuBar1.setFont(new java.awt.Font("DejaVu Sans Light", 0, 13));
 
         fileMenu.setText("File");
 
@@ -414,7 +420,7 @@ public class MunchkinVue extends JFrame {
         } else if (message.getNick_dest().equals(login)) {
 
             
-            if(ongletExist(message.getNick_src())){
+            if(ongletExist(jTabbedPane1,message.getNick_src())){
                  appendText(jTextPane2, message.getNick_src() + " dit : " + message.getMessage()+"\n",Color.BLACK);
                 
             }
@@ -446,7 +452,7 @@ public class MunchkinVue extends JFrame {
     }
     
     private void newTab(String name){
-        if(!name.equals(login) && !ongletExist(name)){
+        if(!name.equals(login) && !ongletExist(jTabbedPane1,name)){
          jTextPane2 = new JTextPane();
          jTextPane2.setName(name);
          jTextPane2.setEditable(false);         
@@ -455,11 +461,11 @@ public class MunchkinVue extends JFrame {
         }
     }
     
-    private boolean ongletExist(String name){
+    private boolean ongletExist(JTabbedPane tabpane,String name){
         boolean ret=false;
-        for(int i=0;i<jTabbedPane1.getTabCount();i++){           
+        for(int i=0;i<tabpane.getTabCount();i++){           
             
-            if(jTabbedPane1.getTitleAt(i).equals(name)){
+            if(tabpane.getTitleAt(i).equals(name)){
                 ret=true;
                 break;
             }
@@ -474,6 +480,7 @@ public class MunchkinVue extends JFrame {
         
         for(int i=0;i<tabbedPaneInfosJoueurs.getTabCount();i++)
             if(tabbedPaneInfosJoueurs.getTitleAt(i).equals(msg.getNick_dest())){
+                
                 this.textAreaInfos.setName(msg.getNick_dest());
                 this.textAreaInfos.setText(out);
             }
@@ -508,13 +515,20 @@ public class MunchkinVue extends JFrame {
     }
 
     private void createTabInfoJouers(String name){
-        textAreaInfos=new JTextArea();
-        textAreaInfos.setName(name);        
-        this.tabbedPaneInfosJoueurs.add(name, scrollPaneInfos);
-        scrollPaneInfos.setViewportView(textAreaInfos);
+        if(!ongletExist(tabbedPaneInfosJoueurs, name)){
+            scrollPaneInfos=new JScrollPane();
+            textAreaInfos=new JTextArea();
+            textAreaInfos.setName(name);
+            scrollPaneInfos.setViewportView(textAreaInfos);           
+            this.tabbedPaneInfosJoueurs.addTab(name, scrollPaneInfos);
+            
+        }
     }
      private void createTabCartesJouers(String name){
-        this.tabbedPaneCartesJoueurs.add(name, scrollPaneCartes);
+         if(!ongletExist(tabbedPaneCartesJoueurs, name)){
+                scrollPaneCartes=new JScrollPane();
+                this.tabbedPaneCartesJoueurs.addTab(name, scrollPaneCartes);
+         }
     }
     
     
@@ -530,7 +544,8 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 socket = new Socket(connexion.getServeur(), connexion.getPort());                
                 com = new Communication(socket, this);
                 com.start();
-
+                createTabCartesJouers(login);
+                createTabInfoJouers(login);
                 Message msg = new Message(Message.CONNECT, login);
                 connected = com.sendMessage(msg);                
                
@@ -656,7 +671,7 @@ private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
 private void buttonNonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNonActionPerformed
   com.sendMessage(new Message(Message.QUESTION, login, login_dest, "Non"));
   this.buttonNon.setEnabled(false);
-  this.buttonYes.setEnabled(false);
+  this.buttonYes.setEnabled(false);  
 }//GEN-LAST:event_buttonNonActionPerformed
 
 private void buttonYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonYesActionPerformed
