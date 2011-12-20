@@ -87,8 +87,8 @@ public class MunchkinVue extends JFrame {
     }
 
     private void initFont() throws FontFormatException, IOException, URISyntaxException{
-        Font font1= Font.createFont(Font.TRUETYPE_FONT, new File(this.getClass().getResource("resources/text.ttf").toURI()));
-        Font font2= Font.createFont(Font.TRUETYPE_FONT, new File(this.getClass().getResource("resources/Windlass.ttf").toURI()));
+        Font font1= Font.createFont(Font.TRUETYPE_FONT, new File("src/munchkinclient/resources/text.ttf"));
+        Font font2= Font.createFont(Font.TRUETYPE_FONT, new File("src/munchkinclient/resources/Windlass.ttf"));
         
         font1=font1.deriveFont(18f);
         //font1=font1.deriveFont(Font.BOLD);
@@ -104,8 +104,8 @@ public class MunchkinVue extends JFrame {
         for(int i = 0; i < jMenuBar1.getMenuCount(); i++)
             this.applyFontMenu(jMenuBar1.getMenu(0), font2);
         
-        this.jTextPane1.setFont(font1);        
-        this.textAreaInfoJoueur.setFont(font1);
+        this.jTextPane1.setFont(font1);            
+        this.textAreaInfos.setFont(font1);
         this.jList1.setFont(font1);
     }
     
@@ -148,13 +148,11 @@ public class MunchkinVue extends JFrame {
         labelActionPrompt = new javax.swing.JLabel();
         buttonNon = new javax.swing.JButton();
         buttonYes = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        labelJoueurSelectionné = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        textAreaInfoJoueur = new javax.swing.JTextArea();
+        tabbedPaneCartesJoueurs = new javax.swing.JTabbedPane();
+        scrollPaneCartes = new javax.swing.JScrollPane();
+        tabbedPaneInfosJoueurs = new javax.swing.JTabbedPane();
+        scrollPaneInfos = new javax.swing.JScrollPane();
+        textAreaInfos = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         connexion_item = new javax.swing.JMenuItem();
@@ -164,7 +162,6 @@ public class MunchkinVue extends JFrame {
         setTitle("Munchkin");
 
         jPanel.setBackground(new java.awt.Color(235, 213, 193));
-        jPanel.setPreferredSize(new java.awt.Dimension(693, 500));
 
         send_button.setBackground(new java.awt.Color(168, 137, 59));
         send_button.setText("Envoyer");
@@ -178,6 +175,11 @@ public class MunchkinVue extends JFrame {
         jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTextField1MouseClicked(evt);
+            }
+        });
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
             }
         });
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -226,56 +228,13 @@ public class MunchkinVue extends JFrame {
             }
         });
 
-        jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
+        tabbedPaneCartesJoueurs.addTab("tab1", scrollPaneCartes);
 
-        jLabel1.setText("Infos du joueur :");
+        textAreaInfos.setColumns(20);
+        textAreaInfos.setRows(5);
+        scrollPaneInfos.setViewportView(textAreaInfos);
 
-        jButton1.setText("Voir Jeu");
-        jButton1.setEnabled(false);
-
-        jButton2.setText("Voir Main");
-        jButton2.setEnabled(false);
-
-        labelJoueurSelectionné.setText("x");
-
-        textAreaInfoJoueur.setColumns(20);
-        textAreaInfoJoueur.setEditable(false);
-        textAreaInfoJoueur.setRows(5);
-        jScrollPane3.setViewportView(textAreaInfoJoueur);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(labelJoueurSelectionné)
-                .addGap(172, 172, 172))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE))
-                .addGap(153, 153, 153))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(labelJoueurSelectionné))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addGap(5, 5, 5)
-                .addComponent(jButton2))
-        );
+        tabbedPaneInfosJoueurs.addTab("tab1", scrollPaneInfos);
 
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
@@ -283,30 +242,33 @@ public class MunchkinVue extends JFrame {
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelActionPrompt)
                     .addGroup(jPanelLayout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(send_button))
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelActionPrompt)
-                            .addGroup(jPanelLayout.createSequentialGroup()
-                                .addComponent(buttonNon)
-                                .addGap(18, 18, 18)
-                                .addComponent(buttonYes))
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(buttonNon)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonYes))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tabbedPaneInfosJoueurs, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 836, Short.MAX_VALUE)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE)
+            .addGroup(jPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(send_button)
+                .addContainerGap(188, Short.MAX_VALUE))
+            .addGroup(jPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tabbedPaneCartesJoueurs, javax.swing.GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLayout.createSequentialGroup()
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -316,19 +278,22 @@ public class MunchkinVue extends JFrame {
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(buttonNon)
                             .addComponent(buttonYes))
-                        .addGap(19, 19, 19)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tabbedPaneInfosJoueurs, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                     .addComponent(send_button))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tabbedPaneCartesJoueurs, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(102, 102, 102))
         );
 
         jMenuBar1.setBackground(new java.awt.Color(179, 127, 81));
-        jMenuBar1.setFont(new java.awt.Font("DejaVu Sans Light", 0, 13));
+        jMenuBar1.setFont(new java.awt.Font("DejaVu Sans Light", 0, 13)); // NOI18N
 
         fileMenu.setText("File");
 
@@ -356,22 +321,23 @@ public class MunchkinVue extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 848, Short.MAX_VALUE)
+            .addGap(0, 850, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 836, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 607, Short.MAX_VALUE)
+            .addGap(0, 836, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-858)/2, (screenSize.height-664)/2, 858, 664);
+        setBounds((screenSize.width-858)/2, (screenSize.height-796)/2, 858, 796);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -406,8 +372,7 @@ public class MunchkinVue extends JFrame {
          StyledDocument doc = jpane.getStyledDocument();
         try {
              Style style = doc.addStyle("StyleName", null);
-            StyleConstants.setForeground(style,color );
-            
+            StyleConstants.setForeground(style,color );           
             doc.insertString(doc.getLength(), str,style );
         } catch (BadLocationException ex) {
             Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
@@ -484,9 +449,9 @@ public class MunchkinVue extends JFrame {
         if(!name.equals(login) && !ongletExist(name)){
          jTextPane2 = new JTextPane();
          jTextPane2.setName(name);
-         jTextPane2.setEditable(false);
+         jTextPane2.setEditable(false);         
          jTabbedPane1.addTab(name, jScrollpane);
-         jScrollpane.setViewportView(jTextPane2);      
+         jScrollpane.setViewportView(jTextPane2);     
         }
     }
     
@@ -505,8 +470,15 @@ public class MunchkinVue extends JFrame {
     private void miseaJourInfoJoueur(Message msg){
         String out=new String();
         for(Map.Entry<String,String> m: msg.getMap().entrySet())
-            out+=m.getKey()+":" +m.getValue()+"\n";      
-          this.textAreaInfoJoueur.setText(out);  
+            out+=m.getKey()+":" +m.getValue()+"\n";    
+        
+        for(int i=0;i<tabbedPaneInfosJoueurs.getTabCount();i++)
+            if(tabbedPaneInfosJoueurs.getTitleAt(i).equals(msg.getNick_dest())){
+                this.textAreaInfos.setName(msg.getNick_dest());
+                this.textAreaInfos.setText(out);
+            }
+                
+          //this.textAreaInfos.setText(out);  
     }
     /**
      * Met a jour l'action proposé par le serveur
@@ -527,11 +499,24 @@ public class MunchkinVue extends JFrame {
         Vector<String> listData = new Vector<String>();
         StringTokenizer l2 = new StringTokenizer(liste, ";");
         while (l2.hasMoreTokens()) {
-            listData.add(l2.nextToken());
+            String str= l2.nextToken();
+            listData.add(str);
+            createTabInfoJouers(str);
+            createTabCartesJouers(str);
         }
         jList1.setListData(listData);
     }
 
+    private void createTabInfoJouers(String name){
+        textAreaInfos=new JTextArea();
+        textAreaInfos.setName(name);        
+        this.tabbedPaneInfosJoueurs.add(name, scrollPaneInfos);
+        scrollPaneInfos.setViewportView(textAreaInfos);
+    }
+     private void createTabCartesJouers(String name){
+        this.tabbedPaneCartesJoueurs.add(name, scrollPaneCartes);
+    }
+    
     
 private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connexion_itemActionPerformed
         try {            
@@ -662,12 +647,7 @@ private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
             popup.add(menuItem1);          
             popup.show(evt.getComponent(), evt.getX(), evt.getY());
         }
-        else if(evt.getClickCount() == 1){
-           
-            this.labelJoueurSelectionné.setText(jList1.getSelectedValue().toString());
-            Message msg= new Message(Message.INFO_JOUEUR, login,this.labelJoueurSelectionné.getText());
-            com.sendMessage(msg);
-        }
+       
 }//GEN-LAST:event_jList1MouseClicked
 /**
  * Appelée lors d'un clic sur les onglet
@@ -718,6 +698,10 @@ private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRS
 
 }//GEN-LAST:event_jTabbedPane1MouseClicked
 
+private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    // TODO add your handling code here:
+}//GEN-LAST:event_jTextField1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -766,24 +750,22 @@ private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRS
     private javax.swing.JButton buttonYes;
     private javax.swing.JMenuItem connexion_item;
     private javax.swing.JMenuItem deconnexion_Item;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JList jList1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JLabel labelActionPrompt;
-    private javax.swing.JLabel labelJoueurSelectionné;
+    private javax.swing.JScrollPane scrollPaneCartes;
+    private javax.swing.JScrollPane scrollPaneInfos;
     private javax.swing.JButton send_button;
-    private javax.swing.JTextArea textAreaInfoJoueur;
+    private javax.swing.JTabbedPane tabbedPaneCartesJoueurs;
+    private javax.swing.JTabbedPane tabbedPaneInfosJoueurs;
+    private javax.swing.JTextArea textAreaInfos;
     // End of variables declaration//GEN-END:variables
     
   
