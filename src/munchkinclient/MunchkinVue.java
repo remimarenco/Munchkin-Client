@@ -96,7 +96,7 @@ public class MunchkinVue extends JFrame {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
         }
-        initComponent2();        
+        initComponents();        
         initFont();
       
     }
@@ -151,7 +151,7 @@ public class MunchkinVue extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel = new javax.swing.JPanel();
+        jPanel = new BackgroundPanel("src/munchkinclient/resources/cartes/1.jpg");
         send_button = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -178,6 +178,13 @@ public class MunchkinVue extends JFrame {
         setTitle("Munchkin");
 
         jPanel.setBackground(new java.awt.Color(231, 212, 181));
+        jPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel.setMaximumSize(new java.awt.Dimension(1000, 1000));
+        jPanel.setMinimumSize(new java.awt.Dimension(800, 745));
+        jPanel.setName("mainPanel"); // NOI18N
+        jPanel.setOpaque(false);
+        jPanel.setPreferredSize(new java.awt.Dimension(800, 767));
+        jPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         send_button.setBackground(new java.awt.Color(168, 137, 59));
         send_button.setText("Envoyer");
@@ -186,6 +193,7 @@ public class MunchkinVue extends JFrame {
                 send_buttonActionPerformed(evt);
             }
         });
+        jPanel.add(send_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 540, 80, 40));
 
         jTextField1.setText("Tapez votre texte ici");
         jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -203,6 +211,7 @@ public class MunchkinVue extends JFrame {
                 jTextField1KeyPressed(evt);
             }
         });
+        jPanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, 557, 40));
 
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jList1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -211,6 +220,8 @@ public class MunchkinVue extends JFrame {
             }
         });
         jScrollPane1.setViewportView(jList1);
+
+        jPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 21, 148, 134));
 
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -226,7 +237,11 @@ public class MunchkinVue extends JFrame {
 
         jTabbedPane1.addTab("Partie", jScrollPane2);
 
+        jPanel.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 555, 525));
+        jPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 536, 32767, -1));
+
         labelActionPrompt.setText("Action :");
+        jPanel.add(labelActionPrompt, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 161, -1, -1));
 
         buttonNon.setText("Non");
         buttonNon.setEnabled(false);
@@ -235,6 +250,7 @@ public class MunchkinVue extends JFrame {
                 buttonNonActionPerformed(evt);
             }
         });
+        jPanel.add(buttonNon, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 181, -1, -1));
 
         buttonYes.setText("Oui");
         buttonYes.setEnabled(false);
@@ -243,8 +259,11 @@ public class MunchkinVue extends JFrame {
                 buttonYesActionPerformed(evt);
             }
         });
+        jPanel.add(buttonYes, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 181, -1, -1));
 
         tabbedPaneCartesJoueurs.addTab("tab1", scrollPaneCartes);
+
+        jPanel.add(tabbedPaneCartesJoueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 583, 726, 162));
 
         textAreaInfos.setColumns(20);
         textAreaInfos.setRows(5);
@@ -252,76 +271,17 @@ public class MunchkinVue extends JFrame {
 
         tabbedPaneInfosJoueurs.addTab("tab1", scrollPaneInfos);
 
+        jPanel.add(tabbedPaneInfosJoueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 222, 239, 303));
+
         buttonIntervenir.setForeground(new java.awt.Color(255, 0, 0));
         buttonIntervenir.setText("Intervenir");
+        buttonIntervenir.setEnabled(false);
         buttonIntervenir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonIntervenirActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
-        jPanel.setLayout(jPanelLayout);
-        jPanelLayout.setHorizontalGroup(
-            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelLayout.createSequentialGroup()
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanelLayout.createSequentialGroup()
-                                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelActionPrompt))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(buttonIntervenir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanelLayout.createSequentialGroup()
-                                .addComponent(buttonNon)
-                                .addGap(18, 18, 18)
-                                .addComponent(buttonYes))
-                            .addComponent(tabbedPaneInfosJoueurs)))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE, Short.MAX_VALUE)
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(send_button))
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(tabbedPaneCartesJoueurs, javax.swing.GroupLayout.PREFERRED_SIZE, 726, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanelLayout.setVerticalGroup(
-            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelLayout.createSequentialGroup()
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanelLayout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelActionPrompt))
-                            .addComponent(buttonIntervenir, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonNon)
-                            .addComponent(buttonYes))
-                        .addGap(18, 18, 18)
-                        .addComponent(tabbedPaneInfosJoueurs, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                    .addComponent(send_button))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tabbedPaneCartesJoueurs, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        jPanel.add(buttonIntervenir, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 160, 140, 67));
 
         jMenuBar1.setBackground(new java.awt.Color(179, 127, 81));
         jMenuBar1.setFont(new java.awt.Font("DejaVu Sans Light", 0, 13));
@@ -354,250 +314,20 @@ public class MunchkinVue extends JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 864, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 864, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 767, Short.MAX_VALUE)
+            .addGap(0, 766, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 766, Short.MAX_VALUE))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-880)/2, (screenSize.height-819)/2, 880, 819);
+        setBounds((screenSize.width-880)/2, (screenSize.height-825)/2, 880, 825);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void initComponent2(){
-       
-       
-        
-        jPanel = new BackgroundPanel("src/munchkinclient/resources/cartes/1.jpg");
-        //jPanel.setOpaque(false);
-        send_button = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
-        jSeparator1 = new javax.swing.JSeparator();
-        labelActionPrompt = new javax.swing.JLabel();
-        buttonNon = new javax.swing.JButton();
-        buttonYes = new javax.swing.JButton();
-        tabbedPaneCartesJoueurs = new javax.swing.JTabbedPane();
-        scrollPaneCartes = new javax.swing.JScrollPane();
-        tabbedPaneInfosJoueurs = new javax.swing.JTabbedPane();
-        scrollPaneInfos = new javax.swing.JScrollPane();
-        textAreaInfos = new javax.swing.JTextArea();
-        buttonIntervenir = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        javax.swing.JMenu fileMenu = new javax.swing.JMenu();
-        connexion_item = new javax.swing.JMenuItem();
-        deconnexion_Item = new javax.swing.JMenuItem();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Munchkin");
-
-        jPanel.setBackground(new java.awt.Color(231, 212, 181));
-
-        send_button.setBackground(new java.awt.Color(168, 137, 59));
-        send_button.setText("Envoyer");
-        send_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                send_buttonActionPerformed(evt);
-            }
-        });
-
-        jTextField1.setText("Tapez votre texte ici");
-        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTextField1MouseClicked(evt);
-            }
-        });
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField1KeyPressed(evt);
-            }
-        });
-
-        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jList1MouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jList1);
-
-        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabbedPane1MouseClicked(evt);
-            }
-        });
-
-        jScrollPane2.setBackground(new java.awt.Color(50, 148, 45));
-
-        jTextPane1.setBackground(new java.awt.Color(254, 254, 254));
-        jTextPane1.setEditable(false);
-        jScrollPane2.setViewportView(jTextPane1);
-
-        jTabbedPane1.addTab("Partie", jScrollPane2);
-
-        labelActionPrompt.setText("Action :");
-
-        buttonNon.setText("Non");
-        buttonNon.setEnabled(false);
-        buttonNon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonNonActionPerformed(evt);
-            }
-        });
-
-        buttonYes.setText("Oui");
-        buttonYes.setEnabled(false);
-        buttonYes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonYesActionPerformed(evt);
-            }
-        });
-
-        tabbedPaneCartesJoueurs.addTab("tab1", scrollPaneCartes);
-
-        textAreaInfos.setColumns(20);
-        textAreaInfos.setRows(5);
-        scrollPaneInfos.setViewportView(textAreaInfos);
-
-        tabbedPaneInfosJoueurs.addTab("tab1", scrollPaneInfos);
-
-        buttonIntervenir.setForeground(new java.awt.Color(255, 0, 0));
-        buttonIntervenir.setText("Intervenir");
-        buttonIntervenir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonIntervenirActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);        
-        jPanel.setLayout(jPanelLayout);
-        jPanelLayout.setHorizontalGroup(
-            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelLayout.createSequentialGroup()
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanelLayout.createSequentialGroup()
-                                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelActionPrompt))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(buttonIntervenir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanelLayout.createSequentialGroup()
-                                .addComponent(buttonNon)
-                                .addGap(18, 18, 18)
-                                .addComponent(buttonYes))
-                            .addComponent(tabbedPaneInfosJoueurs)))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE, Short.MAX_VALUE)
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(send_button))
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(tabbedPaneCartesJoueurs, javax.swing.GroupLayout.PREFERRED_SIZE, 726, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanelLayout.setVerticalGroup(
-            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelLayout.createSequentialGroup()
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanelLayout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelActionPrompt))
-                            .addComponent(buttonIntervenir, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonNon)
-                            .addComponent(buttonYes))
-                        .addGap(18, 18, 18)
-                        .addComponent(tabbedPaneInfosJoueurs, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                    .addComponent(send_button))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tabbedPaneCartesJoueurs, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jMenuBar1.setBackground(new java.awt.Color(179, 127, 81));
-        jMenuBar1.setFont(new java.awt.Font("DejaVu Sans Light", 0, 13));
-
-        fileMenu.setText("File");
-
-        connexion_item.setText("Connexion");
-        connexion_item.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                connexion_itemActionPerformed(evt);
-            }
-        });
-        fileMenu.add(connexion_item);
-
-        deconnexion_Item.setText("Deconnexion");
-        deconnexion_Item.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deconnexion_ItemActionPerformed(evt);
-            }
-        });
-        fileMenu.add(deconnexion_Item);
-
-        jMenuBar1.add(fileMenu);
-
-        setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 864, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 767, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-880)/2, (screenSize.height-819)/2, 880, 819);
-    // </editor-fold>
-    }
+   
     /**
      * Appelé par la classe de communication lors de la reception d'un message.
      * Traite le message reçu en focntion de sont ype et son contenu
@@ -827,7 +557,7 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 createTabInfoJouers(login);
                 Message msg = new Message(Message.CONNECT, login);
                 connected = com.sendMessage(msg);                
-               
+               this.buttonIntervenir.setEnabled(connected);
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException ex) {
