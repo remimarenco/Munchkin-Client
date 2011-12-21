@@ -11,6 +11,7 @@
 package munchkinclient;
 
 
+import com.sun.media.sound.WaveFileReader;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -41,6 +42,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -61,6 +68,7 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import javax.swing.text.html.ImageView;
+import sun.audio.AudioPlayer;
 
 /**
  *
@@ -356,6 +364,9 @@ public class MunchkinVue extends JFrame {
             case Message.CARTES_JOUEUR:
                 miseaJourCartesJoueur(msg);
                 break;
+            case Message.SOUND:
+                playSound(msg);
+                break;
         }
     }
 
@@ -456,6 +467,30 @@ public class MunchkinVue extends JFrame {
             }
         }
         return ret;
+    }
+    
+    private void playSound(Message msg) {
+        AudioInputStream ais = null;
+        try {
+            WaveFileReader wfr = new WaveFileReader();
+            ais = wfr.getAudioInputStream(new File("src/munchkinclient/resources/songs/"+msg.getAction()+".wav"));
+            DataLine.Info info = new DataLine.Info(Clip.class, ais.getFormat());
+            Clip c=(Clip)AudioSystem.getLine(info);
+            c.open(ais);
+            c.start();
+        } catch (LineUnavailableException ex) {
+            Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedAudioFileException ex) {
+            Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                ais.close();
+            } catch (IOException ex) {
+                Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
     private void miseaJourInfoJoueur(Message msg){
@@ -794,9 +829,6 @@ private void buttonIntervenirActionPerformed(java.awt.event.ActionEvent evt) {//
     private javax.swing.JTabbedPane tabbedPaneInfosJoueurs;
     private javax.swing.JTextArea textAreaInfos;
     // End of variables declaration//GEN-END:variables
-
-  
-    
-  
+ 
 }
 
