@@ -177,7 +177,7 @@ public class MunchkinVue extends JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Munchkin");
 
-        jPanel.setBackground(new java.awt.Color(235, 213, 193));
+        jPanel.setBackground(new java.awt.Color(231, 212, 181));
 
         send_button.setBackground(new java.awt.Color(168, 137, 59));
         send_button.setText("Envoyer");

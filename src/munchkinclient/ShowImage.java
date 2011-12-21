@@ -8,6 +8,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.dnd.DragGestureEvent;
+import java.awt.dnd.DragGestureListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
@@ -29,7 +31,7 @@ import javax.swing.PopupFactory;
  *
  * @author guillaume.renoult
  */
-public class ShowImage extends JRootPane implements MouseListener{
+public class ShowImage extends JRootPane implements MouseListener,DragGestureListener{
     private BufferedImage  image;
     private ImageGlassPane ip;
     private JFrame parent;
@@ -39,8 +41,7 @@ public class ShowImage extends JRootPane implements MouseListener{
    setPreferredSize(new Dimension(60, 110));         
   File input = new File(name);
   image = ImageIO.read(input);
-  addMouseListener(this);  
-  
+  addMouseListener(this);   
   } catch (IOException ie) {
   System.out.println("Error:"+ie.getMessage());
   }
@@ -88,6 +89,11 @@ public class ShowImage extends JRootPane implements MouseListener{
         //ip.repaint();
         ip.setVisible(false);
         
+    }
+
+    @Override
+    public void dragGestureRecognized(DragGestureEvent dge) {
+       
     }
    
   
