@@ -7,6 +7,7 @@ package munchkinclient;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
@@ -17,8 +18,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JRootPane;
 import javax.swing.Popup;
 import javax.swing.PopupFactory;
 
@@ -26,62 +29,64 @@ import javax.swing.PopupFactory;
  *
  * @author guillaume.renoult
  */
-public class ShowImage extends JPanel implements MouseListener{
+public class ShowImage extends JRootPane implements MouseListener{
     private BufferedImage  image;
-   private Component parent;
-   private  Popup p;
-   private  PopupFactory pf;
-  public ShowImage(String name,Component parent) {
+    private ImageGlassPane ip;
+    private JFrame parent;
+  public ShowImage(String name,JFrame parent) {
   try { 
+      this.parent=parent;
    setPreferredSize(new Dimension(60, 110));         
   File input = new File(name);
   image = ImageIO.read(input);
-  addMouseListener(this);
-  pf = PopupFactory.getSharedInstance();
-      
+  addMouseListener(this);  
+  
   } catch (IOException ie) {
   System.out.println("Error:"+ie.getMessage());
   }
   }
 
   public void paint(Graphics g) {
-  g.drawImage( image, 0, 0,60,110, null);
+  g.drawImage( image, 0, 0,60,110, null);  
   }
   
-  public void paintOver(Graphics g,int width,int height){
-      
-      g.drawImage( image, 0, 0,width,height, null);
-      p=pf.getPopup(parent, this, 120, 220);
-      p.show();
-      
+  public void paintOver(Graphics g,int width,int height){      
+      g.drawImage( image, 0, 0,width,height, null);      
   }
 
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
     }
 
     @Override
-    public void mouseEntered(MouseEvent e) {        
-         paintOver(this.getGraphics(),120,220);
+    public void mouseEntered(MouseEvent e) {   
+        Point p=this.getLocation();
+         ip=new ImageGlassPane(image,p.getX()); 
+         parent.setGlassPane(ip); 
+         ip.repaint();
+         ip.setVisible(true);
+         
+         //paint(this.getGraphics());
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        p=pf.getPopup(parent, this, 120, 220);
-        p.hide();
-        paint(this.getGraphics());
+       
+        //paint(this.getGraphics());         
+        //ip.repaint();
+        ip.setVisible(false);
         
     }
    
