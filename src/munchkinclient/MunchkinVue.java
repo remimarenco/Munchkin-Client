@@ -98,15 +98,7 @@ public class MunchkinVue extends JFrame {
         }
         initComponents();        
         initFont();
-       JPanel imgView=new JPanel(new FlowLayout(FlowLayout.LEFT));      
-       imgView.add(
-           new ShowImage("src/munchkinclient/resources/cartes/1.jpg",this));
-       imgView.add(
-              new ShowImage("src/munchkinclient/resources/cartes/2.jpg",this));
-       imgView.add(
-              new ShowImage("src/munchkinclient/resources/cartes/3.jpg",this));
-        this.scrollPaneCartes.setViewportView(imgView);        
-        
+      
     }
 
     private void initFont() throws FontFormatException, IOException, URISyntaxException{
@@ -388,6 +380,9 @@ public class MunchkinVue extends JFrame {
             case Message.INFO_JOUEUR:
                 miseaJourInfoJoueur(msg);
                 break;
+            case Message.CARTES_JOUEUR:
+                miseaJourCartesJoueur(msg);
+                break;
         }
     }
 
@@ -497,10 +492,25 @@ public class MunchkinVue extends JFrame {
         
         for(Map.Entry<String,JTextArea> m: this.mapInfosJoueurs.entrySet())
             if(m.getKey().equals(msg.getNick_dest()))
-                m.getValue().setText(out);
-            
-                
-          //this.textAreaInfos.setText(out);  
+                m.getValue().setText(out);         
+    }
+      
+    private void miseaJourCartesJoueur(Message msg) {
+        
+        for(Component spane : tabbedPaneCartesJoueurs.getComponents())
+            if(spane instanceof JScrollPane)
+                if(spane.getName().equals(msg.getNick_dest()))
+                    this.scrollPaneCartes=(JScrollPane)spane;
+        
+       
+        
+       JPanel imgView=new JPanel(new FlowLayout(FlowLayout.LEFT)); 
+        for(Map.Entry<String,String> m: msg.getMap().entrySet())
+            if(m.getKey().equals("id"))                
+               imgView.add(
+           new ShowImage("src/munchkinclient/resources/cartes/"+m.getValue()+".jpg",this));      
+        this.scrollPaneCartes.setViewportView(imgView);        
+        
     }
     /**
      * Met a jour l'action proposé par le serveur
@@ -551,6 +561,7 @@ public class MunchkinVue extends JFrame {
      private void createTabCartesJouers(String name){
          if(!ongletExist(tabbedPaneCartesJoueurs, name)){
                 scrollPaneCartes=new JScrollPane();
+                scrollPaneCartes.setName(name);
                 this.tabbedPaneCartesJoueurs.addTab(name, scrollPaneCartes);
          }
     }
@@ -804,6 +815,8 @@ private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JTabbedPane tabbedPaneInfosJoueurs;
     private javax.swing.JTextArea textAreaInfos;
     // End of variables declaration//GEN-END:variables
+
+  
     
   
 }
