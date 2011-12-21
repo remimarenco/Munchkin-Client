@@ -499,14 +499,13 @@ public class MunchkinVue extends JFrame {
         
         for(Component spane : tabbedPaneCartesJoueurs.getComponents())
             if(spane instanceof JScrollPane)
-                if(spane.getName().equals(msg.getNick_dest()))
+                if(spane.getName()!=null && spane.getName().equals(msg.getNick_dest()))
                     this.scrollPaneCartes=(JScrollPane)spane;
         
        
         
        JPanel imgView=new JPanel(new FlowLayout(FlowLayout.LEFT)); 
-        for(Map.Entry<String,String> m: msg.getMap().entrySet())
-            if(m.getKey().equals("id"))                
+        for(Map.Entry<String,String> m: msg.getMap().entrySet())                          
                imgView.add(
            new ShowImage("src/munchkinclient/resources/cartes/"+m.getValue()+".jpg",this));      
         this.scrollPaneCartes.setViewportView(imgView);        
@@ -579,6 +578,8 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 socket = new Socket(connexion.getServeur(), connexion.getPort());                
                 com = new Communication(socket, this);
                 com.start();
+                this.tabbedPaneInfosJoueurs.removeAll();
+                this.tabbedPaneCartesJoueurs.removeAll();
                 createTabCartesJouers(login);
                 createTabInfoJouers(login);
                 Message msg = new Message(Message.CONNECT, login);

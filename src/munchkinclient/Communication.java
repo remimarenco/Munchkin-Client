@@ -41,7 +41,7 @@ public class Communication extends Thread{
   /**
      * Methode executer lorsque l'on lance le tread
      */
-  synchronized  public void run(){
+  synchronized public void run(){
        try{           
         while(true){
             this.msg= new Message();//Important pour distinguer les messages
@@ -53,6 +53,8 @@ public class Communication extends Thread{
         }
     }
 
-    catch(Exception e){System.out.println(e.toString());}
+    catch(Exception e){
+        System.out.println(e.toString());
+    }
     }
 }
