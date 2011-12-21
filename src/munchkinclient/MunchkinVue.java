@@ -769,7 +769,7 @@ private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 }//GEN-LAST:event_jTextField1ActionPerformed
 
 private void buttonIntervenirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIntervenirActionPerformed
- com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, "Poser Carte"));
+ com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_POSERCARTE));
 }//GEN-LAST:event_buttonIntervenirActionPerformed
 
     /**
