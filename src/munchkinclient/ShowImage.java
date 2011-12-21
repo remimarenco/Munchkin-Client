@@ -4,6 +4,7 @@
  */
 package munchkinclient;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.FocusEvent;
@@ -18,19 +19,26 @@ import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.Popup;
+import javax.swing.PopupFactory;
 
 /**
  *
  * @author guillaume.renoult
  */
 public class ShowImage extends JPanel implements MouseListener{
-    BufferedImage  image;
-  public ShowImage(String name) {
+    private BufferedImage  image;
+   private Component parent;
+   private  Popup p;
+   private  PopupFactory pf;
+  public ShowImage(String name,Component parent) {
   try { 
    setPreferredSize(new Dimension(60, 110));         
   File input = new File(name);
   image = ImageIO.read(input);
   addMouseListener(this);
+  pf = PopupFactory.getSharedInstance();
+      
   } catch (IOException ie) {
   System.out.println("Error:"+ie.getMessage());
   }
@@ -41,7 +49,11 @@ public class ShowImage extends JPanel implements MouseListener{
   }
   
   public void paintOver(Graphics g,int width,int height){
+      
       g.drawImage( image, 0, 0,width,height, null);
+      p=pf.getPopup(parent, this, 120, 220);
+      p.show();
+      
   }
 
 
@@ -67,7 +79,10 @@ public class ShowImage extends JPanel implements MouseListener{
 
     @Override
     public void mouseExited(MouseEvent e) {
+        p=pf.getPopup(parent, this, 120, 220);
+        p.hide();
         paint(this.getGraphics());
+        
     }
    
   

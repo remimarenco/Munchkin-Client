@@ -100,11 +100,11 @@ public class MunchkinVue extends JFrame {
         initFont();
        JPanel imgView=new JPanel(new FlowLayout(FlowLayout.LEFT));      
        imgView.add(
-           new ShowImage("src/munchkinclient/resources/cartes/1.jpg"));
+           new ShowImage("src/munchkinclient/resources/cartes/1.jpg",imgView));
        imgView.add(
-              new ShowImage("src/munchkinclient/resources/cartes/2.jpg"));
+              new ShowImage("src/munchkinclient/resources/cartes/2.jpg",imgView));
        imgView.add(
-              new ShowImage("src/munchkinclient/resources/cartes/3.jpg"));
+              new ShowImage("src/munchkinclient/resources/cartes/3.jpg",imgView));
         this.scrollPaneCartes.setViewportView(imgView);        
         
     }
