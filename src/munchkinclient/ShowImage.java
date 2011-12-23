@@ -35,20 +35,39 @@ public class ShowImage extends JRootPane implements MouseListener,DragGestureLis
     private BufferedImage  image;
     private ImageGlassPane ip;
     private JFrame parent;
-  public ShowImage(String name,JFrame parent) {
-  try { 
-      this.parent=parent;
-   setPreferredSize(new Dimension(60, 110));         
-  File input = new File(name);
-  image = ImageIO.read(input);
-  addMouseListener(this);   
-  } catch (IOException ie) {
-  System.out.println("Error:"+ie.getMessage());
-  }
-  }
+    private int width=60;
+    private int height=110;
+    
+    
+    
+    public ShowImage(String name, JFrame parent) {
+        try {
+            this.parent = parent;
+            setPreferredSize(new Dimension(this.width, this.height));
+            File input = new File(name);
+            image = ImageIO.read(input);
+            addMouseListener(this);
+        } catch (IOException ie) {
+            System.out.println("Error:" + ie.getMessage());
+        }
+    }
 
+    public ShowImage(String name, JFrame parent, int width, int height) {
+        try {
+            this.width = width;
+            this.height = height;
+            this.parent = parent;
+            setPreferredSize(new Dimension(this.width, this.height));
+            File input = new File(name);
+            image = ImageIO.read(input);
+            //addMouseListener(this);   
+        } catch (IOException ie) {
+            System.out.println("Error:" + ie.getMessage());
+        }
+    }
+   
   public void paint(Graphics g) {
-  g.drawImage( image, 0, 0,60,110, null);  
+  g.drawImage( image, 0, 0,this.width,this.height, null);  
   }
   
   public void paintOver(Graphics g,int width,int height){      
@@ -74,7 +93,7 @@ public class ShowImage extends JRootPane implements MouseListener,DragGestureLis
     @Override
     public void mouseEntered(MouseEvent e) {   
         Point p=this.getLocation();
-         ip=new ImageGlassPane(image,p.getX()); 
+         ip=new ImageGlassPane(image,p.getX(),p.getY()); 
          parent.setGlassPane(ip); 
          ip.repaint();
          ip.setVisible(true);

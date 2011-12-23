@@ -19,12 +19,13 @@ import javax.swing.JPanel;
 public class ImageGlassPane extends JComponent  {
     private BufferedImage  image;
     private double x;
-    private int y;
+    private double y;
     
-    public ImageGlassPane(BufferedImage img,double x) {
+    public ImageGlassPane(BufferedImage img,double x
+            ,double y) {
         this.image=img;
         this.x=x;
-        this.y=330;
+        this.y=335.0;
     }
 
     
@@ -32,7 +33,7 @@ public class ImageGlassPane extends JComponent  {
     @Override
     protected void paintComponent(Graphics g) {
         
-        g.drawImage(image, (int)x, y,240,440,null);
+        g.drawImage(image, (int)x, (int)y,240,440,null);
         super.paintComponent(g);
     }
 

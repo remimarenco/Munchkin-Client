@@ -11,36 +11,28 @@
 package munchkinclient;
 
 
-import com.sun.media.sound.WaveFileReader;
+
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.LayoutManager2;
-import java.awt.MenuComponent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.ConnectException;
-import java.net.Inet4Address;
 import java.net.Socket;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -49,10 +41,8 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -62,13 +52,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.plaf.FontUIResource;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
-import javax.swing.text.html.ImageView;
-import sun.audio.AudioPlayer;
 
 /**
  *
@@ -103,7 +90,8 @@ public class MunchkinVue extends JFrame {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
         }
-        initComponents();        
+        initComponents(); 
+        this.scrollPaneCarteEnCours.setVerticalScrollBarPolicy(this.scrollPaneCarteEnCours.VERTICAL_SCROLLBAR_NEVER);
         initFont();
       
     }
@@ -178,6 +166,8 @@ public class MunchkinVue extends JFrame {
         buttonIntervenir = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         scrollPaneMain = new javax.swing.JScrollPane();
+        jLabel1 = new javax.swing.JLabel();
+        scrollPaneCarteEnCours = new javax.swing.JScrollPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         connexion_item = new javax.swing.JMenuItem();
@@ -280,7 +270,7 @@ public class MunchkinVue extends JFrame {
 
         tabbedPaneInfosJoueurs.addTab("Mes Infos", scrollPaneInfos);
 
-        jPanel.add(tabbedPaneInfosJoueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 222, 239, 180));
+        jPanel.add(tabbedPaneInfosJoueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 222, 200, 180));
 
         buttonIntervenir.setForeground(new java.awt.Color(255, 0, 0));
         buttonIntervenir.setText("Intervenir");
@@ -290,11 +280,18 @@ public class MunchkinVue extends JFrame {
                 buttonIntervenirActionPerformed(evt);
             }
         });
-        jPanel.add(buttonIntervenir, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 160, 140, 67));
+        jPanel.add(buttonIntervenir, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 420, 140, 67));
 
         jTabbedPane2.addTab("Ma Main", scrollPaneMain);
 
         jPanel.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 610, 730, 150));
+
+        jLabel1.setText("Carte en cours");
+        jPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 30, -1, -1));
+
+        scrollPaneCarteEnCours.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        scrollPaneCarteEnCours.setHorizontalScrollBar(null);
+        jPanel.add(scrollPaneCarteEnCours, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 50, 270, 350));
 
         jMenuBar1.setBackground(new java.awt.Color(179, 127, 81));
         jMenuBar1.setFont(new java.awt.Font("DejaVu Sans Light", 0, 13));
@@ -325,9 +322,9 @@ public class MunchkinVue extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 864, Short.MAX_VALUE)
+            .addGap(0, 1059, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 864, Short.MAX_VALUE))
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1059, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -337,7 +334,7 @@ public class MunchkinVue extends JFrame {
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-880)/2, (screenSize.height-825)/2, 880, 825);
+        setBounds((screenSize.width-1075)/2, (screenSize.height-825)/2, 1075, 825);
     }// </editor-fold>//GEN-END:initComponents
 
    
@@ -374,6 +371,9 @@ public class MunchkinVue extends JFrame {
                 break;
             case Message.SOUND:
                 playSound(msg);
+                break;
+            case Message.CARTE_EN_COURS:
+                miseaJourCarteEnCours(msg);
                 break;
         }
     }
@@ -480,8 +480,9 @@ public class MunchkinVue extends JFrame {
     private void playSound(Message msg) {
         AudioInputStream ais = null;
         try {
-            WaveFileReader wfr = new WaveFileReader();
-            ais = wfr.getAudioInputStream(new File("src/munchkinclient/resources/songs/"+msg.getAction()+".wav"));
+            //WaveFileReader wfr = new WaveFileReader();
+            ais=AudioSystem.getAudioInputStream(new File("src/munchkinclient/resources/songs/"+msg.getAction()+".wav"));
+            //ais = wfr.getAudioInputStream(new File("src/munchkinclient/resources/songs/"+msg.getAction()+".wav"));
             DataLine.Info info = new DataLine.Info(Clip.class, ais.getFormat());
             Clip c=(Clip)AudioSystem.getLine(info);
             c.open(ais);
@@ -531,8 +532,7 @@ public class MunchkinVue extends JFrame {
         this.scrollPaneJeux.setViewportView(imgView);        
         }
         
-    }
-    
+    }    
     
     private void miseaJourMainJoueur(Message msg) {
        JPanel imgView=new JPanel(new FlowLayout(FlowLayout.LEFT)); 
@@ -540,7 +540,17 @@ public class MunchkinVue extends JFrame {
                imgView.add(
            new ShowImage("src/munchkinclient/resources/cartes/"+m.getValue()+".jpg",this));      
         this.scrollPaneMain.setViewportView(imgView);        
+    }    
+    
+    private void miseaJourCarteEnCours(Message msg) {
+
+        JPanel imgView = new JPanel();
+        imgView.add(new ShowImage("src/munchkinclient/resources/cartes/" + msg.getMessage() + ".jpg", this,this.scrollPaneCarteEnCours.getWidth()
+                ,this.scrollPaneCarteEnCours.getHeight()));
+        this.scrollPaneCarteEnCours.setViewportView(imgView);
+
     }
+
     /**
      * Met a jour l'action proposé par le serveur
      * @param msg 
@@ -701,37 +711,7 @@ private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:eve
 /**
  * Appelé lors d'un click dans la liste de joueur
  * @param evt 
- */
-private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
-        if (evt.getClickCount() == 2) {
-
-
-            login_dest = jList1.getSelectedValue().toString();            
-            newTab(login_dest);            
-            //jScrollpane.setViewportView(jTextPane2);
-
-        } else if (evt.getButton() == evt.BUTTON3) {
-            JPopupMenu popup = new JPopupMenu();
-            JMenuItem menuItem1 = new JMenuItem("Conversation privée");
-            
-
-            menuItem1.addActionListener(new ActionListener() {
-
-                public void actionPerformed(ActionEvent e) {
-                     
-                    login_dest = jList1.getSelectedValue().toString();                    
-                    newTab(login_dest);
-                    //jScrollpane.setViewportView(jTextPane2);
-
-                }
-            });           
-
-            popup.add(menuItem1);          
-            popup.show(evt.getComponent(), evt.getX(), evt.getY());
-        }
-       
-}//GEN-LAST:event_jList1MouseClicked
-/**
+ *//**
  * Appelée lors d'un clic sur les onglet
  * @param evt 
  */
@@ -788,6 +768,36 @@ private void buttonIntervenirActionPerformed(java.awt.event.ActionEvent evt) {//
  com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_POSERCARTE));
 }//GEN-LAST:event_buttonIntervenirActionPerformed
 
+private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        if (evt.getClickCount() == 2) {
+
+
+            login_dest = jList1.getSelectedValue().toString();            
+            newTab(login_dest);            
+            //jScrollpane.setViewportView(jTextPane2);
+
+        } else if (evt.getButton() == evt.BUTTON3) {
+            JPopupMenu popup = new JPopupMenu();
+            JMenuItem menuItem1 = new JMenuItem("Conversation privée");
+            
+
+            menuItem1.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent e) {
+                     
+                    login_dest = jList1.getSelectedValue().toString();                    
+                    newTab(login_dest);
+                    //jScrollpane.setViewportView(jTextPane2);
+
+                }
+            });           
+
+            popup.add(menuItem1);          
+            popup.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+       
+}//GEN-LAST:event_jList1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -837,6 +847,7 @@ private void buttonIntervenirActionPerformed(java.awt.event.ActionEvent evt) {//
     private javax.swing.JButton buttonYes;
     private javax.swing.JMenuItem connexion_item;
     private javax.swing.JMenuItem deconnexion_Item;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JList jList1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel;
@@ -848,6 +859,7 @@ private void buttonIntervenirActionPerformed(java.awt.event.ActionEvent evt) {//
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JLabel labelActionPrompt;
+    private javax.swing.JScrollPane scrollPaneCarteEnCours;
     private javax.swing.JScrollPane scrollPaneInfos;
     private javax.swing.JScrollPane scrollPaneJeux;
     private javax.swing.JScrollPane scrollPaneMain;
