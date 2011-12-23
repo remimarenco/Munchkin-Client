@@ -87,8 +87,7 @@ public class MunchkinVue extends JFrame {
     private boolean connected = false;
     private boolean nickexist = false;
     private HashMap<String,JTextArea> mapInfosJoueurs=new HashMap<String, JTextArea>();
-    private HashMap<String,JTextPane> mapTxtToJoueurs=new HashMap<String, JTextPane>();
-    private HashMap<String,JPanel> mapCartesJoueurs=new HashMap<String, JPanel>();
+    private HashMap<String,JTextPane> mapTxtToJoueurs=new HashMap<String, JTextPane>();    
     
     
     /** Creates new form MunchkinVue */
@@ -171,12 +170,14 @@ public class MunchkinVue extends JFrame {
         labelActionPrompt = new javax.swing.JLabel();
         buttonNon = new javax.swing.JButton();
         buttonYes = new javax.swing.JButton();
-        tabbedPaneCartesJoueurs = new javax.swing.JTabbedPane();
-        scrollPaneCartes = new javax.swing.JScrollPane();
+        tabbedPaneJeuxJoueurs = new javax.swing.JTabbedPane();
+        scrollPaneJeux = new javax.swing.JScrollPane();
         tabbedPaneInfosJoueurs = new javax.swing.JTabbedPane();
         scrollPaneInfos = new javax.swing.JScrollPane();
         textAreaInfos = new javax.swing.JTextArea();
         buttonIntervenir = new javax.swing.JButton();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        scrollPaneMain = new javax.swing.JScrollPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         connexion_item = new javax.swing.JMenuItem();
@@ -201,7 +202,7 @@ public class MunchkinVue extends JFrame {
                 send_buttonActionPerformed(evt);
             }
         });
-        jPanel.add(send_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 540, 80, 40));
+        jPanel.add(send_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 410, 80, 40));
 
         jTextField1.setText("Tapez votre texte ici");
         jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -219,7 +220,7 @@ public class MunchkinVue extends JFrame {
                 jTextField1KeyPressed(evt);
             }
         });
-        jPanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, 557, 40));
+        jPanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 557, 40));
 
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jList1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -245,8 +246,8 @@ public class MunchkinVue extends JFrame {
 
         jTabbedPane1.addTab("Partie", jScrollPane2);
 
-        jPanel.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 555, 525));
-        jPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 536, 32767, -1));
+        jPanel.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 555, 400));
+        jPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 406, 32767, -1));
 
         labelActionPrompt.setText("Action :");
         jPanel.add(labelActionPrompt, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 161, -1, -1));
@@ -269,17 +270,17 @@ public class MunchkinVue extends JFrame {
         });
         jPanel.add(buttonYes, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 181, -1, -1));
 
-        tabbedPaneCartesJoueurs.addTab("tab1", scrollPaneCartes);
+        tabbedPaneJeuxJoueurs.addTab("Mon Jeu", scrollPaneJeux);
 
-        jPanel.add(tabbedPaneCartesJoueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 583, 726, 162));
+        jPanel.add(tabbedPaneJeuxJoueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 726, 162));
 
         textAreaInfos.setColumns(20);
         textAreaInfos.setRows(5);
         scrollPaneInfos.setViewportView(textAreaInfos);
 
-        tabbedPaneInfosJoueurs.addTab("tab1", scrollPaneInfos);
+        tabbedPaneInfosJoueurs.addTab("Mes Infos", scrollPaneInfos);
 
-        jPanel.add(tabbedPaneInfosJoueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 222, 239, 303));
+        jPanel.add(tabbedPaneInfosJoueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 222, 239, 180));
 
         buttonIntervenir.setForeground(new java.awt.Color(255, 0, 0));
         buttonIntervenir.setText("Intervenir");
@@ -290,6 +291,10 @@ public class MunchkinVue extends JFrame {
             }
         });
         jPanel.add(buttonIntervenir, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 160, 140, 67));
+
+        jTabbedPane2.addTab("Ma Main", scrollPaneMain);
+
+        jPanel.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 610, 730, 150));
 
         jMenuBar1.setBackground(new java.awt.Color(179, 127, 81));
         jMenuBar1.setFont(new java.awt.Font("DejaVu Sans Light", 0, 13));
@@ -361,8 +366,11 @@ public class MunchkinVue extends JFrame {
             case Message.INFO_JOUEUR:
                 miseaJourInfoJoueur(msg);
                 break;
-            case Message.CARTES_JOUEUR:
-                miseaJourCartesJoueur(msg);
+            case Message.JEUX_JOUEUR:
+                miseaJourJeuxJoueur(msg);
+                break;
+            case Message.MAIN_JOUEUR:
+                miseaJourMainJoueur(msg);
                 break;
             case Message.SOUND:
                 playSound(msg);
@@ -494,30 +502,44 @@ public class MunchkinVue extends JFrame {
     }
     
     private void miseaJourInfoJoueur(Message msg){
+         String name=msg.getNick_dest();
+            if(name.equals(login))
+                name="Mes Infos";
+        
         String out=new String();
         for(Map.Entry<String,String> m: msg.getMap().entrySet())
             out+=m.getKey()+":" +m.getValue()+"\n";    
         
-        for(Map.Entry<String,JTextArea> m: this.mapInfosJoueurs.entrySet())
-            if(m.getKey().equals(msg.getNick_dest()))
+        for(Map.Entry<String,JTextArea> m: this.mapInfosJoueurs.entrySet())           
+            if( m.getKey().equals(name))
                 m.getValue().setText(out);         
+        
     }
       
-    private void miseaJourCartesJoueur(Message msg) {
+    private void miseaJourJeuxJoueur(Message msg) {
         
-        for(Component spane : tabbedPaneCartesJoueurs.getComponents())
+        for(Component spane : tabbedPaneJeuxJoueurs.getComponents()){
             if(spane instanceof JScrollPane)
-                if(spane.getName()!=null && spane.getName().equals(msg.getNick_dest()))
-                    this.scrollPaneCartes=(JScrollPane)spane;
-        
+                if(spane.getName()!=null && (spane.getName().equals("Mon Jeu") ||spane.getName().equals(msg.getNick_dest())))
+                    this.scrollPaneJeux=(JScrollPane)spane;     
        
         
        JPanel imgView=new JPanel(new FlowLayout(FlowLayout.LEFT)); 
         for(Map.Entry<String,String> m: msg.getMap().entrySet())                          
                imgView.add(
            new ShowImage("src/munchkinclient/resources/cartes/"+m.getValue()+".jpg",this));      
-        this.scrollPaneCartes.setViewportView(imgView);        
+        this.scrollPaneJeux.setViewportView(imgView);        
+        }
         
+    }
+    
+    
+    private void miseaJourMainJoueur(Message msg) {
+       JPanel imgView=new JPanel(new FlowLayout(FlowLayout.LEFT)); 
+        for(Map.Entry<String,String> m: msg.getMap().entrySet())                          
+               imgView.add(
+           new ShowImage("src/munchkinclient/resources/cartes/"+m.getValue()+".jpg",this));      
+        this.scrollPaneMain.setViewportView(imgView);        
     }
     /**
      * Met a jour l'action proposé par le serveur
@@ -541,7 +563,7 @@ public class MunchkinVue extends JFrame {
             String str= l2.nextToken();
             listData.add(str);            
             createTabInfoJouers(str);
-            createTabCartesJouers(str);
+            createTabJeuxJouers(str);
         }
         jList1.setListData(listData);
     }
@@ -558,18 +580,21 @@ public class MunchkinVue extends JFrame {
         return txtA;
     }
     private void createTabInfoJouers(String name){
-        if(!ongletExist(tabbedPaneInfosJoueurs, name)){            
+         if(name.equals(login))
+                name="Mes Infos";
+        if(!ongletExist(tabbedPaneInfosJoueurs, name)){           
             scrollPaneInfos=new JScrollPane();           
             scrollPaneInfos.setViewportView(createTextAreaInfoJoueurs(name));           
-            this.tabbedPaneInfosJoueurs.addTab(name, scrollPaneInfos);
-            
+            this.tabbedPaneInfosJoueurs.addTab(name, scrollPaneInfos);            
         }
     }
-     private void createTabCartesJouers(String name){
-         if(!ongletExist(tabbedPaneCartesJoueurs, name)){
-                scrollPaneCartes=new JScrollPane();
-                scrollPaneCartes.setName(name);
-                this.tabbedPaneCartesJoueurs.addTab(name, scrollPaneCartes);
+     private void createTabJeuxJouers(String name){
+          if(name.equals(login))
+                name="Mon Jeu";
+         if(!ongletExist(tabbedPaneJeuxJoueurs, name)){
+                scrollPaneJeux=new JScrollPane();
+                scrollPaneJeux.setName(name);
+                this.tabbedPaneJeuxJoueurs.addTab(name, scrollPaneJeux);
          }
     }
     
@@ -585,13 +610,11 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
              
                 socket = new Socket(connexion.getServeur(), connexion.getPort());                
                 com = new Communication(socket, this);
-                com.start();
-                this.tabbedPaneInfosJoueurs.removeAll();
-                this.tabbedPaneCartesJoueurs.removeAll();
-                createTabCartesJouers(login);
-                createTabInfoJouers(login);
+                com.start();                
                 Message msg = new Message(Message.CONNECT, login);
-                connected = com.sendMessage(msg);                
+                connected = com.sendMessage(msg);                    
+                this.tabbedPaneInfosJoueurs.removeAll();
+                createTabInfoJouers("Mes Infos");
                this.buttonIntervenir.setEnabled(connected);
                 try {
                     Thread.sleep(10);
@@ -819,16 +842,18 @@ private void buttonIntervenirActionPerformed(java.awt.event.ActionEvent evt) {//
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JLabel labelActionPrompt;
-    private javax.swing.JScrollPane scrollPaneCartes;
     private javax.swing.JScrollPane scrollPaneInfos;
+    private javax.swing.JScrollPane scrollPaneJeux;
+    private javax.swing.JScrollPane scrollPaneMain;
     private javax.swing.JButton send_button;
-    private javax.swing.JTabbedPane tabbedPaneCartesJoueurs;
     private javax.swing.JTabbedPane tabbedPaneInfosJoueurs;
+    private javax.swing.JTabbedPane tabbedPaneJeuxJoueurs;
     private javax.swing.JTextArea textAreaInfos;
     // End of variables declaration//GEN-END:variables
- 
+
 }
 
