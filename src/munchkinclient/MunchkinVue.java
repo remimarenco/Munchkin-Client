@@ -665,7 +665,9 @@ private void deconnexion_ItemActionPerformed(java.awt.event.ActionEvent evt) {//
  */
 private void sendMessage(){
      try {
-            String text = jTextField1.getText()+"\n";
+         if(jTextField1.getText().equals(":)")) 
+             com.sendMessage(new Message(Message.SOUND, login, "Partie", Constantes.SOUND_RIRES));
+         String text = jTextField1.getText()+"\n";
 
             if (connected) {
                 if (login_dest != "Partie")
