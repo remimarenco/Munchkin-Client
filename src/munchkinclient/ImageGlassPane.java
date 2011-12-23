@@ -33,7 +33,7 @@ public class ImageGlassPane extends JComponent  {
     @Override
     protected void paintComponent(Graphics g) {
         
-        g.drawImage(image, (int)x, (int)y,240,440,null);
+        g.drawImage(image, (int)x, (int)y,280,440,null);
         super.paintComponent(g);
     }
 
