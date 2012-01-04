@@ -20,6 +20,8 @@ import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -260,6 +262,7 @@ public class MunchkinVue extends JFrame {
         });
         jPanel.add(buttonYes, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 181, -1, -1));
 
+        scrollPaneJeux.setName("Mon Jeu"); // NOI18N
         tabbedPaneJeuxJoueurs.addTab("Mon Jeu", scrollPaneJeux);
 
         jPanel.add(tabbedPaneJeuxJoueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 726, 162));
@@ -322,15 +325,15 @@ public class MunchkinVue extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1059, Short.MAX_VALUE)
+            .addGap(0, 1067, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1059, Short.MAX_VALUE))
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1067, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 766, Short.MAX_VALUE)
+            .addGap(0, 770, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 766, Short.MAX_VALUE))
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -375,6 +378,10 @@ public class MunchkinVue extends JFrame {
             case Message.CARTE_EN_COURS:
                 miseaJourCarteEnCours(msg);
                 break;
+            case Message.INTERVENTION:
+                allowClicOnCard(true);
+                break;
+                
         }
     }
 
@@ -477,6 +484,14 @@ public class MunchkinVue extends JFrame {
         return ret;
     }
     
+    private void allowClicOnCard(boolean bool){
+        JPanel p = (JPanel) this.scrollPaneMain.getViewport().getComponent(0);            
+        if(p instanceof JPanel)
+            for(Component c : p.getComponents())
+             if(c instanceof ShowImage)
+                ((ShowImage)c).setClick_allowed(bool);
+    }
+    
     private void playSound(Message msg) {
         AudioInputStream ais = null;
         try {
@@ -518,19 +533,25 @@ public class MunchkinVue extends JFrame {
     }
       
     private void miseaJourJeuxJoueur(Message msg) {
-        
+         String name=msg.getNick_dest();
+            if(name.equals(login))
+                name="Mon Jeu"; 
+            
         for(Component spane : tabbedPaneJeuxJoueurs.getComponents()){
-            if(spane instanceof JScrollPane)
-                if(spane.getName()!=null && (spane.getName().equals("Mon Jeu") ||spane.getName().equals(msg.getNick_dest())))
-                    this.scrollPaneJeux=(JScrollPane)spane;     
-       
+            if(spane instanceof JScrollPane){
+                if(spane.getName()!=null && (spane.getName().equals(name))){
+                    this.scrollPaneJeux=(JScrollPane)spane; 
+                    break;
+                }                        
+            }
+        }
         
        JPanel imgView=new JPanel(new FlowLayout(FlowLayout.LEFT)); 
         for(Map.Entry<String,String> m: msg.getMap().entrySet())                          
                imgView.add(
-           new ShowImage("src/munchkinclient/resources/cartes/"+m.getValue()+".jpg",this));      
+           new ShowImage(m.getValue(),this));      
         this.scrollPaneJeux.setViewportView(imgView);        
-        }
+        
         
     }    
     
@@ -538,14 +559,14 @@ public class MunchkinVue extends JFrame {
        JPanel imgView=new JPanel(new FlowLayout(FlowLayout.LEFT)); 
         for(Map.Entry<String,String> m: msg.getMap().entrySet())                          
                imgView.add(
-           new ShowImage("src/munchkinclient/resources/cartes/"+m.getValue()+".jpg",this));      
+           new ShowImage(m.getValue(),this));      
         this.scrollPaneMain.setViewportView(imgView);        
     }    
     
     private void miseaJourCarteEnCours(Message msg) {
 
         JPanel imgView = new JPanel();
-        imgView.add(new ShowImage("src/munchkinclient/resources/cartes/" + msg.getMessage() + ".jpg", this,this.scrollPaneCarteEnCours.getWidth()
+        imgView.add(new ShowImage(msg.getMessage(), this,this.scrollPaneCarteEnCours.getWidth()
                 ,this.scrollPaneCarteEnCours.getHeight()));
         this.scrollPaneCarteEnCours.setViewportView(imgView);
 
@@ -693,6 +714,12 @@ private void sendMessage(){
         } catch (Exception e) {
             System.out.println("Exception :" + e.toString());
         }
+}
+
+public void poserCarte(String idCard){
+    Message msg= new Message(Message.POSER_CARTE, login, "Partie", idCard);
+    com.sendMessage(msg);
+    this.allowClicOnCard(false);
 }
 
 private void send_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_send_buttonActionPerformed

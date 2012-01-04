@@ -37,14 +37,21 @@ public class ShowImage extends JRootPane implements MouseListener,DragGestureLis
     private JFrame parent;
     private int width=60;
     private int height=110;
+    private String name;
+    private boolean click_allowed=false;
+
+    public void setClick_allowed(boolean click_allowed) {
+        this.click_allowed = click_allowed;
+    }
     
     
     
     public ShowImage(String name, JFrame parent) {
         try {
             this.parent = parent;
+            this.name=name;
             setPreferredSize(new Dimension(this.width, this.height));
-            File input = new File(name);
+            File input = new File("src/munchkinclient/resources/cartes/"+this.name+".jpg");
             image = ImageIO.read(input);
             addMouseListener(this);
         } catch (IOException ie) {
@@ -54,11 +61,12 @@ public class ShowImage extends JRootPane implements MouseListener,DragGestureLis
 
     public ShowImage(String name, JFrame parent, int width, int height) {
         try {
+            this.name=name;
             this.width = width;
             this.height = height;
             this.parent = parent;
             setPreferredSize(new Dimension(this.width, this.height));
-            File input = new File(name);
+            File input = new File("src/munchkinclient/resources/cartes/"+this.name+".jpg");
             image = ImageIO.read(input);
             //addMouseListener(this);   
         } catch (IOException ie) {
@@ -77,7 +85,8 @@ public class ShowImage extends JRootPane implements MouseListener,DragGestureLis
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        
+        if(click_allowed)
+        ((MunchkinVue)this.parent).poserCarte(this.name);
     }
 
     @Override
