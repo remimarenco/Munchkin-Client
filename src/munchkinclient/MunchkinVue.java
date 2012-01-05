@@ -148,7 +148,7 @@ public class MunchkinVue extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel = new BackgroundPanel("src/munchkinclient/resources/cartes/1.jpg");
+        jPanel = new BackgroundPanel("src/munchkinclient/resources/bg.jpg");
         send_button = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -165,11 +165,13 @@ public class MunchkinVue extends JFrame {
         tabbedPaneInfosJoueurs = new javax.swing.JTabbedPane();
         scrollPaneInfos = new javax.swing.JScrollPane();
         textAreaInfos = new javax.swing.JTextArea();
-        buttonIntervenir = new javax.swing.JButton();
+        buttonPoserCarte = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         scrollPaneMain = new javax.swing.JScrollPane();
         jLabel1 = new javax.swing.JLabel();
         scrollPaneCarteEnCours = new javax.swing.JScrollPane();
+        buttonAider = new javax.swing.JButton();
+        buttonPourrir = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         connexion_item = new javax.swing.JMenuItem();
@@ -181,7 +183,7 @@ public class MunchkinVue extends JFrame {
         jPanel.setBackground(new java.awt.Color(231, 212, 181));
         jPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel.setMaximumSize(new java.awt.Dimension(1000, 1000));
-        jPanel.setMinimumSize(new java.awt.Dimension(800, 745));
+        jPanel.setMinimumSize(new java.awt.Dimension(800, 650));
         jPanel.setName("mainPanel"); // NOI18N
         jPanel.setOpaque(false);
         jPanel.setPreferredSize(new java.awt.Dimension(800, 767));
@@ -194,7 +196,7 @@ public class MunchkinVue extends JFrame {
                 send_buttonActionPerformed(evt);
             }
         });
-        jPanel.add(send_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 410, 80, 40));
+        jPanel.add(send_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 330, 130, 40));
 
         jTextField1.setText("Tapez votre texte ici");
         jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -212,7 +214,7 @@ public class MunchkinVue extends JFrame {
                 jTextField1KeyPressed(evt);
             }
         });
-        jPanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 557, 40));
+        jPanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 420, 40));
 
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jList1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -222,7 +224,7 @@ public class MunchkinVue extends JFrame {
         });
         jScrollPane1.setViewportView(jList1);
 
-        jPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 21, 148, 134));
+        jPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 21, 200, 120));
 
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -238,11 +240,11 @@ public class MunchkinVue extends JFrame {
 
         jTabbedPane1.addTab("Partie", jScrollPane2);
 
-        jPanel.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 555, 400));
-        jPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 406, 32767, -1));
+        jPanel.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 555, 320));
+        jPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 388, 32767, -1));
 
         labelActionPrompt.setText("Action :");
-        jPanel.add(labelActionPrompt, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 161, -1, -1));
+        jPanel.add(labelActionPrompt, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 150, -1, -1));
 
         buttonNon.setText("Non");
         buttonNon.setEnabled(false);
@@ -251,7 +253,7 @@ public class MunchkinVue extends JFrame {
                 buttonNonActionPerformed(evt);
             }
         });
-        jPanel.add(buttonNon, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 181, -1, -1));
+        jPanel.add(buttonNon, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 170, -1, -1));
 
         buttonYes.setText("Oui");
         buttonYes.setEnabled(false);
@@ -260,12 +262,12 @@ public class MunchkinVue extends JFrame {
                 buttonYesActionPerformed(evt);
             }
         });
-        jPanel.add(buttonYes, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 181, -1, -1));
+        jPanel.add(buttonYes, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 170, -1, -1));
 
         scrollPaneJeux.setName("Mon Jeu"); // NOI18N
         tabbedPaneJeuxJoueurs.addTab("Mon Jeu", scrollPaneJeux);
 
-        jPanel.add(tabbedPaneJeuxJoueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 726, 162));
+        jPanel.add(tabbedPaneJeuxJoueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 726, 162));
 
         textAreaInfos.setColumns(20);
         textAreaInfos.setRows(5);
@@ -273,28 +275,45 @@ public class MunchkinVue extends JFrame {
 
         tabbedPaneInfosJoueurs.addTab("Mes Infos", scrollPaneInfos);
 
-        jPanel.add(tabbedPaneInfosJoueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 222, 200, 180));
+        jPanel.add(tabbedPaneInfosJoueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 200, 200, 180));
 
-        buttonIntervenir.setForeground(new java.awt.Color(255, 0, 0));
-        buttonIntervenir.setText("Intervenir");
-        buttonIntervenir.setEnabled(false);
-        buttonIntervenir.addActionListener(new java.awt.event.ActionListener() {
+        buttonPoserCarte.setForeground(new java.awt.Color(255, 0, 0));
+        buttonPoserCarte.setText("Poser une carte");
+        buttonPoserCarte.setEnabled(false);
+        buttonPoserCarte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonIntervenirActionPerformed(evt);
+                buttonPoserCarteActionPerformed(evt);
             }
         });
-        jPanel.add(buttonIntervenir, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 420, 140, 67));
+        jPanel.add(buttonPoserCarte, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 410, 140, 67));
 
         jTabbedPane2.addTab("Ma Main", scrollPaneMain);
 
-        jPanel.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 610, 730, 150));
+        jPanel.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 550, 730, 150));
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Carte en cours");
-        jPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 30, -1, -1));
+        jPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, -1, -1));
 
         scrollPaneCarteEnCours.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         scrollPaneCarteEnCours.setHorizontalScrollBar(null);
-        jPanel.add(scrollPaneCarteEnCours, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 50, 270, 350));
+        jPanel.add(scrollPaneCarteEnCours, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 30, 260, 350));
+
+        buttonAider.setText("Aider");
+        buttonAider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAiderActionPerformed(evt);
+            }
+        });
+        jPanel.add(buttonAider, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 490, 140, 70));
+
+        buttonPourrir.setText("Pourrir");
+        buttonPourrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPourrirActionPerformed(evt);
+            }
+        });
+        jPanel.add(buttonPourrir, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 570, 140, 70));
 
         jMenuBar1.setBackground(new java.awt.Color(179, 127, 81));
         jMenuBar1.setFont(new java.awt.Font("DejaVu Sans Light", 0, 13));
@@ -325,15 +344,15 @@ public class MunchkinVue extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1067, Short.MAX_VALUE)
+            .addGap(0, 1059, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1067, Short.MAX_VALUE))
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1059, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 770, Short.MAX_VALUE)
+            .addGap(0, 766, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE))
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 766, Short.MAX_VALUE))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -646,7 +665,7 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 connected = com.sendMessage(msg);                    
                 this.tabbedPaneInfosJoueurs.removeAll();
                 createTabInfoJouers("Mes Infos");
-               this.buttonIntervenir.setEnabled(connected);
+               this.buttonPoserCarte.setEnabled(connected);
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException ex) {
@@ -791,9 +810,9 @@ private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     // TODO add your handling code here:
 }//GEN-LAST:event_jTextField1ActionPerformed
 
-private void buttonIntervenirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIntervenirActionPerformed
+private void buttonPoserCarteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPoserCarteActionPerformed
  com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_POSERCARTE));
-}//GEN-LAST:event_buttonIntervenirActionPerformed
+}//GEN-LAST:event_buttonPoserCarteActionPerformed
 
 private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         if (evt.getClickCount() == 2) {
@@ -824,6 +843,14 @@ private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
         }
        
 }//GEN-LAST:event_jList1MouseClicked
+
+private void buttonAiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAiderActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_buttonAiderActionPerformed
+
+private void buttonPourrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPourrirActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_buttonPourrirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -869,8 +896,10 @@ private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonIntervenir;
+    private javax.swing.JButton buttonAider;
     private javax.swing.JButton buttonNon;
+    private javax.swing.JButton buttonPoserCarte;
+    private javax.swing.JButton buttonPourrir;
     private javax.swing.JButton buttonYes;
     private javax.swing.JMenuItem connexion_item;
     private javax.swing.JMenuItem deconnexion_Item;
