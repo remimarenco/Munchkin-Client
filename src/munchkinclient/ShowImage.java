@@ -19,14 +19,12 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JRootPane;
-import javax.swing.border.Border;
 
 /**
  *
  * @author guillaume.renoult
  */
-public class ShowImage extends JRootPane implements MouseListener,DragGestureListener{
+public class ShowImage extends JPanel implements MouseListener,DragGestureListener{
     private BufferedImage  image;
     private ImageGlassPane ip;
     private JFrame parent;
@@ -48,7 +46,8 @@ public class ShowImage extends JRootPane implements MouseListener,DragGestureLis
             setPreferredSize(new Dimension(this.width, this.height));
             File input = new File("src/munchkinclient/resources/cartes/"+this.name+".jpg");
             image = ImageIO.read(input);
-            addMouseListener(this);             
+            addMouseListener(this);  
+            
         } catch (IOException ie) {
             System.out.println("Error:" + ie.getMessage());
         }
@@ -69,24 +68,18 @@ public class ShowImage extends JRootPane implements MouseListener,DragGestureLis
         }
     }
    
-  public void paint(Graphics g) {
-  g.drawImage( image, 0, 0,this.width,this.height, null);  
-  }
-  
-  public void paintOver(Graphics g,int width,int height){      
-      g.drawImage( image, 0, 0,width,height, null);      
+  public void paint(Graphics g) {      
+       g.drawImage( image, 0, 0,this.width,this.height, null); 
+       super.printBorder(g); //putain de salope de ligne , 
+                            //tu pouvais pas le dire qu'il fallait que je t'écrive pour que les bordures marchent
   }
 
 
     @Override
     public void mouseClicked(MouseEvent e) {
         
-        if(click_allowed){            
-            JPanel panel= new JPanel();
-            panel.setSize(this.getWidth(), this.getHeight());
-            panel.setBorder(BorderFactory.createLineBorder(Color.red, 5));           
-            this.setGlassPane(panel);
-            this.getGlassPane().setVisible(true);
+        if(click_allowed){                       
+            this.setBorder(BorderFactory.createLineBorder(Color.RED,5));            
             //((MunchkinVue)this.parent).poserCarte(this.name);
         }        
     }

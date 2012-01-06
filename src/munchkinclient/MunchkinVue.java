@@ -17,12 +17,8 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -35,7 +31,6 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -48,8 +43,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JRadioButton;
-import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
@@ -581,8 +574,9 @@ public class MunchkinVue extends JFrame {
        JPanel imgView=new JPanel(new FlowLayout(FlowLayout.LEFT)); 
         for(Map.Entry<String,String> m: msg.getMap().entrySet())                          
                imgView.add(
-           new ShowImage(m.getValue(),this));      
-        this.scrollPaneMain.setViewportView(imgView);        
+           new ShowImage(m.getValue(),this));            
+        this.scrollPaneMain.setViewportView(imgView);  
+        //imgView.setBorder(BorderFactory.createLineBorder(Color.red));
     }    
     
     private void miseaJourCarteEnCours(Message msg) {

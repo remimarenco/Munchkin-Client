@@ -5,12 +5,9 @@
 package munchkinclient;
 
 
-import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
 
 /**
  *
