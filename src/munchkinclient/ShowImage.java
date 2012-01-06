@@ -18,7 +18,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JRootPane;
+import javax.swing.border.Border;
 
 /**
  *
@@ -80,8 +82,12 @@ public class ShowImage extends JRootPane implements MouseListener,DragGestureLis
     public void mouseClicked(MouseEvent e) {
         
         if(click_allowed){            
-            //this.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.red));            
-            ((MunchkinVue)this.parent).poserCarte(this.name);
+            JPanel panel= new JPanel();
+            panel.setSize(this.getWidth(), this.getHeight());
+            panel.setBorder(BorderFactory.createLineBorder(Color.red, 5));           
+            this.setGlassPane(panel);
+            this.getGlassPane().setVisible(true);
+            //((MunchkinVue)this.parent).poserCarte(this.name);
         }        
     }
 
