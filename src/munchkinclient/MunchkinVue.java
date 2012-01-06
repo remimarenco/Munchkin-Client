@@ -300,6 +300,7 @@ public class MunchkinVue extends JFrame {
         jPanel.add(scrollPaneCarteEnCours, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 30, 260, 350));
 
         buttonAider.setText("Aider");
+        buttonAider.setEnabled(false);
         buttonAider.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAiderActionPerformed(evt);
@@ -308,6 +309,7 @@ public class MunchkinVue extends JFrame {
         jPanel.add(buttonAider, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 490, 140, 70));
 
         buttonPourrir.setText("Pourrir");
+        buttonPourrir.setEnabled(false);
         buttonPourrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonPourrirActionPerformed(evt);
@@ -344,15 +346,15 @@ public class MunchkinVue extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1059, Short.MAX_VALUE)
+            .addGap(0, 1067, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1059, Short.MAX_VALUE))
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1067, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 766, Short.MAX_VALUE)
+            .addGap(0, 770, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 766, Short.MAX_VALUE))
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -666,6 +668,8 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 this.tabbedPaneInfosJoueurs.removeAll();
                 createTabInfoJouers("Mes Infos");
                this.buttonPoserCarte.setEnabled(connected);
+               this.buttonAider.setEnabled(connected);
+               this.buttonPourrir.setEnabled(connected);               
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException ex) {
@@ -845,11 +849,11 @@ private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
 }//GEN-LAST:event_jList1MouseClicked
 
 private void buttonAiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAiderActionPerformed
-// TODO add your handling code here:
+com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_AIDER));
 }//GEN-LAST:event_buttonAiderActionPerformed
 
 private void buttonPourrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPourrirActionPerformed
-// TODO add your handling code here:
+com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_POURRIR));
 }//GEN-LAST:event_buttonPourrirActionPerformed
 
     /**
