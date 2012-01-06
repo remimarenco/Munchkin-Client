@@ -4,28 +4,21 @@
  */
 package munchkinclient;
 
-import java.awt.Component;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.dnd.DragGestureEvent;
 import java.awt.dnd.DragGestureListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JRootPane;
-import javax.swing.Popup;
-import javax.swing.PopupFactory;
 
 /**
  *
@@ -53,7 +46,7 @@ public class ShowImage extends JRootPane implements MouseListener,DragGestureLis
             setPreferredSize(new Dimension(this.width, this.height));
             File input = new File("src/munchkinclient/resources/cartes/"+this.name+".jpg");
             image = ImageIO.read(input);
-            addMouseListener(this);
+            addMouseListener(this);             
         } catch (IOException ie) {
             System.out.println("Error:" + ie.getMessage());
         }
@@ -68,7 +61,7 @@ public class ShowImage extends JRootPane implements MouseListener,DragGestureLis
             setPreferredSize(new Dimension(this.width, this.height));
             File input = new File("src/munchkinclient/resources/cartes/"+this.name+".jpg");
             image = ImageIO.read(input);
-            //addMouseListener(this);   
+            //addMouseListener(this);           
         } catch (IOException ie) {
             System.out.println("Error:" + ie.getMessage());
         }
@@ -85,8 +78,11 @@ public class ShowImage extends JRootPane implements MouseListener,DragGestureLis
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(click_allowed)
-        ((MunchkinVue)this.parent).poserCarte(this.name);
+        
+        if(click_allowed){            
+            //this.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.red));            
+            ((MunchkinVue)this.parent).poserCarte(this.name);
+        }        
     }
 
     @Override
@@ -105,18 +101,12 @@ public class ShowImage extends JRootPane implements MouseListener,DragGestureLis
          ip=new ImageGlassPane(image,p.getX(),p.getY()); 
          parent.setGlassPane(ip); 
          ip.repaint();
-         ip.setVisible(true);
-         
-         //paint(this.getGraphics());
+         ip.setVisible(true);       
     }
 
     @Override
-    public void mouseExited(MouseEvent e) {
-       
-        //paint(this.getGraphics());         
-        //ip.repaint();
-        ip.setVisible(false);
-        
+    public void mouseExited(MouseEvent e) {       
+        ip.setVisible(false);        
     }
 
     @Override

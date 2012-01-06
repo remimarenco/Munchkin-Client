@@ -48,6 +48,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JRadioButton;
+import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
@@ -94,8 +96,7 @@ public class MunchkinVue extends JFrame {
         }
         initComponents(); 
         this.scrollPaneCarteEnCours.setVerticalScrollBarPolicy(this.scrollPaneCarteEnCours.VERTICAL_SCROLLBAR_NEVER);
-        initFont();
-      
+        initFont();     
     }
 
     private void initFont() throws FontFormatException, IOException, URISyntaxException{
