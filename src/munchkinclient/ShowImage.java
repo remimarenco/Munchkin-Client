@@ -32,11 +32,16 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
     private int height=110;
     private String name;
     private boolean click_allowed=false;
+    private boolean imageEnCours=false;
 
     public void setClick_allowed(boolean click_allowed) {
         this.click_allowed = click_allowed;
+        this.repaint();
     }
     
+    public String getImageName(){
+        return this.name;
+    }
     
     
     public ShowImage(String name, JFrame parent) {
@@ -46,8 +51,8 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
             setPreferredSize(new Dimension(this.width, this.height));
             File input = new File("src/munchkinclient/resources/cartes/"+this.name+".jpg");
             image = ImageIO.read(input);
-            addMouseListener(this);  
-            
+            addMouseListener(this);    
+             this.setOpaque(false);
         } catch (IOException ie) {
             System.out.println("Error:" + ie.getMessage());
         }
@@ -62,6 +67,8 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
             setPreferredSize(new Dimension(this.width, this.height));
             File input = new File("src/munchkinclient/resources/cartes/"+this.name+".jpg");
             image = ImageIO.read(input);
+             this.setOpaque(false);
+             this.imageEnCours=true;
             //addMouseListener(this);           
         } catch (IOException ie) {
             System.out.println("Error:" + ie.getMessage());
@@ -69,7 +76,18 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
     }
    
   public void paint(Graphics g) {      
-       g.drawImage( image, 0, 0,this.width,this.height, null); 
+       
+       if(click_allowed)
+            g.drawImage( image, 0, 0,this.width,this.height, null); 
+       else if(imageEnCours)
+           g.drawImage( image, 0, 0,this.width,this.height, null); 
+       else{
+           g.drawImage( image, 0, 0,this.width,this.height, null); 
+           g.setColor(new Color(255, 255, 255,155));
+           g.fillRect(0, 0, this.width, height);
+       }
+           
+       
        super.printBorder(g); //putain de salope de ligne , 
                             //tu pouvais pas le dire qu'il fallait que je t'écrive pour que les bordures marchent
   }

@@ -396,6 +396,9 @@ public class MunchkinVue extends JFrame {
             case Message.INTERVENTION:
                 allowClicOnCard(true);
                 break;
+            case Message.CARTES_JOUABLES:
+                allowClicOnCard(msg,true);
+                break;
                 
         }
     }
@@ -499,11 +502,18 @@ public class MunchkinVue extends JFrame {
         return ret;
     }
     
-    private void allowClicOnCard(boolean bool){
+     private void allowClicOnCard(boolean bool){
         JPanel p = (JPanel) this.scrollPaneMain.getViewport().getComponent(0);            
         if(p instanceof JPanel)
             for(Component c : p.getComponents())
              if(c instanceof ShowImage)
+                ((ShowImage)c).setClick_allowed(bool);
+    }
+    private void allowClicOnCard(Message msg ,boolean bool){
+        JPanel p = (JPanel) this.scrollPaneMain.getViewport().getComponent(0);            
+        if(p instanceof JPanel)
+            for(Component c : p.getComponents())
+             if(c instanceof ShowImage &&     msg.getMap().containsValue(((ShowImage)c).getImageName()))
                 ((ShowImage)c).setClick_allowed(bool);
     }
     
