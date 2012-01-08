@@ -71,7 +71,9 @@ public class MunchkinVue extends JFrame {
     private boolean connected = false;
     private boolean nickexist = false;
     private HashMap<String,JTextArea> mapInfosJoueurs=new HashMap<String, JTextArea>();
-    private HashMap<String,JTextPane> mapTxtToJoueurs=new HashMap<String, JTextPane>();    
+    private HashMap<String,JTextPane> mapTxtToJoueurs=new HashMap<String, JTextPane>();   
+    private int state;
+    
     
     
     /** Creates new form MunchkinVue */
@@ -392,10 +394,7 @@ public class MunchkinVue extends JFrame {
                 break;
             case Message.CARTE_EN_COURS:
                 miseaJourCarteEnCours(msg);
-                break;
-            case Message.INTERVENTION:
-                allowClicOnCard(true);
-                break;
+                break;            
             case Message.CARTES_JOUABLES:
                 allowClicOnCard(msg,true);
                 break;
@@ -502,19 +501,27 @@ public class MunchkinVue extends JFrame {
         return ret;
     }
     
-     private void allowClicOnCard(boolean bool){
+     private void disallowClicOnCard(){
         JPanel p = (JPanel) this.scrollPaneMain.getViewport().getComponent(0);            
         if(p instanceof JPanel)
             for(Component c : p.getComponents())
-             if(c instanceof ShowImage)
-                ((ShowImage)c).setClick_allowed(bool);
+             if(c instanceof ShowImage){
+                ((ShowImage)c).setClick_allowed(false);
+                ((ShowImage)c).setGrisee(false);
+             }
     }
+     
     private void allowClicOnCard(Message msg ,boolean bool){
         JPanel p = (JPanel) this.scrollPaneMain.getViewport().getComponent(0);            
         if(p instanceof JPanel)
             for(Component c : p.getComponents())
-             if(c instanceof ShowImage &&     msg.getMap().containsValue(((ShowImage)c).getImageName()))
+             if(c instanceof ShowImage &&  msg.getMap().containsValue(((ShowImage)c).getImageName())){
                 ((ShowImage)c).setClick_allowed(bool);
+                ((ShowImage)c).setGrisee(!bool);
+             }
+             else if(c instanceof ShowImage &&  !msg.getMap().containsValue(((ShowImage)c).getImageName()))
+                ((ShowImage)c).setGrisee(bool);
+             
     }
     
     private void playSound(Message msg) {
@@ -744,11 +751,11 @@ private void sendMessage(){
         }
 }
 
-public void poserCarte(String idCard){
-    Message msg= new Message(Message.POSER_CARTE, login, "Partie", idCard);
+public void envoyerCarte(String idCard){
+    Message msg= new Message(Message.INTERVENTION, login, "Partie", this.state,idCard);
     com.sendMessage(msg);
-    this.allowClicOnCard(false);
-}
+    this.disallowClicOnCard();
+}                    
 
 private void send_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_send_buttonActionPerformed
        sendMessage();
@@ -820,7 +827,8 @@ private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 }//GEN-LAST:event_jTextField1ActionPerformed
 
 private void buttonPoserCarteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPoserCarteActionPerformed
- com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_POSERCARTE));
+    this.state=Constantes.ACTION_POSERCARTE;
+    com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_POSERCARTE));
 }//GEN-LAST:event_buttonPoserCarteActionPerformed
 
 private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
@@ -854,11 +862,13 @@ private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
 }//GEN-LAST:event_jList1MouseClicked
 
 private void buttonAiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAiderActionPerformed
-com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_AIDER));
+    this.state=Constantes.ACTION_AIDER;
+    com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_AIDER));
 }//GEN-LAST:event_buttonAiderActionPerformed
 
 private void buttonPourrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPourrirActionPerformed
-com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_POURRIR));
+    this.state=Constantes.ACTION_POURRIR;
+    com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_POURRIR));
 }//GEN-LAST:event_buttonPourrirActionPerformed
 
     /**

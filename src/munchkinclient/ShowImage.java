@@ -32,12 +32,19 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
     private int height=110;
     private String name;
     private boolean click_allowed=false;
+    private boolean grisee=false;
     private boolean imageEnCours=false;
 
     public void setClick_allowed(boolean click_allowed) {
-        this.click_allowed = click_allowed;
+        this.click_allowed = click_allowed;       
         this.repaint();
     }
+
+    public void setGrisee(boolean grisee) {
+        this.grisee = grisee;
+        this.repaint();
+    }
+    
     
     public String getImageName(){
         return this.name;
@@ -76,19 +83,13 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
     }
    
   public void paint(Graphics g) {      
-       
-       if(click_allowed)
-            g.drawImage( image, 0, 0,this.width,this.height, null); 
-       else if(imageEnCours)
-           g.drawImage( image, 0, 0,this.width,this.height, null); 
-       else{
-           g.drawImage( image, 0, 0,this.width,this.height, null); 
+      g.drawImage( image, 0, 0,this.width,this.height, null); 
+      if(grisee && !imageEnCours){
            g.setColor(new Color(255, 255, 255,155));
            g.fillRect(0, 0, this.width, height);
-       }
-           
-       
-       super.printBorder(g); //putain de salope de ligne , 
+      }
+        
+       //super.printBorder(g); //putain de salope de ligne , 
                             //tu pouvais pas le dire qu'il fallait que je t'écrive pour que les bordures marchent
   }
 
@@ -97,8 +98,8 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
     public void mouseClicked(MouseEvent e) {
         
         if(click_allowed){                       
-            this.setBorder(BorderFactory.createLineBorder(Color.RED,5));            
-            //((MunchkinVue)this.parent).poserCarte(this.name);
+           // this.setBorder(BorderFactory.createLineBorder(Color.RED,5));            
+            ((MunchkinVue)this.parent).envoyerCarte(this.name);
         }        
     }
 
