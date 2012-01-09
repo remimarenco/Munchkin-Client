@@ -75,7 +75,7 @@ public class Connexion extends JDialog {
             }
         });
 
-        serveur_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "localhost", "192.168.0.17", "192.168.1.2", "meg4mi.no-ip.org", " " }));
+        serveur_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "localhost", "192.168.0.17", "192.168.1.2", "meg4mi.no-ip.org", "134.214.51.174", " " }));
 
         jLabel2.setText("Login :");
 
@@ -85,7 +85,7 @@ public class Connexion extends JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 297, Short.MAX_VALUE)
+            .addGap(0, 301, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -106,7 +106,7 @@ public class Connexion extends JDialog {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 122, Short.MAX_VALUE)
+            .addGap(0, 124, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(4, 4, 4)

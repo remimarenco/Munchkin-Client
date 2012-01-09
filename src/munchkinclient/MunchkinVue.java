@@ -144,7 +144,7 @@ public class MunchkinVue extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel = new BackgroundPanel("src/munchkinclient/resources/bg5.jpg");
+        jPanel = new BackgroundPanel("src/munchkinclient/resources/bg4.jpg");
         send_button = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -342,15 +342,15 @@ public class MunchkinVue extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1059, Short.MAX_VALUE)
+            .addGap(0, 1067, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1059, Short.MAX_VALUE))
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1067, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 766, Short.MAX_VALUE)
+            .addGap(0, 777, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 766, Short.MAX_VALUE))
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 777, Short.MAX_VALUE))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
