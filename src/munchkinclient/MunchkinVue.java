@@ -49,6 +49,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
@@ -78,7 +79,11 @@ public class MunchkinVue extends JFrame {
     
     /** Creates new form MunchkinVue */
     public MunchkinVue() throws FontFormatException, IOException, URISyntaxException {
-        initComponents(); 
+        UIManager.put("nimbusBase", new ColorUIResource(62,35, 2));         
+        UIManager.put("nimbusFocus", new ColorUIResource(62,35, 2));         
+        UIManager.put("nimbusLightBackground", new ColorUIResource(244,233,211));           
+        UIManager.put("control", new ColorUIResource(172, 158,123));        
+        initComponents();        
         this.scrollPaneCarteEnCours.setVerticalScrollBarPolicy(this.scrollPaneCarteEnCours.VERTICAL_SCROLLBAR_NEVER);
         initFont();        
     }
@@ -184,6 +189,7 @@ public class MunchkinVue extends JFrame {
         });
         jPanel.add(send_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 330, 130, 40));
 
+        jTextField1.setBackground(new java.awt.Color(244, 233, 211));
         jTextField1.setText("Tapez votre texte ici");
         jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -202,6 +208,7 @@ public class MunchkinVue extends JFrame {
         });
         jPanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 420, 40));
 
+        jList1.setBackground(new java.awt.Color(244, 233, 211));
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jList1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -221,7 +228,7 @@ public class MunchkinVue extends JFrame {
 
         jScrollPane2.setBackground(new java.awt.Color(50, 148, 45));
 
-        jTextPane1.setBackground(new java.awt.Color(254, 254, 254));
+        jTextPane1.setBackground(new java.awt.Color(244, 233, 211));
         jTextPane1.setEditable(false);
         jScrollPane2.setViewportView(jTextPane1);
 
@@ -255,11 +262,14 @@ public class MunchkinVue extends JFrame {
 
         tabbedPaneJeuxJoueurs.setBackground(new java.awt.Color(168, 137, 59));
 
+        scrollPaneJeux.setBackground(new java.awt.Color(0, 102, 0));
+        scrollPaneJeux.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         scrollPaneJeux.setName("Mon Jeu"); // NOI18N
         tabbedPaneJeuxJoueurs.addTab("Mon Jeu", scrollPaneJeux);
 
         jPanel.add(tabbedPaneJeuxJoueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 726, 162));
 
+        textAreaInfos.setBackground(new java.awt.Color(244, 233, 211));
         textAreaInfos.setColumns(20);
         textAreaInfos.setRows(5);
         scrollPaneInfos.setViewportView(textAreaInfos);
@@ -269,7 +279,6 @@ public class MunchkinVue extends JFrame {
         jPanel.add(tabbedPaneInfosJoueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 200, 200, 180));
 
         buttonPoserCarte.setBackground(new java.awt.Color(168, 137, 59));
-        buttonPoserCarte.setForeground(new java.awt.Color(255, 255, 255));
         buttonPoserCarte.setText("Poser une carte");
         buttonPoserCarte.setEnabled(false);
         buttonPoserCarte.addActionListener(new java.awt.event.ActionListener() {
@@ -280,11 +289,13 @@ public class MunchkinVue extends JFrame {
         jPanel.add(buttonPoserCarte, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 410, 190, 40));
 
         jTabbedPane2.setBackground(new java.awt.Color(168, 137, 59));
+
+        scrollPaneMain.setBackground(new java.awt.Color(0, 102, 0));
+        scrollPaneMain.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         jTabbedPane2.addTab("Ma Main", scrollPaneMain);
 
         jPanel.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 550, 730, 150));
 
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Carte en cours");
         jPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, -1, -1));
 
