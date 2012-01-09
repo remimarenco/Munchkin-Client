@@ -22,7 +22,7 @@ public class ImageGlassPane extends JComponent  {
             ,double y) {
         this.image=img;
         this.x=x;
-        this.y=335.0;
+        this.y=312.0;
     }
 
     

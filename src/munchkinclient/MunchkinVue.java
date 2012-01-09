@@ -78,20 +78,9 @@ public class MunchkinVue extends JFrame {
     
     /** Creates new form MunchkinVue */
     public MunchkinVue() throws FontFormatException, IOException, URISyntaxException {
-        try {
-            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
-        }
         initComponents(); 
         this.scrollPaneCarteEnCours.setVerticalScrollBarPolicy(this.scrollPaneCarteEnCours.VERTICAL_SCROLLBAR_NEVER);
-        initFont();     
+        initFont();        
     }
 
     private void initFont() throws FontFormatException, IOException, URISyntaxException{
@@ -175,6 +164,7 @@ public class MunchkinVue extends JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Munchkin");
+        setResizable(false);
 
         jPanel.setBackground(new java.awt.Color(231, 212, 181));
         jPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -222,6 +212,7 @@ public class MunchkinVue extends JFrame {
 
         jPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 21, 200, 120));
 
+        jTabbedPane1.setBackground(new java.awt.Color(168, 137, 59));
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabbedPane1MouseClicked(evt);
@@ -242,6 +233,7 @@ public class MunchkinVue extends JFrame {
         labelActionPrompt.setText("Action :");
         jPanel.add(labelActionPrompt, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 150, -1, -1));
 
+        buttonNon.setBackground(new java.awt.Color(168, 137, 59));
         buttonNon.setText("Non");
         buttonNon.setEnabled(false);
         buttonNon.addActionListener(new java.awt.event.ActionListener() {
@@ -251,6 +243,7 @@ public class MunchkinVue extends JFrame {
         });
         jPanel.add(buttonNon, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 170, -1, -1));
 
+        buttonYes.setBackground(new java.awt.Color(168, 137, 59));
         buttonYes.setText("Oui");
         buttonYes.setEnabled(false);
         buttonYes.addActionListener(new java.awt.event.ActionListener() {
@@ -259,6 +252,8 @@ public class MunchkinVue extends JFrame {
             }
         });
         jPanel.add(buttonYes, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 170, -1, -1));
+
+        tabbedPaneJeuxJoueurs.setBackground(new java.awt.Color(168, 137, 59));
 
         scrollPaneJeux.setName("Mon Jeu"); // NOI18N
         tabbedPaneJeuxJoueurs.addTab("Mon Jeu", scrollPaneJeux);
@@ -273,7 +268,8 @@ public class MunchkinVue extends JFrame {
 
         jPanel.add(tabbedPaneInfosJoueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 200, 200, 180));
 
-        buttonPoserCarte.setForeground(new java.awt.Color(255, 0, 0));
+        buttonPoserCarte.setBackground(new java.awt.Color(168, 137, 59));
+        buttonPoserCarte.setForeground(new java.awt.Color(255, 255, 255));
         buttonPoserCarte.setText("Poser une carte");
         buttonPoserCarte.setEnabled(false);
         buttonPoserCarte.addActionListener(new java.awt.event.ActionListener() {
@@ -281,8 +277,9 @@ public class MunchkinVue extends JFrame {
                 buttonPoserCarteActionPerformed(evt);
             }
         });
-        jPanel.add(buttonPoserCarte, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 410, 140, 67));
+        jPanel.add(buttonPoserCarte, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 410, 190, 40));
 
+        jTabbedPane2.setBackground(new java.awt.Color(168, 137, 59));
         jTabbedPane2.addTab("Ma Main", scrollPaneMain);
 
         jPanel.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 550, 730, 150));
@@ -295,6 +292,7 @@ public class MunchkinVue extends JFrame {
         scrollPaneCarteEnCours.setHorizontalScrollBar(null);
         jPanel.add(scrollPaneCarteEnCours, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 30, 260, 350));
 
+        buttonAider.setBackground(new java.awt.Color(168, 137, 59));
         buttonAider.setText("Aider");
         buttonAider.setEnabled(false);
         buttonAider.addActionListener(new java.awt.event.ActionListener() {
@@ -302,8 +300,9 @@ public class MunchkinVue extends JFrame {
                 buttonAiderActionPerformed(evt);
             }
         });
-        jPanel.add(buttonAider, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 490, 140, 70));
+        jPanel.add(buttonAider, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 460, 190, 40));
 
+        buttonPourrir.setBackground(new java.awt.Color(168, 137, 59));
         buttonPourrir.setText("Pourrir");
         buttonPourrir.setEnabled(false);
         buttonPourrir.addActionListener(new java.awt.event.ActionListener() {
@@ -311,10 +310,10 @@ public class MunchkinVue extends JFrame {
                 buttonPourrirActionPerformed(evt);
             }
         });
-        jPanel.add(buttonPourrir, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 570, 140, 70));
+        jPanel.add(buttonPourrir, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 510, 190, 40));
 
         jMenuBar1.setBackground(new java.awt.Color(179, 127, 81));
-        jMenuBar1.setFont(new java.awt.Font("DejaVu Sans Light", 0, 13));
+        jMenuBar1.setFont(new java.awt.Font("DejaVu Sans Light", 0, 13)); // NOI18N
 
         fileMenu.setText("File");
 
@@ -348,13 +347,13 @@ public class MunchkinVue extends JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 777, Short.MAX_VALUE)
+            .addGap(0, 712, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 777, Short.MAX_VALUE))
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-1075)/2, (screenSize.height-825)/2, 1075, 825);
+        setBounds((screenSize.width-1075)/2, (screenSize.height-760)/2, 1075, 760);
     }// </editor-fold>//GEN-END:initComponents
 
    
