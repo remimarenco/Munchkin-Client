@@ -8,6 +8,8 @@ package munchkinclient;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * 
@@ -54,7 +56,7 @@ public class Communication extends Thread{
     }
 
     catch(Exception e){
-        System.out.println(e.toString());
+        Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, e);
     }
     }
 }

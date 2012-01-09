@@ -89,8 +89,8 @@ public class MunchkinVue extends JFrame {
     }
 
     private void initFont() throws FontFormatException, IOException, URISyntaxException{
-        Font font1= Font.createFont(Font.TRUETYPE_FONT, new File("src/munchkinclient/resources/text.ttf"));
-        Font font2= Font.createFont(Font.TRUETYPE_FONT, new File("src/munchkinclient/resources/Windlass.ttf"));
+        Font font1= Font.createFont(Font.TRUETYPE_FONT, new File(MunchkinVue.class.getResource("resources/text.ttf").toURI()));
+        Font font2= Font.createFont(Font.TRUETYPE_FONT, new File(MunchkinVue.class.getResource("resources/Windlass.ttf").toURI()));
         
         font1=font1.deriveFont(18f);
         //font1=font1.deriveFont(Font.BOLD);
@@ -138,7 +138,7 @@ public class MunchkinVue extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel = new BackgroundPanel("src/munchkinclient/resources/bg4.jpg");
+        jPanel = new BackgroundPanel(MunchkinVue.class.getResource("resources/bg4.jpg").toString());
         send_button = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -381,15 +381,15 @@ public class MunchkinVue extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1197, Short.MAX_VALUE)
+            .addGap(0, 1195, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1197, Short.MAX_VALUE))
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1195, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 712, Short.MAX_VALUE)
+            .addGap(0, 699, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE))
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -403,7 +403,7 @@ public class MunchkinVue extends JFrame {
      * @param msg
      * @param com 
      */
-     public void interpretMessage(Message msg, Communication com) {        
+     public void interpretMessage(Message msg, Communication com) throws URISyntaxException {
         switch (msg.getType()) {
             case Message.MESSAGE:
                 miseaJour(msg);
@@ -583,7 +583,8 @@ public class MunchkinVue extends JFrame {
         AudioInputStream ais = null;
         try {
             //WaveFileReader wfr = new WaveFileReader();
-            ais=AudioSystem.getAudioInputStream(new File("src/munchkinclient/resources/songs/"+msg.getAction()+".wav"));
+            ais = AudioSystem.getAudioInputStream(MunchkinVue.class.getResource("resources/songs/"+msg.getAction()+".WAV"));
+            //ais=AudioSystem.getAudioInputStream(new File("src/munchkinclient/resources/songs/"+msg.getAction()+".wav"));
             //ais = wfr.getAudioInputStream(new File("src/munchkinclient/resources/songs/"+msg.getAction()+".wav"));
             DataLine.Info info = new DataLine.Info(Clip.class, ais.getFormat());
             Clip c=(Clip)AudioSystem.getLine(info);
@@ -619,7 +620,7 @@ public class MunchkinVue extends JFrame {
         
     }
       
-    private void miseaJourJeuxJoueur(Message msg) {
+    private void miseaJourJeuxJoueur(Message msg) throws URISyntaxException {
          String name=msg.getNick_dest();
             if(name.equals(login))
                 name="Mon Jeu"; 
@@ -642,7 +643,7 @@ public class MunchkinVue extends JFrame {
         
     }    
     
-    private void miseaJourMainJoueur(Message msg) {
+    private void miseaJourMainJoueur(Message msg) throws URISyntaxException {
        JPanel imgView=new JPanel(new FlowLayout(FlowLayout.LEFT)); 
         for(Map.Entry<String,String> m: msg.getMap().entrySet())                          
                imgView.add(
@@ -651,7 +652,7 @@ public class MunchkinVue extends JFrame {
         //imgView.setBorder(BorderFactory.createLineBorder(Color.red));
     }    
     
-    private void miseaJourCarteEnCours(Message msg) {
+    private void miseaJourCarteEnCours(Message msg) throws URISyntaxException {
 
         JPanel imgView = new JPanel();
         imgView.add(new ShowImage(msg.getMessage(), this,this.scrollPaneCarteEnCours.getWidth()

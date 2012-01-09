@@ -15,6 +15,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -51,12 +52,12 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
     }
     
     
-    public ShowImage(String name, JFrame parent) {
+    public ShowImage(String name, JFrame parent) throws URISyntaxException {
         try {
             this.parent = parent;
             this.name=name;
             setPreferredSize(new Dimension(this.width, this.height));
-            File input = new File("src/munchkinclient/resources/cartes/"+this.name+".jpg");
+            File input = new File(MunchkinVue.class.getResource("resources/cartes/"+this.name+".jpg").toURI());
             image = ImageIO.read(input);
             addMouseListener(this);    
              this.setOpaque(false);
@@ -65,14 +66,14 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
         }
     }
 
-    public ShowImage(String name, JFrame parent, int width, int height) {
+    public ShowImage(String name, JFrame parent, int width, int height) throws URISyntaxException {
         try {
             this.name=name;
             this.width = width;
             this.height = height;
             this.parent = parent;
             setPreferredSize(new Dimension(this.width, this.height));
-            File input = new File("src/munchkinclient/resources/cartes/"+this.name+".jpg");
+            File input = new File(MunchkinVue.class.getResource("resources/cartes/"+this.name+".jpg").toURI());
             image = ImageIO.read(input);
              this.setOpaque(false);
              this.imageEnCours=true;
