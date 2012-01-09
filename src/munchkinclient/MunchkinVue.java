@@ -25,6 +25,7 @@ import java.net.ConnectException;
 import java.net.Socket;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -39,6 +40,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -83,8 +85,9 @@ public class MunchkinVue extends JFrame {
         UIManager.put("nimbusLightBackground", new ColorUIResource(244,233,211));           
         UIManager.put("control", new ColorUIResource(172, 158,123));        
         initComponents();        
-        this.scrollPaneCarteEnCours.setVerticalScrollBarPolicy(this.scrollPaneCarteEnCours.VERTICAL_SCROLLBAR_NEVER);
-        initFont();  
+        initFont();
+        
+        
         //pour un commit
     }
 
@@ -156,7 +159,7 @@ public class MunchkinVue extends JFrame {
         scrollPaneInfos = new javax.swing.JScrollPane();
         textAreaInfos = new javax.swing.JTextArea();
         buttonPoserCarte = new javax.swing.JButton();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
+        tabbedPaneMainJoueur = new javax.swing.JTabbedPane();
         scrollPaneMain = new javax.swing.JScrollPane();
         jLabel1 = new javax.swing.JLabel();
         scrollPaneCarteEnCours = new javax.swing.JScrollPane();
@@ -295,18 +298,20 @@ public class MunchkinVue extends JFrame {
         });
         jPanel.add(buttonPoserCarte, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 400, 190, 40));
 
-        jTabbedPane2.setBackground(new java.awt.Color(168, 137, 59));
+        tabbedPaneMainJoueur.setBackground(new java.awt.Color(168, 137, 59));
 
         scrollPaneMain.setBackground(new java.awt.Color(0, 102, 0));
         scrollPaneMain.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        jTabbedPane2.addTab("Ma Main", scrollPaneMain);
+        tabbedPaneMainJoueur.addTab("Ma Main", scrollPaneMain);
 
-        jPanel.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 550, 730, 150));
+        jPanel.add(tabbedPaneMainJoueur, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 550, 730, 150));
 
         jLabel1.setText("Carte en cours");
         jPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 10, -1, -1));
 
         scrollPaneCarteEnCours.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        scrollPaneCarteEnCours.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPaneCarteEnCours.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         scrollPaneCarteEnCours.setHorizontalScrollBar(null);
         jPanel.add(scrollPaneCarteEnCours, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 30, 260, 350));
 
@@ -437,10 +442,10 @@ public class MunchkinVue extends JFrame {
             case Message.CARTES_JOUABLES:
                 allowClicOnCard(msg,true);
                 break;
-            case Message.INFO_CAMPGENTIL:
+            case Message.INFO_CAMPS:
+                miseaJourInfosCamps(msg);
                 break;
-            case Message.INFO_CAMPMECHANT:
-                break;               
+                    
                 
         }
     }
@@ -619,6 +624,22 @@ public class MunchkinVue extends JFrame {
                 m.getValue().setText(out);         
         
     }
+    
+    
+    private void miseaJourInfosCamps(Message msg) {
+         JList selectedList=this.listCampGentil;
+         ArrayList<String> listData=new ArrayList<String>();
+         for(Map.Entry<String,String> m: msg.getMap().entrySet()){
+             if(m.getKey().equals("Camp Mechant")){
+                 listData.clear();
+                 selectedList=this.listCampMechant;
+             }
+             
+             listData.add(m.getKey()+ " : " +m.getValue());
+             selectedList.setListData(listData.toArray());
+         }
+    }
+
       
     private void miseaJourJeuxJoueur(Message msg) throws URISyntaxException {
          String name=msg.getNick_dest();
@@ -994,7 +1015,6 @@ private void buttonPourrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JLabel labelActionPrompt;
@@ -1011,6 +1031,7 @@ private void buttonPourrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     private javax.swing.JTabbedPane tabbedPaneCampMechant;
     private javax.swing.JTabbedPane tabbedPaneInfosJoueurs;
     private javax.swing.JTabbedPane tabbedPaneJeuxJoueurs;
+    private javax.swing.JTabbedPane tabbedPaneMainJoueur;
     private javax.swing.JTextArea textAreaInfos;
     // End of variables declaration//GEN-END:variables
 

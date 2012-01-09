@@ -20,6 +20,7 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.TransferHandler;
 
 /**
  *
@@ -35,6 +36,7 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
     private boolean click_allowed=false;
     private boolean grisee=false;
     private boolean imageEnCours=false;
+    private TransferHandler th;
 
     public void setClick_allowed(boolean click_allowed) {
         this.click_allowed = click_allowed;       
@@ -59,8 +61,8 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
             setPreferredSize(new Dimension(this.width, this.height));
             File input = new File(MunchkinVue.class.getResource("resources/cartes/"+this.name+".jpg").toURI());
             image = ImageIO.read(input);
-            addMouseListener(this);    
-             this.setOpaque(false);
+            addMouseListener(this);  
+            this.setOpaque(false);             
         } catch (IOException ie) {
             System.out.println("Error:" + ie.getMessage());
         }
@@ -129,8 +131,8 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
     }
 
     @Override
-    public void dragGestureRecognized(DragGestureEvent dge) {
-       
+    public void dragGestureRecognized(DragGestureEvent dge) {        
+      
     }
    
   

@@ -21,8 +21,8 @@ public class ImageGlassPane extends JComponent  {
     public ImageGlassPane(BufferedImage img,double x
             ,double y) {
         this.image=img;
-        this.x=x;
-        this.y=312.0;
+        this.x=x+40;
+        this.y=312.0;        
     }
 
     
