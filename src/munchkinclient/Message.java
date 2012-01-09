@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package munchkinclient;
 
 import java.awt.Color;
@@ -18,104 +14,144 @@ import java.util.HashMap;
 public class Message {
     
     
-      public static final int CONNECT=0;
-        public static final int DISCONNECT=1;
-        public static final int MESSAGE=2;
-        public static final int LISTE=3;       
-        public static final int NICKEXIST=5;        
-        public static final int QUESTION=7;
-        public static final int INTERVENTION=8;
-        public static final int SOUND=9;
-        public static final int CARTE_EN_COURS=10;        
-        public static final int INFO_JOUEUR=80;
-        public static final int JEUX_JOUEUR=81;
-        public static final int MAIN_JOUEUR=82;
-        public static final int CARTES_JOUABLES=83;
-        
-        
-        
-        
-        private String nick_src="";     
-        private String nick_dest="";    
-        private String message="";
-        private String idCard=new String();
-        private int type;
-        private int action;
-        private Color color;
-        private HashMap<String,String> map;
-        
-        
+    public static final int CONNECT           = 0;
+    public static final int DISCONNECT        = 1;
+    public static final int MESSAGE           = 2;
+    public static final int LISTE             = 3;       
+    public static final int NICKEXIST         = 5;        
+    public static final int QUESTION          = 7;
+    public static final int INTERVENTION      = 8;
+    public static final int SOUND             = 9;
+    public static final int CARTE_EN_COURS    = 10;        
+    public static final int INFO_JOUEUR       = 80;
+    public static final int JEUX_JOUEUR       = 81;
+    public static final int MAIN_JOUEUR       = 82;
+    public static final int INFO_CAMPGENTIL   = 83;
+    public static final int INFO_CAMPMECHANT  = 84; 
+    public static final int CARTE_CAMPGENTIL  = 85; 
+    public static final int CARTE_CAMPMECHANT = 86; 
+    public static final int CARTES_JOUABLES   = 87;
+            
+    private String nick_src     = "";     
+    private String nick_dest    = "";    
+    private String message      = "";
+    private String idCard       = new String();
+    
+    private int type;
+    private int action;
+    private Color color;
+    private HashMap<String,String> map;
+    
+    /**
+     * Constructeur par défaut
+     */
+    public Message(){}
 
- public Message(){}
-
- public Message(int type,String nick_src){
-            this.type=type;
-            this.nick_src=nick_src;           
-        }
-  public Message(int type,String nick_src,String nick_dest){
-            this.type=type;
-            this.nick_src=nick_src; 
-            this.nick_dest=nick_dest;
-        }
- /**
-  * 
-  * @param type
-  * @param nick_src
-  * @param nick_dest
-  * @param msg 
-  */
- public Message(int type,String nick_src,String nick_dest,String msg){
-            this.type=type;            
-            this.nick_src=nick_src;          
-            this.nick_dest=nick_dest;        
-            this.message=msg;
-            this.color=Color.BLACK;
-        }
-  public Message(int type,String nick_src,String nick_dest,int action){
-            this.type=type;            
-            this.nick_src=nick_src;          
-            this.nick_dest=nick_dest;        
-            this.action=action;
-            this.color=Color.BLACK;
-            this.idCard=new String();
-        }
-   public Message(int type,String nick_src,String nick_dest,int action,String idCard){
-            this.type=type;            
-            this.nick_src=nick_src;          
-            this.nick_dest=nick_dest;        
-            this.action=action;
-            this.color=Color.BLACK;
-            this.idCard=idCard;
-        }
- /**
-  * 
-  * @param type
-  * @param nick_src
-  * @param nick_dest
-  * @param map 
-  */
-  public Message(int type,String nick_src,String nick_dest,HashMap<String,String> map){
-            this.type=type;            
-            this.nick_src=nick_src;          
-            this.nick_dest=nick_dest;        
-            this.map=map;            
-        }
- /**
-  * 
-  * @param type
-  * @param nick_src
-  * @param nick_dest
-  * @param msg
-  * @param color 
-  */
+    
+    /**
+     * Constructeur
+     * @param type
+     * @param nick_src 
+     */
+    public Message(int type,String nick_src){
+        this.type       = type;
+        this.nick_src   = nick_src;           
+    }
+  
+    
+    /**
+     * Constructeur
+     * @param type
+     * @param nick_src
+     * @param nick_dest 
+     */
+    public Message(int type,String nick_src,String nick_dest){
+        this.type       = type;
+        this.nick_src   = nick_src; 
+        this.nick_dest  = nick_dest;
+    }
+    
+     /**
+      * Constructeur
+      * @param type
+      * @param nick_src
+      * @param nick_dest
+      * @param msg 
+      */
+    public Message(int type,String nick_src,String nick_dest,String msg){
+        this.type       = type;            
+        this.nick_src   = nick_src;          
+        this.nick_dest  = nick_dest;        
+        this.message    = msg;
+        this.color      = Color.BLACK;
+    }
+    
+    /**
+     * Constructeur
+     * @param type
+     * @param nick_src
+     * @param nick_dest
+     * @param action 
+     */
+    public Message(int type,String nick_src,String nick_dest,int action){
+        this.type       = type;            
+        this.nick_src   = nick_src;          
+        this.nick_dest  = nick_dest;        
+        this.action     = action;
+        this.color      = Color.BLACK;
+        this.idCard     = new String();
+    }
+    
+    
+    /**
+     * Constructeur
+     * @param type
+     * @param nick_src
+     * @param nick_dest
+     * @param action
+     * @param idCard 
+     */
+    public Message(int type,String nick_src,String nick_dest,int action,String idCard){
+        this.type       = type;            
+        this.nick_src   = nick_src;          
+        this.nick_dest  = nick_dest;        
+        this.action     = action;
+        this.color      = Color.BLACK;
+        this.idCard     = idCard;
+    }
+   
+    
+    /**
+     * Constructeur
+     * @param type
+     * @param nick_src
+     * @param nick_dest
+     * @param map 
+     */
+    public Message(int type,String nick_src,String nick_dest,HashMap<String,String> map){
+        this.type       = type;            
+        this.nick_src   = nick_src;          
+        this.nick_dest  = nick_dest;        
+        this.map        = map;            
+    }
+    
+    
+   /**
+    * Constructeur
+    * @param type
+    * @param nick_src
+    * @param nick_dest
+    * @param msg
+    * @param color 
+    */
    public Message(int type,String nick_src,String nick_dest,String msg,Color color){
-            this.type=type;            
-            this.nick_src=nick_src;           
-            this.color=color;        
-            this.nick_dest=nick_dest;       
-            this.message=msg;
-           
-        }
+        this.type       = type;            
+        this.nick_src   = nick_src;           
+        this.color      = color;        
+        this.nick_dest  = nick_dest;       
+        this.message    = msg;
+   }
+   
 
    /**
     * Methode qui lit un message qui arrive sur le socket
@@ -124,30 +160,27 @@ public class Message {
     */
     public boolean read(DataInputStream in) {
         try{
-            ObjectInputStream ois= new ObjectInputStream(in);
-                type=in.readInt();
-                
-                nick_src=in.readUTF();
+            ObjectInputStream ois = new ObjectInputStream(in);
+            type     = in.readInt();        
+            nick_src = in.readUTF();
 
-                if(type>DISCONNECT){                      
-                    nick_dest=in.readUTF();  
-                    if(type<INFO_JOUEUR && type!=INTERVENTION && type!=SOUND){
+            if(type > DISCONNECT){                      
+                nick_dest=in.readUTF();  
+                if(type < INFO_JOUEUR && type != INTERVENTION && type != SOUND){
                     message=in.readUTF();                  
                     color=(Color) ois.readObject();
-                    }
-                    if(type==INTERVENTION || type==SOUND)
-                        action=in.readInt();
-                    if(type==INTERVENTION)
-                        idCard=in.readUTF();
-                    if(type>=INFO_JOUEUR)
-                        this.map=(HashMap<String,String>)ois.readObject();
                 }
-                
-                 return true;
-            }
-            catch(Exception e){
-                return false;
-            }
+                if(type == INTERVENTION || type==SOUND)
+                    action = in.readInt();
+                if(type == INTERVENTION)
+                    idCard = in.readUTF();
+                if(type >= INFO_JOUEUR)
+                    this.map=(HashMap<String,String>)ois.readObject();
+            }    
+            return true;
+        } catch(Exception e) {
+            return false;
+        }
     }
 
     /**
@@ -158,29 +191,29 @@ public class Message {
     public boolean write(DataOutputStream out) {
         try{
             ObjectOutputStream oos=new ObjectOutputStream(out);
-                out.writeInt(type);
+            out.writeInt(type);
                 
-                out.writeUTF(nick_src);
-                if(type>DISCONNECT){
-                    out.writeUTF(nick_dest);
-                    if(type<INFO_JOUEUR && type!=INTERVENTION && type!=SOUND){
-                    out.writeUTF(message);                    
-                    oos.writeObject(color);   
-                    }
-                    if(type==INTERVENTION || type==SOUND)
-                        out.writeInt(action);
-                    if(type==INTERVENTION)
-                        out.writeUTF(idCard);
-                    if(type>=INFO_JOUEUR){
-                        oos.writeObject(this.map);
-                    }
-                }                 
+            out.writeUTF(nick_src);
+            if(type>DISCONNECT){
+                out.writeUTF(nick_dest);
+                if(type<INFO_JOUEUR && type!=INTERVENTION && type!=SOUND){
+                out.writeUTF(message);                    
+                oos.writeObject(color);   
+            }
+            if(type==INTERVENTION || type==SOUND)
+                out.writeInt(action);
+                if(type==INTERVENTION)
+                    out.writeUTF(idCard);
+                if(type>=INFO_JOUEUR){
+                    oos.writeObject(this.map);
+                }
+            }                 
                    
-               return true;
-            }
-            catch(Exception e){
+            return true;
+        }
+        catch(Exception e){
             return false;
-            }
+        }
     }
 
     public int getType() {
@@ -190,7 +223,6 @@ public class Message {
     public String getIdCard() {
         return idCard;
     }
-    
 
     public String getMessage() {
         return this.message;
@@ -215,5 +247,4 @@ public class Message {
     public int getAction() {
         return action;
     }
-       
 }

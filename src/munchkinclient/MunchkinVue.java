@@ -48,7 +48,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
@@ -162,6 +161,13 @@ public class MunchkinVue extends JFrame {
         jLabel1 = new javax.swing.JLabel();
         scrollPaneCarteEnCours = new javax.swing.JScrollPane();
         buttonAider = new javax.swing.JButton();
+        buttonDefausser = new javax.swing.JButton();
+        tabbedPaneCampMechant = new javax.swing.JTabbedPane();
+        scrollPaneCampMechant = new javax.swing.JScrollPane();
+        listCampMechant = new javax.swing.JList();
+        tabbedPaneCampGentil = new javax.swing.JTabbedPane();
+        scrollPaneCampGentil = new javax.swing.JScrollPane();
+        listCampGentil = new javax.swing.JList();
         buttonPourrir = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
@@ -188,7 +194,7 @@ public class MunchkinVue extends JFrame {
                 send_buttonActionPerformed(evt);
             }
         });
-        jPanel.add(send_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 330, 130, 40));
+        jPanel.add(send_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 330, 130, 40));
 
         jTextField1.setBackground(new java.awt.Color(244, 233, 211));
         jTextField1.setText("Tapez votre texte ici");
@@ -207,7 +213,7 @@ public class MunchkinVue extends JFrame {
                 jTextField1KeyPressed(evt);
             }
         });
-        jPanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 420, 40));
+        jPanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 420, 40));
 
         jList1.setBackground(new java.awt.Color(244, 233, 211));
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -218,7 +224,7 @@ public class MunchkinVue extends JFrame {
         });
         jScrollPane1.setViewportView(jList1);
 
-        jPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(571, 21, 200, 120));
+        jPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, 200, 120));
 
         jTabbedPane1.setBackground(new java.awt.Color(168, 137, 59));
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -235,11 +241,11 @@ public class MunchkinVue extends JFrame {
 
         jTabbedPane1.addTab("Partie", jScrollPane2);
 
-        jPanel.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 555, 320));
+        jPanel.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 555, 320));
         jPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 388, 32767, -1));
 
         labelActionPrompt.setText("Action :");
-        jPanel.add(labelActionPrompt, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 150, -1, -1));
+        jPanel.add(labelActionPrompt, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 150, -1, -1));
 
         buttonNon.setBackground(new java.awt.Color(168, 137, 59));
         buttonNon.setText("Non");
@@ -249,7 +255,7 @@ public class MunchkinVue extends JFrame {
                 buttonNonActionPerformed(evt);
             }
         });
-        jPanel.add(buttonNon, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 170, -1, -1));
+        jPanel.add(buttonNon, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 170, -1, -1));
 
         buttonYes.setBackground(new java.awt.Color(168, 137, 59));
         buttonYes.setText("Oui");
@@ -259,7 +265,7 @@ public class MunchkinVue extends JFrame {
                 buttonYesActionPerformed(evt);
             }
         });
-        jPanel.add(buttonYes, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 170, -1, -1));
+        jPanel.add(buttonYes, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 170, -1, -1));
 
         tabbedPaneJeuxJoueurs.setBackground(new java.awt.Color(168, 137, 59));
 
@@ -268,7 +274,7 @@ public class MunchkinVue extends JFrame {
         scrollPaneJeux.setName("Mon Jeu"); // NOI18N
         tabbedPaneJeuxJoueurs.addTab("Mon Jeu", scrollPaneJeux);
 
-        jPanel.add(tabbedPaneJeuxJoueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 726, 162));
+        jPanel.add(tabbedPaneJeuxJoueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, 726, 162));
 
         textAreaInfos.setBackground(new java.awt.Color(244, 233, 211));
         textAreaInfos.setColumns(20);
@@ -277,7 +283,7 @@ public class MunchkinVue extends JFrame {
 
         tabbedPaneInfosJoueurs.addTab("Mes Infos", scrollPaneInfos);
 
-        jPanel.add(tabbedPaneInfosJoueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 200, 200, 180));
+        jPanel.add(tabbedPaneInfosJoueurs, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 200, 200, 180));
 
         buttonPoserCarte.setBackground(new java.awt.Color(168, 137, 59));
         buttonPoserCarte.setText("Poser une carte");
@@ -287,7 +293,7 @@ public class MunchkinVue extends JFrame {
                 buttonPoserCarteActionPerformed(evt);
             }
         });
-        jPanel.add(buttonPoserCarte, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 410, 190, 40));
+        jPanel.add(buttonPoserCarte, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 400, 190, 40));
 
         jTabbedPane2.setBackground(new java.awt.Color(168, 137, 59));
 
@@ -295,14 +301,14 @@ public class MunchkinVue extends JFrame {
         scrollPaneMain.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         jTabbedPane2.addTab("Ma Main", scrollPaneMain);
 
-        jPanel.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 550, 730, 150));
+        jPanel.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 550, 730, 150));
 
         jLabel1.setText("Carte en cours");
-        jPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, -1, -1));
+        jPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 10, -1, -1));
 
         scrollPaneCarteEnCours.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         scrollPaneCarteEnCours.setHorizontalScrollBar(null);
-        jPanel.add(scrollPaneCarteEnCours, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 30, 260, 350));
+        jPanel.add(scrollPaneCarteEnCours, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 30, 260, 350));
 
         buttonAider.setBackground(new java.awt.Color(168, 137, 59));
         buttonAider.setText("Aider");
@@ -312,7 +318,29 @@ public class MunchkinVue extends JFrame {
                 buttonAiderActionPerformed(evt);
             }
         });
-        jPanel.add(buttonAider, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 460, 190, 40));
+        jPanel.add(buttonAider, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 450, 190, 40));
+
+        buttonDefausser.setBackground(new java.awt.Color(168, 137, 59));
+        buttonDefausser.setText("Defausser");
+        buttonDefausser.setEnabled(false);
+        buttonDefausser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDefausserActionPerformed(evt);
+            }
+        });
+        jPanel.add(buttonDefausser, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 550, 190, 40));
+
+        scrollPaneCampMechant.setViewportView(listCampMechant);
+
+        tabbedPaneCampMechant.addTab("Mechant", scrollPaneCampMechant);
+
+        jPanel.add(tabbedPaneCampMechant, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 130, 370));
+
+        scrollPaneCampGentil.setViewportView(listCampGentil);
+
+        tabbedPaneCampGentil.addTab("Gentil", scrollPaneCampGentil);
+
+        jPanel.add(tabbedPaneCampGentil, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 130, 310));
 
         buttonPourrir.setBackground(new java.awt.Color(168, 137, 59));
         buttonPourrir.setText("Pourrir");
@@ -322,10 +350,10 @@ public class MunchkinVue extends JFrame {
                 buttonPourrirActionPerformed(evt);
             }
         });
-        jPanel.add(buttonPourrir, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 510, 190, 40));
+        jPanel.add(buttonPourrir, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 500, 190, 40));
 
         jMenuBar1.setBackground(new java.awt.Color(179, 127, 81));
-        jMenuBar1.setFont(new java.awt.Font("DejaVu Sans Light", 0, 13)); // NOI18N
+        jMenuBar1.setFont(new java.awt.Font("DejaVu Sans Light", 0, 13));
 
         fileMenu.setText("File");
 
@@ -353,9 +381,9 @@ public class MunchkinVue extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1067, Short.MAX_VALUE)
+            .addGap(0, 1197, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1067, Short.MAX_VALUE))
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1197, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,7 +393,7 @@ public class MunchkinVue extends JFrame {
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-1075)/2, (screenSize.height-760)/2, 1075, 760);
+        setBounds((screenSize.width-1205)/2, (screenSize.height-760)/2, 1205, 760);
     }// </editor-fold>//GEN-END:initComponents
 
    
@@ -409,17 +437,33 @@ public class MunchkinVue extends JFrame {
             case Message.CARTES_JOUABLES:
                 allowClicOnCard(msg,true);
                 break;
+            case Message.INFO_CAMPGENTIL:
+                break;
+            case Message.INFO_CAMPMECHANT:
+                break;               
                 
         }
     }
 
+     
+     
      private void appendText(JTextPane jpane,String str,Color color){
          
          StyledDocument doc = jpane.getStyledDocument();         
         try {
             Style style = doc.addStyle("StyleName", null);
-            StyleConstants.setForeground(style,color );             
-            doc.insertString(doc.getLength(), str,style );
+            StyleConstants.setForeground(style,color );  
+            for(char c :str.toCharArray()){
+                 doc.insertString(doc.getLength(), String.valueOf(c),style );
+//TODO Décommenter pour la version finale                 
+//                try {
+//                    Thread.sleep(25);
+//                    jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
+//                } catch (InterruptedException ex) {
+//                    Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+            }
+           
         } catch (BadLocationException ex) {
             Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -692,7 +736,9 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 createTabInfoJouers("Mes Infos");
                this.buttonPoserCarte.setEnabled(connected);
                this.buttonAider.setEnabled(connected);
-               this.buttonPourrir.setEnabled(connected);               
+               this.buttonPourrir.setEnabled(connected); 
+               this.buttonDefausser.setEnabled(connected); 
+               
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException ex) {
@@ -877,8 +923,13 @@ private void buttonAiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_AIDER));
 }//GEN-LAST:event_buttonAiderActionPerformed
 
+private void buttonDefausserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDefausserActionPerformed
+    this.state=Constantes.ACTION_DEFAUSSER;
+    com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_DEFAUSSER));
+}//GEN-LAST:event_buttonDefausserActionPerformed
+
 private void buttonPourrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPourrirActionPerformed
-    this.state=Constantes.ACTION_POURRIR;
+      this.state=Constantes.ACTION_POURRIR;
     com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_POURRIR));
 }//GEN-LAST:event_buttonPourrirActionPerformed
 
@@ -927,6 +978,7 @@ private void buttonPourrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAider;
+    private javax.swing.JButton buttonDefausser;
     private javax.swing.JButton buttonNon;
     private javax.swing.JButton buttonPoserCarte;
     private javax.swing.JButton buttonPourrir;
@@ -945,11 +997,17 @@ private void buttonPourrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JLabel labelActionPrompt;
+    private javax.swing.JList listCampGentil;
+    private javax.swing.JList listCampMechant;
+    private javax.swing.JScrollPane scrollPaneCampGentil;
+    private javax.swing.JScrollPane scrollPaneCampMechant;
     private javax.swing.JScrollPane scrollPaneCarteEnCours;
     private javax.swing.JScrollPane scrollPaneInfos;
     private javax.swing.JScrollPane scrollPaneJeux;
     private javax.swing.JScrollPane scrollPaneMain;
     private javax.swing.JButton send_button;
+    private javax.swing.JTabbedPane tabbedPaneCampGentil;
+    private javax.swing.JTabbedPane tabbedPaneCampMechant;
     private javax.swing.JTabbedPane tabbedPaneInfosJoueurs;
     private javax.swing.JTabbedPane tabbedPaneJeuxJoueurs;
     private javax.swing.JTextArea textAreaInfos;

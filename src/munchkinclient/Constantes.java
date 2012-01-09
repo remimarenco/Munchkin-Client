@@ -13,7 +13,7 @@ public class Constantes {
     public static final int ACTION_AIDER      = 2;
     public static final int ACTION_RACE      = 3;
     public static final int ACTION_POURRIR    = 4;
-    
+    public static final int ACTION_DEFAUSSER   = 5;
     
     /**
      * Constante SOn
