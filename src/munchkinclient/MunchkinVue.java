@@ -85,7 +85,8 @@ public class MunchkinVue extends JFrame {
         UIManager.put("control", new ColorUIResource(172, 158,123));        
         initComponents();        
         this.scrollPaneCarteEnCours.setVerticalScrollBarPolicy(this.scrollPaneCarteEnCours.VERTICAL_SCROLLBAR_NEVER);
-        initFont();        
+        initFont();  
+        //pour un commit
     }
 
     private void initFont() throws FontFormatException, IOException, URISyntaxException{
