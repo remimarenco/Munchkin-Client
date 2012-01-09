@@ -8,6 +8,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.DragGestureEvent;
 import java.awt.dnd.DragGestureListener;
 import java.awt.event.MouseEvent;
@@ -26,7 +29,7 @@ import javax.swing.TransferHandler;
  *
  * @author guillaume.renoult
  */
-public class ShowImage extends JPanel implements MouseListener,DragGestureListener{
+public class ShowImage extends JPanel implements MouseListener,DragGestureListener,Transferable{
     private BufferedImage  image;
     private ImageGlassPane ip;
     private JFrame parent;
@@ -133,6 +136,21 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
     @Override
     public void dragGestureRecognized(DragGestureEvent dge) {        
       
+    }
+
+    @Override
+    public DataFlavor[] getTransferDataFlavors() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean isDataFlavorSupported(DataFlavor flavor) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
    
   
