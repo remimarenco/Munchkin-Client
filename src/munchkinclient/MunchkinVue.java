@@ -355,7 +355,7 @@ public class MunchkinVue extends JFrame {
         jMenuBar1.setBackground(new java.awt.Color(179, 127, 81));
         jMenuBar1.setFont(new java.awt.Font("DejaVu Sans Light", 0, 13));
 
-        fileMenu.setText("File");
+        fileMenu.setText("Serveur");
 
         connexion_item.setText("Connexion");
         connexion_item.addActionListener(new java.awt.event.ActionListener() {
