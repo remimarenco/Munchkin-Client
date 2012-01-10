@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
@@ -32,12 +34,17 @@ public class BackgroundPanel extends JPanel {
      * @param imagePath
      * @throws URISyntaxException 
      */
-    public BackgroundPanel(URL imagePath) throws URISyntaxException{
-        try {
-          image = ImageIO.read(new File(imagePath.toURI()));
-        }catch(IOException e){
-
-        } 
+    public BackgroundPanel(URL imagePath){        
+           
+            try {
+                image = ImageIO.read(new File(imagePath.toURI()));
+            } catch (IOException ex) {
+                Logger.getLogger(BackgroundPanel.class.getName()).log(Level.SEVERE, null, ex);
+            
+            } catch (URISyntaxException ex) {
+                Logger.getLogger(BackgroundPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+      
     }
     
     @Override
