@@ -194,6 +194,7 @@ public class MunchkinVue extends JFrame {
 
         send_button.setBackground(new java.awt.Color(168, 137, 59));
         send_button.setText("Envoyer");
+        send_button.setEnabled(false);
         send_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 send_buttonActionPerformed(evt);
@@ -745,7 +746,7 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
                this.buttonPoserCarte.setEnabled(connected);               
                this.buttonIntervenir.setEnabled(connected);
                this.buttonDefausser.setEnabled(connected); 
-               
+               this.send_button.setEnabled(connected);
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException ex) {
