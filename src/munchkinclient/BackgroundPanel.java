@@ -9,6 +9,8 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -22,11 +24,11 @@ import javax.swing.JPanel;
 public class BackgroundPanel extends JPanel {
     
     private Image image;
-  public BackgroundPanel(String imagePath)
+  public BackgroundPanel(URL imagePath)
   {
     try
     {
-      image = ImageIO.read(new File(imagePath));
+      image = ImageIO.read(new File(imagePath.toURI()));
     }
     catch (Exception e) { /*handled in paintComponent()*/ }
   }
