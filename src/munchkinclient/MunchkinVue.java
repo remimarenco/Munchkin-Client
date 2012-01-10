@@ -896,8 +896,10 @@ private void buttonPoserCarteActionPerformed(java.awt.event.ActionEvent evt) {//
 
 private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         if(evt.getClickCount()==1){
-            if(choisirJoueur)
+            if(choisirJoueur){
                 com.sendMessage(new Message(Message.CHOIXJOUEUR, login, "Partie",jList1.getSelectedValue().toString() ));
+                choisirJoueur=false;
+            }
         }            
         else if (evt.getClickCount() == 2) {
             login_dest = jList1.getSelectedValue().toString();            
@@ -938,13 +940,17 @@ private void buttonIntervenirActionPerformed(java.awt.event.ActionEvent evt) {//
 }//GEN-LAST:event_buttonIntervenirActionPerformed
 
 private void tabbedPaneCampMechantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabbedPaneCampMechantMouseClicked
-if(campClicable)
+if(campClicable){
     com.sendMessage(new Message(Message.CHOIXCAMP, login, "Partie", tabbedPaneCampMechant.getTitleAt(tabbedPaneCampMechant.getSelectedIndex())));
+    campClicable=false;
+}
 }//GEN-LAST:event_tabbedPaneCampMechantMouseClicked
 
 private void tabbedPaneCampGentilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabbedPaneCampGentilMouseClicked
-if(campClicable)
+if(campClicable){
     com.sendMessage(new Message(Message.CHOIXCAMP, login, "Partie", tabbedPaneCampGentil.getTitleAt(tabbedPaneCampGentil.getSelectedIndex())));
+    campClicable=false;
+}
 }//GEN-LAST:event_tabbedPaneCampGentilMouseClicked
 
     /**
