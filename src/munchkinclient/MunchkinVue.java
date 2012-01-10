@@ -163,7 +163,6 @@ public class MunchkinVue extends JFrame {
         scrollPaneMain = new javax.swing.JScrollPane();
         jLabel1 = new javax.swing.JLabel();
         scrollPaneCarteEnCours = new javax.swing.JScrollPane();
-        buttonAider = new javax.swing.JButton();
         buttonDefausser = new javax.swing.JButton();
         tabbedPaneCampMechant = new javax.swing.JTabbedPane();
         scrollPaneCampMechant = new javax.swing.JScrollPane();
@@ -171,7 +170,7 @@ public class MunchkinVue extends JFrame {
         tabbedPaneCampGentil = new javax.swing.JTabbedPane();
         scrollPaneCampGentil = new javax.swing.JScrollPane();
         listCampGentil = new javax.swing.JList();
-        buttonPourrir = new javax.swing.JButton();
+        buttonIntervenir = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         connexion_item = new javax.swing.JMenuItem();
@@ -315,16 +314,6 @@ public class MunchkinVue extends JFrame {
         scrollPaneCarteEnCours.setHorizontalScrollBar(null);
         jPanel.add(scrollPaneCarteEnCours, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 30, 260, 350));
 
-        buttonAider.setBackground(new java.awt.Color(168, 137, 59));
-        buttonAider.setText("Aider");
-        buttonAider.setEnabled(false);
-        buttonAider.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAiderActionPerformed(evt);
-            }
-        });
-        jPanel.add(buttonAider, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 450, 190, 40));
-
         buttonDefausser.setBackground(new java.awt.Color(168, 137, 59));
         buttonDefausser.setText("Defausser");
         buttonDefausser.setEnabled(false);
@@ -347,15 +336,15 @@ public class MunchkinVue extends JFrame {
 
         jPanel.add(tabbedPaneCampGentil, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 130, 310));
 
-        buttonPourrir.setBackground(new java.awt.Color(168, 137, 59));
-        buttonPourrir.setText("Pourrir");
-        buttonPourrir.setEnabled(false);
-        buttonPourrir.addActionListener(new java.awt.event.ActionListener() {
+        buttonIntervenir.setBackground(new java.awt.Color(168, 137, 59));
+        buttonIntervenir.setText("Intervenir");
+        buttonIntervenir.setEnabled(false);
+        buttonIntervenir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPourrirActionPerformed(evt);
+                buttonIntervenirActionPerformed(evt);
             }
         });
-        jPanel.add(buttonPourrir, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 500, 190, 40));
+        jPanel.add(buttonIntervenir, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 500, 190, 40));
 
         jMenuBar1.setBackground(new java.awt.Color(179, 127, 81));
         jMenuBar1.setFont(new java.awt.Font("DejaVu Sans Light", 0, 13));
@@ -392,9 +381,9 @@ public class MunchkinVue extends JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 695, Short.MAX_VALUE)
+            .addGap(0, 703, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE))
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -659,7 +648,7 @@ public class MunchkinVue extends JFrame {
         for(Map.Entry<String,String> m: msg.getMap().entrySet())                          
                imgView.add(
            new ShowImage(m.getValue(),this));      
-        this.scrollPaneJeux.setViewportView(imgView);        
+        this.scrollPaneJeux.setViewportView(imgView);    
         
         
     }    
@@ -756,9 +745,8 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 connected = com.sendMessage(msg);                    
                 this.tabbedPaneInfosJoueurs.removeAll();
                 createTabInfoJouers("Mes Infos");
-               this.buttonPoserCarte.setEnabled(connected);
-               this.buttonAider.setEnabled(connected);
-               this.buttonPourrir.setEnabled(connected); 
+               this.buttonPoserCarte.setEnabled(connected);               
+               this.buttonIntervenir.setEnabled(connected);
                this.buttonDefausser.setEnabled(connected); 
                
                 try {
@@ -939,20 +927,15 @@ private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
        
 }//GEN-LAST:event_jList1MouseClicked
 
-private void buttonAiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAiderActionPerformed
-    this.state=Constantes.ACTION_AIDER;
-    com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_AIDER));
-}//GEN-LAST:event_buttonAiderActionPerformed
-
 private void buttonDefausserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDefausserActionPerformed
     this.state=Constantes.ACTION_DEFAUSSER;
     com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_DEFAUSSER));
 }//GEN-LAST:event_buttonDefausserActionPerformed
 
-private void buttonPourrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPourrirActionPerformed
-      this.state=Constantes.ACTION_POURRIR;
-    com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_POURRIR));
-}//GEN-LAST:event_buttonPourrirActionPerformed
+private void buttonIntervenirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIntervenirActionPerformed
+    this.state=Constantes.ACTION_INTERVENIR;
+    com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_INTERVENIR));
+}//GEN-LAST:event_buttonIntervenirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -998,11 +981,10 @@ private void buttonPourrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonAider;
     private javax.swing.JButton buttonDefausser;
+    private javax.swing.JButton buttonIntervenir;
     private javax.swing.JButton buttonNon;
     private javax.swing.JButton buttonPoserCarte;
-    private javax.swing.JButton buttonPourrir;
     private javax.swing.JButton buttonYes;
     private javax.swing.JMenuItem connexion_item;
     private javax.swing.JMenuItem deconnexion_Item;

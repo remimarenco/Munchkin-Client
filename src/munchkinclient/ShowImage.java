@@ -169,7 +169,7 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
          ip=new ImageGlassPane(image,p.getX(),p.getY()); 
          parent.setGlassPane(ip); 
          ip.repaint();
-         if(click_allowed){
+         if(!grisee){
             ip.setVisible(true);
          }
     }
