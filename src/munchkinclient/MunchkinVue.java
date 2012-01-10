@@ -57,8 +57,8 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 /**
- *
- * @author Meg4mi
+ * // TODO : A commenter
+ * @author Guillaume Renoult
  */
 public class MunchkinVue extends JFrame {
 
@@ -644,7 +644,7 @@ public class MunchkinVue extends JFrame {
     private void miseaJourJeuxJoueur(Message msg) throws URISyntaxException {
          String name=msg.getNick_dest();
             if(name.equals(login))
-                name="Mon Jeu"; 
+                name = "Mon Jeu"; 
             
         for(Component spane : tabbedPaneJeuxJoueurs.getComponents()){
             if(spane instanceof JScrollPane){
@@ -789,7 +789,6 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
 
 private void deconnexion_ItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deconnexion_ItemActionPerformed
         try {
-            // TODO add your handling code here:
             Message msg = new Message(Message.DISCONNECT, login);
             com.sendMessage(msg);
 
@@ -837,11 +836,11 @@ public void envoyerCarte(String idCard){
 }                    
 
 private void send_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_send_buttonActionPerformed
-       sendMessage();
+        sendMessage();
 }//GEN-LAST:event_send_buttonActionPerformed
 
 private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseClicked
-        jTextField1.setText("");        // TODO add your handling code here:
+        jTextField1.setText("");
 }//GEN-LAST:event_jTextField1MouseClicked
 
 private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
@@ -902,7 +901,7 @@ private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_jTabbedPane1MouseClicked
 
 private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-    // TODO add your handling code here:
+
 }//GEN-LAST:event_jTextField1ActionPerformed
 
 private void buttonPoserCarteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPoserCarteActionPerformed

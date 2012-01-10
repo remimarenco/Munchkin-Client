@@ -12,19 +12,27 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * 
- * @author Meg4mi
+ * // TODO : A commenter
+ * @author Guillaume Renoult
  */
 public class Communication extends Thread{
-    private Message msg=new Message();
-    private Object parent=null;
-    private DataInputStream in=null;
-    private DataOutputStream out=null;
+    
+    private Message msg          = new Message();
+    private Object parent        = null;
+    private DataInputStream in   = null;
+    private DataOutputStream out = null;
+    
+    
+    /**
+     * // TODO : Commenter
+     * @param st
+     * @param parent 
+     */
     public Communication(Socket st,Object parent){
         try{
-        this.parent=parent;
-        in=new DataInputStream(st.getInputStream());
-        out= new DataOutputStream(st.getOutputStream());
+            this.parent = parent;
+            in          = new DataInputStream(st.getInputStream());
+            out         = new DataOutputStream(st.getOutputStream());
         }
         catch(Exception e){
             
@@ -36,27 +44,23 @@ public class Communication extends Thread{
      * @param message
      * @return vrai quand message envoyer;
      */
-    public boolean sendMessage(Message message){message.write(out); return true;}
+    public boolean sendMessage(Message message){ message.write(out); return true; }
     
   
    
-  /**
+    /**
      * Methode executer lorsque l'on lance le tread
      */
-  synchronized public void run(){
-       try{           
-        while(true){
-            this.msg= new Message();//Important pour distinguer les messages
-            if(this.msg.read(in)){
-                if(this.parent instanceof MunchkinVue){                    
-                       ((MunchkinVue)this.parent).interpretMessage(this.msg,this);
-                }
+    synchronized public void run(){
+        try{           
+            while(true){
+                this.msg= new Message();//Important pour distinguer les messages
+                if(this.msg.read(in))
+                    if(this.parent instanceof MunchkinVue)                    
+                           ((MunchkinVue)this.parent).interpretMessage(this.msg,this);
             }
+        } catch(Exception e) {
+            Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, e);
         }
-    }
-
-    catch(Exception e){
-        Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, e);
-    }
     }
 }

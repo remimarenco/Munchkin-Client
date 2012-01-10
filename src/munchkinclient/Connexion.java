@@ -1,13 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * Connexion.java
- *
- * Created on 11 déc. 2011, 16:21:36
- */
 package munchkinclient;
 
 import java.net.Inet4Address;
@@ -19,25 +9,41 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 /**
- *
- * @author Meg4mi
+ * // TODO : A commenter
+ * @author Guillaume Renoult
  */
 public class Connexion extends JDialog {
 
-    /** Creates new form Connexion */
+    /** 
+     * Creates new form Connexion 
+     */
     public Connexion(JFrame parent,boolean b) {
         super(parent,b);
-        initComponents();      
-       
+        initComponents();  
     }
     
-     public boolean getEtat(){return saisie_effectué;}
-    public String getLogin(){return login;}
-     public InetAddress getServeur(){return serveur;}
-      public int getPort(){return port;}
+    
+    
+    // ===== ACCESSEURS & MUTATEURS ===== //
+    public boolean getEtat(){ 
+        return saisie_effectué; 
+    }
+    
+    public String getLogin(){ 
+        return login; 
+    }
+    
+    public InetAddress getServeur(){ 
+        return serveur; 
+    }
+    
+    public int getPort(){ 
+        return port; 
+    }
+    // ================================== //
 
-   
-
+    
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -151,8 +157,7 @@ this.dispose();
 }//GEN-LAST:event_connectButtonActionPerformed
 
 private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        saisie_effectué=false;
-              
+    saisie_effectué=false;              
 }//GEN-LAST:event_cancelButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -164,8 +169,8 @@ private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JTextField login_field;
     private javax.swing.JComboBox serveur_ComboBox;
     // End of variables declaration//GEN-END:variables
-private String login;
-private InetAddress serveur;
-private int port;
-private boolean saisie_effectué=false;
+    private String login;
+    private InetAddress serveur;
+    private int port;
+    private boolean saisie_effectué=false;
 }

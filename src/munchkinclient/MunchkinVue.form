@@ -69,9 +69,9 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="1195" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="1189" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Component id="jPanel" alignment="0" pref="1195" max="32767" attributes="0"/>
+              <Component id="jPanel" alignment="0" pref="1189" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

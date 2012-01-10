@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package munchkinclient;
 
 import java.awt.Color;
@@ -26,41 +22,63 @@ import javax.swing.JPanel;
 import javax.swing.TransferHandler;
 
 /**
- *
- * @author guillaume.renoult
+ * // TODO : A commenter
+ * @author Guillaume Renoult
  */
 public class ShowImage extends JPanel implements MouseListener,DragGestureListener,Transferable{
+    
     private BufferedImage  image;
     private ImageGlassPane ip;
     private JFrame parent;
-    private int width=60;
-    private int height=110;
     private String name;
-    private boolean click_allowed=false;
-    private boolean grisee=false;
-    private boolean imageEnCours=false;
     private TransferHandler th;
+    
+    private int width             =60;
+    private int height            =110;
+    private boolean click_allowed =false;
+    private boolean grisee        =false;
+    private boolean imageEnCours  =false;
 
+    
+    /**
+     * // TODO : A commenter
+     * @param click_allowed 
+     */
     public void setClick_allowed(boolean click_allowed) {
         this.click_allowed = click_allowed;       
         this.repaint();
     }
 
+    
+    /**
+     * // TODO : A commenter
+     * @param grisee 
+     */
     public void setGrisee(boolean grisee) {
         this.grisee = grisee;
         this.repaint();
     }
     
     
+    /**
+     * // TODO : A commenter
+     * @return 
+     */
     public String getImageName(){
         return this.name;
     }
     
     
+    /**
+     * // TODO : A commenter
+     * @param name
+     * @param parent
+     * @throws URISyntaxException 
+     */
     public ShowImage(String name, JFrame parent) throws URISyntaxException {
         try {
             this.parent = parent;
-            this.name=name;
+            this.name   = name;
             setPreferredSize(new Dimension(this.width, this.height));
             File input = new File(MunchkinVue.class.getResource("resources/cartes/"+this.name+".jpg").toURI());
             image = ImageIO.read(input);
@@ -71,10 +89,19 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
         }
     }
 
+    
+    /**
+     * // TODO : A commenter
+     * @param name
+     * @param parent
+     * @param width
+     * @param height
+     * @throws URISyntaxException 
+     */
     public ShowImage(String name, JFrame parent, int width, int height) throws URISyntaxException {
         try {
-            this.name=name;
-            this.width = width;
+            this.name   = name;
+            this.width  = width;
             this.height = height;
             this.parent = parent;
             setPreferredSize(new Dimension(this.width, this.height));
@@ -88,37 +115,54 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
         }
     }
    
-  public void paint(Graphics g) {      
-      g.drawImage( image, 0, 0,this.width,this.height, null); 
-      if(grisee && !imageEnCours){
-           g.setColor(new Color(255, 255, 255,155));
-           g.fillRect(0, 0, this.width, height);
-      }
-        
-       //super.printBorder(g); //putain de salope de ligne , 
-                            //tu pouvais pas le dire qu'il fallait que je t'écrive pour que les bordures marchent
-  }
+    
+    
+    public void paint(Graphics g) {      
+        g.drawImage( image, 0, 0,this.width,this.height, null); 
+        if(grisee && !imageEnCours){
+            g.setColor(new Color(255, 255, 255,155));
+            g.fillRect(0, 0, this.width, height);
+        }
+    }
 
-
+    
+    /**
+     * // TODO : A commenter
+     * @param e 
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
-        
         if(click_allowed){                       
-           // this.setBorder(BorderFactory.createLineBorder(Color.RED,5));            
+            // this.setBorder(BorderFactory.createLineBorder(Color.RED,5));            
             ((MunchkinVue)this.parent).envoyerCarte(this.name);
         }        
     }
 
+    
+    /**
+     * // TODO : A commenter
+     * @param e 
+     */
     @Override
     public void mousePressed(MouseEvent e) {
         
     }
 
+    
+    /**
+     * // TODO : A commenter
+     * @param e 
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
         
     }
 
+    
+    /**
+     * // TODO : A commenter
+     * @param e 
+     */
     @Override
     public void mouseEntered(MouseEvent e) {   
         Point p=this.getLocation();
@@ -127,12 +171,18 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
          ip.repaint();
          ip.setVisible(true);       
     }
-
+    
+    
+    /**
+     * // TODO : A commenter
+     * @param e 
+     */
     @Override
     public void mouseExited(MouseEvent e) {       
         ip.setVisible(false);        
     }
 
+    // TODO : Implémenter toutes les méthodes ci-dessous ou gérer les exceptions
     @Override
     public void dragGestureRecognized(DragGestureEvent dge) {        
       

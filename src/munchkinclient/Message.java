@@ -8,8 +8,8 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
 /**
- *
- * @author user
+ * // TODO : A commenter
+ * @author Guillaume Renoult
  */
 public class Message {
     
@@ -31,10 +31,10 @@ public class Message {
     public static final int CARTE_CAMPMECHANT = 86; 
     public static final int CARTES_JOUABLES   = 87;
             
-    private String nick_src     = "";     
-    private String nick_dest    = "";    
-    private String message      = "";
-    private String idCard       = new String();
+    private String nick_src  = "";     
+    private String nick_dest = "";    
+    private String message   = "";
+    private String idCard    = new String();
     
     private int type;
     private int action;
