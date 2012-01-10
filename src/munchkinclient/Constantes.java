@@ -1,7 +1,7 @@
 package munchkinclient;
 
 /**
- * // TODO : A commenter
+ * Classe de constantes
  * @author Guillaume Renoult
  */
 public class Constantes {

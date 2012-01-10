@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * // TODO : A commenter
+ * Classe qui est un Thread, ce thread attends les messages du serveur, et envoi les messages vers le serveur
  * @author Guillaume Renoult
  */
 public class Communication extends Thread{
@@ -24,7 +24,7 @@ public class Communication extends Thread{
     
     
     /**
-     * // TODO : Commenter
+     * Constructeur
      * @param st
      * @param parent 
      */

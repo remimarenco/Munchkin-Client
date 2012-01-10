@@ -8,7 +8,7 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
 /**
- * // TODO : A commenter
+ * Classe Message identique entre client et serveur. Protocole d'echange
  * @author Guillaume Renoult
  */
 public class Message {

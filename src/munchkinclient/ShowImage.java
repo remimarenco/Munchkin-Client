@@ -16,16 +16,16 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.TransferHandler;
 
 /**
- * // TODO : A commenter
+ * Classe qui permet d'afficher les images.
+ * Elle gere les evenement de la souris et permet de faire un zoom quand on survole une carte, ou une action si on clic sur la carte
  * @author Guillaume Renoult
  */
-public class ShowImage extends JPanel implements MouseListener,DragGestureListener,Transferable{
+public class ShowImage extends JPanel implements MouseListener{
     
     private BufferedImage  image;
     private ImageGlassPane ip;
@@ -41,7 +41,7 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
 
     
     /**
-     * // TODO : A commenter
+     * Setter du boolean qui permet de voir si le click sur la carte est autorisé
      * @param click_allowed 
      */
     public void setClick_allowed(boolean click_allowed) {
@@ -51,7 +51,7 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
 
     
     /**
-     * // TODO : A commenter
+     * Setter du boolean qui permet de grisée une carte non clicable
      * @param grisee 
      */
     public void setGrisee(boolean grisee) {
@@ -61,7 +61,7 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
     
     
     /**
-     * // TODO : A commenter
+     * getter du nom, de l'id de la carte
      * @return 
      */
     public String getImageName(){
@@ -70,7 +70,7 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
     
     
     /**
-     * // TODO : A commenter
+     * Constructeur pour les miniatures des cartes
      * @param name
      * @param parent
      * @throws URISyntaxException 
@@ -91,7 +91,7 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
 
     
     /**
-     * // TODO : A commenter
+     * Constructeur pour la carte en cours
      * @param name
      * @param parent
      * @param width
@@ -127,7 +127,7 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
 
     
     /**
-     * // TODO : A commenter
+     * Evenement click
      * @param e 
      */
     @Override
@@ -137,20 +137,18 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
             ((MunchkinVue)this.parent).envoyerCarte(this.name);
         }        
     }
-
     
     /**
-     * // TODO : A commenter
+     * Non Necessaire, mais on peut pas supprimer car interface
      * @param e 
      */
     @Override
     public void mousePressed(MouseEvent e) {
         
     }
-
     
     /**
-     * // TODO : A commenter
+     * Non Necessaire, mais on peut pas supprimer car interface
      * @param e 
      */
     @Override
@@ -160,7 +158,8 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
 
     
     /**
-     * // TODO : A commenter
+     * Evenement survol de la carte
+     * On gere le zoom de la carte
      * @param e 
      */
     @Override
@@ -172,40 +171,14 @@ public class ShowImage extends JPanel implements MouseListener,DragGestureListen
          if(!grisee){
             ip.setVisible(true);
          }
-    }
-    
+    }    
     
     /**
-     * // TODO : A commenter
+     * ON dezoom
      * @param e 
      */
     @Override
     public void mouseExited(MouseEvent e) {       
         ip.setVisible(false);        
-    }
-
-    // TODO : Implémenter toutes les méthodes ci-dessous ou gérer les exceptions
-    @Override
-    public void dragGestureRecognized(DragGestureEvent dge) {        
-      
-    }
-
-    @Override
-    public DataFlavor[] getTransferDataFlavors() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public boolean isDataFlavorSupported(DataFlavor flavor) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-   
-  
-  
-    
+    }    
 }

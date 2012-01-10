@@ -11,18 +11,9 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-/* // TODO : A supprimer ?
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-*/
 
 /**
- * // TODO : A commenter
+ * Classe qui permet d'afficher une image en arriere plan d'un panel
  * @author Guillaume Renoult
  */
 public class BackgroundPanel extends JPanel {
@@ -30,7 +21,7 @@ public class BackgroundPanel extends JPanel {
     private Image image;
   
     /**
-     * // TODO : A commenter
+     * Constructeur de la classe
      * @param imagePath
      * @throws URISyntaxException 
      */

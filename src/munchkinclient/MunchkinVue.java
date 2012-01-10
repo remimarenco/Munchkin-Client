@@ -58,7 +58,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 /**
- * // TODO : A commenter
+ * Classe principale du client, VUE
  * @author Guillaume Renoult
  */
 public class MunchkinVue extends JFrame {

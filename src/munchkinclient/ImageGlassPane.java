@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JComponent;
 
 /**
- * // TODO : A commenter
+ * Classe qui permet d'afficher le zoom au dessus de la fenetre principale
  * @author Guillaume Renoult
  */
 public class ImageGlassPane extends JComponent  {
@@ -17,7 +17,7 @@ public class ImageGlassPane extends JComponent  {
     
     
     /**
-     * // TODO : A commenter
+     * Constructeur de la classe
      * @param img
      * @param x
      * @param y 
@@ -30,7 +30,7 @@ public class ImageGlassPane extends JComponent  {
 
     
     /**
-     * // TODO : A commenter
+     * surcharge de la methode paintComponent pour pouvoir afficher l'image
      * @param g 
      */
     @Override
