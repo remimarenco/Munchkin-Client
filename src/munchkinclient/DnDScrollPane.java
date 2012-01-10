@@ -24,7 +24,7 @@ import javax.swing.JScrollPane;
  */
 public class DnDScrollPane extends JScrollPane implements DropTargetListener,DragGestureListener{
 
-    private JFrame parent;
+    private JFrame parent;    
     
     public DnDScrollPane(JFrame parent) {
         super();

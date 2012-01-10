@@ -19,6 +19,7 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -72,6 +73,8 @@ public class MunchkinVue extends JFrame {
     private int pourcent = 0;
     private boolean connected = false;
     private boolean nickexist = false;
+    private boolean campClicable=false;
+    private boolean choisirJoueur=false;
     private HashMap<String,JTextArea> mapInfosJoueurs=new HashMap<String, JTextArea>();
     private HashMap<String,JTextPane> mapTxtToJoueurs=new HashMap<String, JTextPane>();   
     private int state;
@@ -324,11 +327,23 @@ public class MunchkinVue extends JFrame {
         });
         jPanel.add(buttonDefausser, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 550, 190, 40));
 
+        tabbedPaneCampMechant.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabbedPaneCampMechantMouseClicked(evt);
+            }
+        });
+
         scrollPaneCampMechant.setViewportView(listCampMechant);
 
         tabbedPaneCampMechant.addTab("Mechant", scrollPaneCampMechant);
 
         jPanel.add(tabbedPaneCampMechant, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 130, 370));
+
+        tabbedPaneCampGentil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabbedPaneCampGentilMouseClicked(evt);
+            }
+        });
 
         scrollPaneCampGentil.setViewportView(listCampGentil);
 
@@ -375,15 +390,15 @@ public class MunchkinVue extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1195, Short.MAX_VALUE)
+            .addGap(0, 1189, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1195, Short.MAX_VALUE))
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1189, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 703, Short.MAX_VALUE)
+            .addGap(0, 701, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE))
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -434,6 +449,14 @@ public class MunchkinVue extends JFrame {
             case Message.INFO_CAMPS:
                 miseaJourInfosCamps(msg);
                 break;
+            case Message.CHOIXCAMP:
+                appendText(jTextPane1,msg.getNick_src() + " : "+msg.getMessage()+"\n" , Color.yellow);
+                this.campClicable=true;
+                break;
+            case Message.CHOIXJOUEUR:
+                appendText(jTextPane1,msg.getNick_src() + " : "+msg.getMessage()+"\n" , Color.yellow);
+                this.choisirJoueur=true;
+                break;
                     
                 
         }
@@ -468,23 +491,22 @@ public class MunchkinVue extends JFrame {
       */
     public void miseaJour(Message message) {
        if(message.getColor()!=null)
-           jTextPane1.setForeground(message.getColor());
-       
-        if (message.getNick_dest().equals("Partie")) {
+           jTextPane1.setForeground(message.getColor());       
+       if (message.getNick_dest().equals("Partie")) {
             if(!message.getNick_src().equals(login))
-            appendText(jTextPane1, message.getNick_src() +" : " + message.getMessage()+"\n",message.getColor());            
-        } else if (message.getNick_dest().equals("deconnexion")) {
+                appendText(jTextPane1, message.getNick_src() +" : " + message.getMessage()+"\n",message.getColor());            
+        } 
+       else if (message.getNick_dest().equals("deconnexion")){
             int i = 0;
             while (i < jTabbedPane1.getTabCount() - 1 && jTabbedPane1.getTitleAt(i) != message.getMessage()) {
                 i++;
             }
             if (jTabbedPane1.getTitleAt(i).equals(message.getNick_src()) || message.getNick_src().equals("admin")) {
-                if (jTextPane2 != null && jTextPane2.getName().equals(login_dest)) {
-                    appendText(jTextPane2, message.getNick_src() + " dit : " + message.getMessage() + " est maintenant deconnecté !\n",Color.BLACK);                    
-                }
+                if (jTextPane2 != null && jTextPane2.getName().equals(login_dest)) 
+                    appendText(jTextPane2, message.getNick_src() + " dit : " + message.getMessage() + " est maintenant deconnecté !\n",Color.BLACK);               
             }
-
-        } else if (message.getNick_dest().equals("connexion")) {
+        } 
+       else if (message.getNick_dest().equals("connexion")) {
             int i = 0;
             while (i < jTabbedPane1.getTabCount() - 1 && jTabbedPane1.getTitleAt(i) != message.getMessage()) {
                 i++;
@@ -494,39 +516,15 @@ public class MunchkinVue extends JFrame {
                     appendText(jTextPane2, message.getNick_src() + " dit : " + message.getMessage() + " est maintenant connecté \n!",Color.BLACK);                    
                 }
             }
-
-        } else if (message.getNick_dest().equals(login)) {
-
-            
-            if(ongletExist(jTabbedPane1,message.getNick_src())){
-                
+        } 
+       else if (message.getNick_dest().equals(login)) {            
+            if(ongletExist(jTabbedPane1,message.getNick_src()))                
                  appendText(this.mapTxtToJoueurs.get(message.getNick_src()), message.getNick_src() + " dit : " + message.getMessage()+"\n",Color.BLACK);
-                
-            }
-            
-//            int i = 0;
-//            while (i < jTabbedPane1.getTabCount()-1 && jTabbedPane1.getTitleAt(i) != message.getNick_src()) {
-//                i++;
-//            }
-//            if (jTabbedPane1.getTitleAt(i).equals(message.getNick_src()) || message.getNick_src().equals("admin")) {
-//                if (jTextPane2 != null && jTextPane2.getName().equals(login_dest)) {
-//                    appendText(jTextPane2, message.getNick_src() + " dit : " + message.getMessage()+"\n",Color.BLACK);      
-//
-//                    if (jTabbedPane1.getSelectedIndex() != i) {
-//                        jTabbedPane1.setBackgroundAt(i, Color.RED);
-//                    }
-//                }
-             else {
-                //login_dest = message.getNick_src();                
+            else {                               
                 newTab(message.getNick_src());                
-                appendText(this.mapTxtToJoueurs.get(message.getNick_src()), message.getNick_src() + " dit : " + message.getMessage()+"\n ",Color.BLACK);               
-               // jTabbedPane1.setSelectedIndex(i + 1);
-               //message = new Message(Message.DEMANDEAVATAR, login, login_dest, "");
-                //this.com.sendMessage(message);
+                appendText(this.mapTxtToJoueurs.get(message.getNick_src()), message.getNick_src() + " dit : " + message.getMessage()+"\n ",Color.BLACK);              
             }
-        }
-
-
+       }
     }
     
     private void newTab(String name){
@@ -571,8 +569,7 @@ public class MunchkinVue extends JFrame {
              else if(c instanceof ShowImage &&  !msg.getMap().containsValue(((ShowImage)c).getImageName()))
                 ((ShowImage)c).setGrisee(bool);
              
-    }
-    
+    }   
     private void playSound(Message msg) {
         AudioInputStream ais = null;
         try {
@@ -898,14 +895,17 @@ private void buttonPoserCarteActionPerformed(java.awt.event.ActionEvent evt) {//
 }//GEN-LAST:event_buttonPoserCarteActionPerformed
 
 private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
-        if (evt.getClickCount() == 2) {
-
-
+        if(evt.getClickCount()==1){
+            if(choisirJoueur)
+                com.sendMessage(new Message(Message.CHOIXJOUEUR, login, "Partie",jList1.getSelectedValue().toString() ));
+        }            
+        else if (evt.getClickCount() == 2) {
             login_dest = jList1.getSelectedValue().toString();            
             newTab(login_dest);            
             //jScrollpane.setViewportView(jTextPane2);
 
-        } else if (evt.getButton() == evt.BUTTON3) {
+        } 
+        else if (evt.getButton() == evt.BUTTON3) {
             JPopupMenu popup = new JPopupMenu();
             JMenuItem menuItem1 = new JMenuItem("Conversation privée");
             
@@ -936,6 +936,16 @@ private void buttonIntervenirActionPerformed(java.awt.event.ActionEvent evt) {//
     this.state=Constantes.ACTION_INTERVENIR;
     com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_INTERVENIR));
 }//GEN-LAST:event_buttonIntervenirActionPerformed
+
+private void tabbedPaneCampMechantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabbedPaneCampMechantMouseClicked
+if(campClicable)
+    com.sendMessage(new Message(Message.CHOIXCAMP, login, "Partie", tabbedPaneCampMechant.getTitleAt(tabbedPaneCampMechant.getSelectedIndex())));
+}//GEN-LAST:event_tabbedPaneCampMechantMouseClicked
+
+private void tabbedPaneCampGentilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabbedPaneCampGentilMouseClicked
+if(campClicable)
+    com.sendMessage(new Message(Message.CHOIXCAMP, login, "Partie", tabbedPaneCampGentil.getTitleAt(tabbedPaneCampGentil.getSelectedIndex())));
+}//GEN-LAST:event_tabbedPaneCampGentilMouseClicked
 
     /**
      * @param args the command line arguments
