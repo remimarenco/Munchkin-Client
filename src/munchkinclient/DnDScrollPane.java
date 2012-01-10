@@ -27,6 +27,7 @@ public class DnDScrollPane extends JScrollPane implements DropTargetListener,Dra
     private JFrame parent;
     
     public DnDScrollPane(JFrame parent) {
+        super();
         this.parent=parent;
     }
 
