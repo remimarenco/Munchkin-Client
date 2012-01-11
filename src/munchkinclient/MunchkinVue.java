@@ -171,6 +171,7 @@ public class MunchkinVue extends JFrame {
         scrollPaneCampGentil = new javax.swing.JScrollPane();
         listCampGentil = new javax.swing.JList();
         buttonIntervenir = new javax.swing.JButton();
+        buttonDesequiper = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         connexion_item = new javax.swing.JMenuItem();
@@ -359,6 +360,15 @@ public class MunchkinVue extends JFrame {
         });
         jPanel.add(buttonIntervenir, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 500, 190, 40));
 
+        buttonDesequiper.setText("Desequiper");
+        buttonDesequiper.setEnabled(false);
+        buttonDesequiper.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDesequiperActionPerformed(evt);
+            }
+        });
+        jPanel.add(buttonDesequiper, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 450, 190, 40));
+
         jMenuBar1.setBackground(new java.awt.Color(179, 127, 81));
         jMenuBar1.setFont(new java.awt.Font("DejaVu Sans Light", 0, 13));
 
@@ -442,7 +452,8 @@ public class MunchkinVue extends JFrame {
                 miseaJourCarteEnCours(msg);
                 break;            
             case Message.CARTES_JOUABLES:
-                allowClicOnCard(msg,true);
+                allowClicOnCardMain(msg,true);
+                allowClicOnCardJeu(msg, true);
                 break;
             case Message.INFO_CAMPS:
                 miseaJourInfosCamps(msg);
@@ -558,8 +569,20 @@ public class MunchkinVue extends JFrame {
              }
     }
      
-    private void allowClicOnCard(Message msg ,boolean bool){
+    private void allowClicOnCardMain(Message msg ,boolean bool){
         JPanel p = (JPanel) this.scrollPaneMain.getViewport().getComponent(0);            
+        if(p instanceof JPanel)
+            for(Component c : p.getComponents())
+             if(c instanceof ShowImage &&  msg.getMap().containsValue(((ShowImage)c).getImageName())){
+                ((ShowImage)c).setClick_allowed(bool);
+                ((ShowImage)c).setGrisee(!bool);
+             }
+             else if(c instanceof ShowImage &&  !msg.getMap().containsValue(((ShowImage)c).getImageName()))
+                ((ShowImage)c).setGrisee(bool);
+             
+    }   
+    private void allowClicOnCardJeu(Message msg ,boolean bool){
+        JPanel p = (JPanel) this.scrollPaneJeux.getViewport().getComponent(0);            
         if(p instanceof JPanel)
             for(Component c : p.getComponents())
              if(c instanceof ShowImage &&  msg.getMap().containsValue(((ShowImage)c).getImageName())){
@@ -747,6 +770,7 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
                this.buttonPoserCarte.setEnabled(connected);               
                this.buttonIntervenir.setEnabled(connected);
                this.buttonDefausser.setEnabled(connected); 
+               this.buttonDesequiper.setEnabled(connected);
                this.send_button.setEnabled(connected);
                 try {
                     Thread.sleep(10);
@@ -959,6 +983,11 @@ if(campClicable){
 }
 }//GEN-LAST:event_tabbedPaneCampGentilMouseClicked
 
+private void buttonDesequiperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDesequiperActionPerformed
+this.state=Constantes.ACTION_DESEQUIPER;
+    com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_DESEQUIPER));
+}//GEN-LAST:event_buttonDesequiperActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1004,6 +1033,7 @@ if(campClicable){
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonDefausser;
+    private javax.swing.JButton buttonDesequiper;
     private javax.swing.JButton buttonIntervenir;
     private javax.swing.JButton buttonNon;
     private javax.swing.JButton buttonPoserCarte;
