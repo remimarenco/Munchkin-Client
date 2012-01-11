@@ -476,8 +476,8 @@ public class MunchkinVue extends JFrame {
                 appendText(jTextPane1,msg.getNick_src() + " : "+msg.getMessage()+"\n" , Color.yellow);
                 this.choisirJoueur=true;
                 break;
-                    
-                
+            case Message.INTERVENTION:
+                this.state=msg.getAction();                
         }
     }
 
