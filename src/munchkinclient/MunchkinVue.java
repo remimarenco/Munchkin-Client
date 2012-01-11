@@ -88,10 +88,7 @@ public class MunchkinVue extends JFrame {
         UIManager.put("nimbusLightBackground", new ColorUIResource(244,233,211));           
         UIManager.put("control", new ColorUIResource(172, 158,123));        
         initComponents();        
-        initFont();
-        
-        
-        //pour un commit
+        initFont();     
     }
 
     private void initFont() throws FontFormatException, IOException, URISyntaxException{
@@ -100,7 +97,7 @@ public class MunchkinVue extends JFrame {
         
         font1=font1.deriveFont(18f);
         //font1=font1.deriveFont(Font.BOLD);
-        font2=font2.deriveFont(18f);
+        font2=font2.deriveFont(12f);
         this.jTextPane1.setFont(font1);            
         this.textAreaInfos.setFont(font1);
         this.jList1.setFont(font1);
@@ -463,7 +460,9 @@ public class MunchkinVue extends JFrame {
         }
     }
 
-     
+     private void changeComponentForground(Component comp,Color col){
+         comp.setForeground(col);
+     }
      
      private void appendText(JTextPane jpane,String str,Color color){
          
@@ -677,6 +676,8 @@ public class MunchkinVue extends JFrame {
        this.labelActionPrompt.setText(msg.getMessage());
        this.buttonNon.setEnabled(true);
        this.buttonYes.setEnabled(true);
+       changeComponentForground(this.buttonNon, Color.red);
+       changeComponentForground(this.buttonYes, Color.red);
     }
   
     /**
@@ -844,13 +845,17 @@ private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:eve
 private void buttonNonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNonActionPerformed
   com.sendMessage(new Message(Message.QUESTION, login, login_dest, "Non"));
   this.buttonNon.setEnabled(false);
-  this.buttonYes.setEnabled(false);  
+  this.buttonYes.setEnabled(false); 
+  changeComponentForground(this.buttonNon, Color.black);
+  changeComponentForground(this.buttonYes, Color.black);
 }//GEN-LAST:event_buttonNonActionPerformed
 
 private void buttonYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonYesActionPerformed
   com.sendMessage(new Message(Message.QUESTION, login, login_dest, "Yes"));
   this.buttonNon.setEnabled(false);
   this.buttonYes.setEnabled(false);
+  changeComponentForground(this.buttonNon, Color.black);
+  changeComponentForground(this.buttonYes, Color.black);
 }//GEN-LAST:event_buttonYesActionPerformed
 
 private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
