@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -78,6 +80,8 @@ public class MunchkinVue extends JFrame {
     private HashMap<String,JTextArea> mapInfosJoueurs=new HashMap<String, JTextArea>();
     private HashMap<String,JTextPane> mapTxtToJoueurs=new HashMap<String, JTextPane>();   
     private int state;
+    private Timer timer;
+    private javax.swing.Timer displayTimer;
     
     
     
@@ -172,6 +176,7 @@ public class MunchkinVue extends JFrame {
         listCampGentil = new javax.swing.JList();
         buttonIntervenir = new javax.swing.JButton();
         buttonDesequiper = new javax.swing.JButton();
+        labelTimer = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         connexion_item = new javax.swing.JMenuItem();
@@ -369,6 +374,10 @@ public class MunchkinVue extends JFrame {
             }
         });
         jPanel.add(buttonDesequiper, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 450, 190, 40));
+
+        labelTimer.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        labelTimer.setText("30");
+        jPanel.add(labelTimer, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 170, -1, -1));
 
         jMenuBar1.setBackground(new java.awt.Color(179, 127, 81));
         jMenuBar1.setFont(new java.awt.Font("DejaVu Sans Light", 0, 13));
@@ -697,11 +706,35 @@ public class MunchkinVue extends JFrame {
      * @param msg 
      */
     private void miseajourAction(Message msg) {
+        displayTimer=new javax.swing.Timer(1000, new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                labelTimer.setText(Integer.toString((Integer.valueOf(labelTimer.getText()))-1));
+            }
+        });
+        displayTimer.start();
+       timer=new Timer("timer") ;
+       timer.schedule(new TimerTask(){
+            @Override
+            public void run() {                
+                disableActionButtonAndSendNo();
+            }           
+       },30*1000);
+       
        this.labelActionPrompt.setText(msg.getMessage());
        this.buttonNon.setEnabled(true);
        this.buttonYes.setEnabled(true);
        changeComponentForground(this.buttonNon, Color.red);
-       changeComponentForground(this.buttonYes, Color.red);
+       changeComponentForground(this.buttonYes, Color.red);       
+    }
+    
+    private void disableActionButtonAndSendNo(){        
+        this.buttonNon.setEnabled(false);
+        this.buttonYes.setEnabled(false);
+        com.sendMessage(new Message(Message.QUESTION, login, login_dest, "Non"));
+        this.labelTimer.setText("30");
+        displayTimer.stop();
     }
   
     /**
@@ -868,19 +901,25 @@ private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:eve
  * @param evt 
  */
 private void buttonNonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNonActionPerformed
-  com.sendMessage(new Message(Message.QUESTION, login, login_dest, "Non"));
   this.buttonNon.setEnabled(false);
-  this.buttonYes.setEnabled(false); 
+  this.buttonYes.setEnabled(false);
+  com.sendMessage(new Message(Message.QUESTION, login, login_dest, "Non"));   
   changeComponentForground(this.buttonNon, Color.black);
   changeComponentForground(this.buttonYes, Color.black);
+  timer.cancel();
+  displayTimer.stop();
+  this.labelTimer.setText("30");
 }//GEN-LAST:event_buttonNonActionPerformed
 
 private void buttonYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonYesActionPerformed
-  com.sendMessage(new Message(Message.QUESTION, login, login_dest, "Yes"));
   this.buttonNon.setEnabled(false);
-  this.buttonYes.setEnabled(false);
+  this.buttonYes.setEnabled(false);  
+  com.sendMessage(new Message(Message.QUESTION, login, login_dest, "Yes"));  
   changeComponentForground(this.buttonNon, Color.black);
   changeComponentForground(this.buttonYes, Color.black);
+  timer.cancel();
+  displayTimer.stop();
+  this.labelTimer.setText("30");
 }//GEN-LAST:event_buttonYesActionPerformed
 
 private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
@@ -1052,6 +1091,7 @@ this.state=Constantes.ACTION_DESEQUIPER;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JLabel labelActionPrompt;
+    private javax.swing.JLabel labelTimer;
     private javax.swing.JList listCampGentil;
     private javax.swing.JList listCampMechant;
     private javax.swing.JScrollPane scrollPaneCampGentil;
