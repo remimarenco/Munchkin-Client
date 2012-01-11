@@ -150,7 +150,7 @@ private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN
             Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
         }
 login=login_field.getText();
-port=8767;
+port=80;
 saisie_effectué=true;
 this.dispose();
 
