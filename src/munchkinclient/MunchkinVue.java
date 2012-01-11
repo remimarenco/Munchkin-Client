@@ -360,6 +360,7 @@ public class MunchkinVue extends JFrame {
         });
         jPanel.add(buttonIntervenir, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 500, 190, 40));
 
+        buttonDesequiper.setBackground(new java.awt.Color(168, 137, 59));
         buttonDesequiper.setText("Desequiper");
         buttonDesequiper.setEnabled(false);
         buttonDesequiper.addActionListener(new java.awt.event.ActionListener() {

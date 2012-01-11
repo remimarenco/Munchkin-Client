@@ -532,6 +532,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="buttonDesequiper">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="3b" green="89" red="a8" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Desequiper"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
