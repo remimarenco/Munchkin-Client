@@ -720,7 +720,7 @@ public class MunchkinVue extends JFrame {
             public void run() {                
                 disableActionButtonAndSendNo();
             }           
-       },360*1000);
+       },360*1000);//360 secondes pour des tests a al demande de Simon TODO :remettre à 30
        
        this.labelActionPrompt.setText(msg.getMessage());
        this.buttonNon.setEnabled(true);
