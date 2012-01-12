@@ -720,7 +720,7 @@ public class MunchkinVue extends JFrame {
             public void run() {                
                 disableActionButtonAndSendNo();
             }           
-       },30*1000);
+       },360*1000);
        
        this.labelActionPrompt.setText(msg.getMessage());
        this.buttonNon.setEnabled(true);
