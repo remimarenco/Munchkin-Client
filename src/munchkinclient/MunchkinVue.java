@@ -477,11 +477,18 @@ public class MunchkinVue extends JFrame {
                 this.choisirJoueur=true;
                 break;
             case Message.INTERVENTION:
-                this.state=msg.getAction();                
+                this.state=msg.getAction();
+                break;
+            case Message.STOP_QUESTION_INTERVENTION:
+            	stopQuestionIntervention();
         }
     }
 
-     private void changeComponentForground(Component comp,Color col){
+     private void stopQuestionIntervention() {
+    	 disableYesNoLabelTimerDisplayTimer();
+	}
+
+	private void changeComponentForground(Component comp,Color col){
          comp.setForeground(col);
      }
      
@@ -733,6 +740,16 @@ public class MunchkinVue extends JFrame {
         this.buttonNon.setEnabled(false);
         this.buttonYes.setEnabled(false);
         com.sendMessage(new Message(Message.QUESTION, login, login_dest, "Non"));
+        this.labelTimer.setText("30");
+        displayTimer.stop();
+    }
+    
+    /**
+     * Méthode permettant de désactiver les boutons Oui et Non, le LabelTimer et le Display Timer
+     */
+    private void disableYesNoLabelTimerDisplayTimer(){        
+        this.buttonNon.setEnabled(false);
+        this.buttonYes.setEnabled(false);
         this.labelTimer.setText("30");
         displayTimer.stop();
     }
