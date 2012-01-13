@@ -706,27 +706,27 @@ public class MunchkinVue extends JFrame {
      * @param msg 
      */
     private void miseajourAction(Message msg) {
-        displayTimer=new javax.swing.Timer(1000, new ActionListener() {
+    	displayTimer=new javax.swing.Timer(1000, new ActionListener() {
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                labelTimer.setText(Integer.toString((Integer.valueOf(labelTimer.getText()))-1));
-            }
-        });
-        displayTimer.start();
-       timer=new Timer("timer") ;
-       timer.schedule(new TimerTask(){
-            @Override
-            public void run() {                
-                disableActionButtonAndSendNo();
-            }           
-       },360*1000);//360 secondes pour des tests a al demande de Simon TODO :remettre à 30
-       
-       this.labelActionPrompt.setText(msg.getMessage());
-       this.buttonNon.setEnabled(true);
-       this.buttonYes.setEnabled(true);
-       changeComponentForground(this.buttonNon, Color.red);
-       changeComponentForground(this.buttonYes, Color.red);       
+    		@Override
+    		public void actionPerformed(ActionEvent e) {
+    			labelTimer.setText(Integer.toString((Integer.valueOf(labelTimer.getText()))-1));
+    		}
+    	});
+    	displayTimer.start();
+    	timer=new Timer("timer") ;
+    	timer.schedule(new TimerTask(){
+    		@Override
+    		public void run() {                
+    			disableActionButtonAndSendNo();
+    		}           
+    	},360*1000);//360 secondes pour des tests a al demande de Simon TODO :remettre à 30
+
+    	this.labelActionPrompt.setText(msg.getMessage());
+    	this.buttonNon.setEnabled(true);
+    	this.buttonYes.setEnabled(true);
+    	changeComponentForground(this.buttonNon, Color.red);
+    	changeComponentForground(this.buttonYes, Color.red);       
     }
     
     private void disableActionButtonAndSendNo(){        
