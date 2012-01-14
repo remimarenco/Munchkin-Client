@@ -677,7 +677,7 @@ public class MunchkinVue extends JFrame {
                 if(spane.getName()!=null && (spane.getName().equals(name))){
                     this.scrollPaneJeux=(JScrollPane)spane; 
                     break;
-                }                        
+                }
             }
         }
         
@@ -891,6 +891,11 @@ private void sendMessage(){
         }
 }
 
+/**
+ * Méthode qui permet d'envoyer la carte au serveur.
+ * On envoie un message de type intervention, avec l'état actuel dans la vue cliente
+ * @param idCard
+ */
 public void envoyerCarte(String idCard){
     Message msg= new Message(Message.INTERVENTION, login, "Partie", this.state,idCard);
     com.sendMessage(msg);
