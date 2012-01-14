@@ -481,6 +481,7 @@ public class MunchkinVue extends JFrame {
                 break;
             case Message.STOP_QUESTION_INTERVENTION:
             	stopQuestionIntervention();
+                break;
         }
     }
 
