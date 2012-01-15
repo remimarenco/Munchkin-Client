@@ -14,6 +14,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -80,7 +81,7 @@ public class ShowImage extends JPanel implements MouseListener{
             this.parent = parent;
             this.name   = name;
             setPreferredSize(new Dimension(this.width, this.height));
-            File input = new File(MunchkinVue.class.getResource("resources/cartes/"+this.name+".jpg").toURI());
+            InputStream input =MunchkinVue.class.getResourceAsStream("resources/cartes/"+this.name+".jpg");
             image = ImageIO.read(input);
             addMouseListener(this);  
             this.setOpaque(false);             
@@ -105,7 +106,7 @@ public class ShowImage extends JPanel implements MouseListener{
             this.height = height;
             this.parent = parent;
             setPreferredSize(new Dimension(this.width, this.height));
-            File input = new File(MunchkinVue.class.getResource("resources/cartes/"+this.name+".jpg").toURI());
+            InputStream input = MunchkinVue.class.getResourceAsStream("resources/cartes/"+this.name+".jpg");
             image = ImageIO.read(input);
              this.setOpaque(false);
              this.imageEnCours=true;

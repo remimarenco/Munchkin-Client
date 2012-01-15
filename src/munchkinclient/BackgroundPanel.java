@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.logging.Level;
@@ -25,17 +26,13 @@ public class BackgroundPanel extends JPanel {
      * @param imagePath
      * @throws URISyntaxException 
      */
-    public BackgroundPanel(URL imagePath){        
+    public BackgroundPanel(InputStream imagePath){        
            
             try {
-                image = ImageIO.read(new File(imagePath.toURI()));
+                image = ImageIO.read(imagePath);
             } catch (IOException ex) {
                 Logger.getLogger(BackgroundPanel.class.getName()).log(Level.SEVERE, null, ex);
-            
-            } catch (URISyntaxException ex) {
-                Logger.getLogger(BackgroundPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-      
+            }    
     }
     
     @Override

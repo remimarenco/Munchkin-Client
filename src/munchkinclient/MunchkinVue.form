@@ -108,7 +108,7 @@
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new BackgroundPanel(MunchkinVue.class.getResource(&quot;resources/bg4.jpg&quot;));"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new BackgroundPanel(MunchkinVue.class.getResourceAsStream(&quot;resources/bg4.jpg&quot;));"/>
       </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
@@ -235,7 +235,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labelActionPrompt">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Etes vous pr&#xea;t ?"/>
+            <Property name="text" type="java.lang.String" value="Etes vous pret ?"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

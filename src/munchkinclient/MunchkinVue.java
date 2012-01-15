@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.net.URISyntaxException;
@@ -98,12 +99,13 @@ public class MunchkinVue extends JFrame {
         UIManager.put("nimbusLightBackground", new ColorUIResource(244,233,211));           
         UIManager.put("control", new ColorUIResource(172, 158,123));        
         initComponents();        
-        initFont();     
+        initFont();        
     }
 
     private void initFont() throws FontFormatException, IOException, URISyntaxException{
-        Font font1= Font.createFont(Font.TRUETYPE_FONT, new File(MunchkinVue.class.getResource("resources/text.ttf").toURI()));
-        Font font2= Font.createFont(Font.TRUETYPE_FONT, new File(MunchkinVue.class.getResource("resources/Windlass.ttf").toURI()));
+        
+        Font font1= Font.createFont(Font.TRUETYPE_FONT, MunchkinVue.class.getResourceAsStream("resources/text.ttf"));
+        Font font2= Font.createFont(Font.TRUETYPE_FONT,MunchkinVue.class.getResourceAsStream("resources/Windlass.ttf"));
         
         font1=font1.deriveFont(18f);
         //font1=font1.deriveFont(Font.BOLD);
@@ -151,7 +153,7 @@ public class MunchkinVue extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel = new BackgroundPanel(MunchkinVue.class.getResource("resources/bg4.jpg"));
+        jPanel = new BackgroundPanel(MunchkinVue.class.getResourceAsStream("resources/bg4.jpg"));
         send_button = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -259,7 +261,7 @@ public class MunchkinVue extends JFrame {
         jPanel.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 555, 320));
         jPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 388, 32767, -1));
 
-        labelActionPrompt.setText("Etes vous prêt ?");
+        labelActionPrompt.setText("Etes vous pret ?");
         jPanel.add(labelActionPrompt, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 150, -1, -1));
 
         buttonNon.setBackground(new java.awt.Color(168, 137, 59));
@@ -381,7 +383,7 @@ public class MunchkinVue extends JFrame {
         });
         jPanel.add(buttonDesequiper, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 450, 190, 40));
 
-        labelTimer.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        labelTimer.setFont(new java.awt.Font("Tahoma", 0, 18));
         labelTimer.setText("45");
         jPanel.add(labelTimer, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 170, -1, -1));
 
