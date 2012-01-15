@@ -136,6 +136,9 @@ public class ShowImage extends JPanel implements MouseListener{
         if(click_allowed){                       
             // this.setBorder(BorderFactory.createLineBorder(Color.RED,5));            
             ((MunchkinVue)this.parent).envoyerCarte(this.name);
+            ip.setVisible(false);
+            this.image=null;
+            this.repaint();
         }        
     }
     
