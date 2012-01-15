@@ -130,7 +130,7 @@
                 <StringItem index="1" value="192.168.0.17"/>
                 <StringItem index="2" value="192.168.1.2"/>
                 <StringItem index="3" value="meg4mi.no-ip.org"/>
-                <StringItem index="4" value="134.214.51.174"/>
+                <StringItem index="4" value=" "/>
                 <StringItem index="5" value=" "/>
               </StringArray>
             </Property>

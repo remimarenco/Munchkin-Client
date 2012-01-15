@@ -484,6 +484,8 @@ public class MunchkinVue extends JFrame {
                 break;
             case Message.INTERVENTION:
                 this.state=msg.getAction();
+                if(msg.getAction()==Constantes.ACTION_PRET)
+                    this.buttonYes.setEnabled(connected);
                 break;
             case Message.STOP_QUESTION_INTERVENTION:
             	stopQuestionIntervention();
@@ -814,11 +816,10 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 Message msg = new Message(Message.CONNECT, login);
                 connected = com.sendMessage(msg);                    
                 this.tabbedPaneInfosJoueurs.removeAll();
-                createTabInfoJouers("Mes Infos");
-                this.buttonYes.setEnabled(connected);
+                createTabInfoJouers("Mes Infos");               
                this.buttonPoserCarte.setEnabled(connected);               
-               this.buttonIntervenir.setEnabled(connected);
-               this.buttonDefausser.setEnabled(connected); 
+               //this.buttonIntervenir.setEnabled(connected);
+               //this.buttonDefausser.setEnabled(connected); 
                this.buttonDesequiper.setEnabled(connected);
                this.send_button.setEnabled(connected);
                 try {
@@ -980,8 +981,15 @@ private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 }//GEN-LAST:event_jTextField1ActionPerformed
 
 private void buttonPoserCarteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPoserCarteActionPerformed
-    this.state=Constantes.ACTION_POSERCARTE;
-    com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_POSERCARTE));
+    if(this.buttonPoserCarte.getText().equals("Poser une carte")){        
+        this.state=Constantes.ACTION_POSERCARTE;
+        com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_POSERCARTE));
+        this.buttonPoserCarte.setText("Annuler");
+    }
+    else if(this.buttonPoserCarte.getText().equals("Annuler")){
+        disallowClicOnCard();
+        this.buttonPoserCarte.setText("Poser une carte");
+    }
 }//GEN-LAST:event_buttonPoserCarteActionPerformed
 
 private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
@@ -1020,8 +1028,16 @@ private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
 }//GEN-LAST:event_jList1MouseClicked
 
 private void buttonDefausserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDefausserActionPerformed
-    this.state=Constantes.ACTION_DEFAUSSER;
-    com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_DEFAUSSER));
+    if(this.buttonDefausser.getText().equals("Defausser")){
+        this.state=Constantes.ACTION_DEFAUSSER;
+        com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_DEFAUSSER));
+        this.buttonDefausser.setText("Annuler");
+    }
+    else if(this.buttonDefausser.getText().equals("Annuler")){
+        disallowClicOnCard();
+        this.buttonDefausser.setText("Defausser");
+    }
+    
 }//GEN-LAST:event_buttonDefausserActionPerformed
 
 private void buttonIntervenirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIntervenirActionPerformed
@@ -1044,8 +1060,15 @@ if(campClicable){
 }//GEN-LAST:event_tabbedPaneCampGentilMouseClicked
 
 private void buttonDesequiperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDesequiperActionPerformed
-this.state=Constantes.ACTION_DESEQUIPER;
+if(this.buttonDesequiper.getText().equals("Desequiper")){
+    this.state=Constantes.ACTION_DESEQUIPER;
     com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_DESEQUIPER));
+    this.buttonDesequiper.setText("Annuler");
+}
+else if(this.buttonDesequiper.getText().equals("Annuler")){
+    disallowClicOnCard();
+    this.buttonDesequiper.setText("Desequiper");
+}
 }//GEN-LAST:event_buttonDesequiperActionPerformed
 
     /**
