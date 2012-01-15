@@ -76,6 +76,7 @@ public class MunchkinVue extends JFrame {
     private int pourcent = 0;
     private boolean connected = false;
     private boolean nickexist = false;
+    private boolean sonActive = true;
     private boolean campClicable=false;
     private boolean choisirJoueur=false;
     private HashMap<String,JTextArea> mapInfosJoueurs=new HashMap<String, JTextArea>();
@@ -153,6 +154,7 @@ public class MunchkinVue extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel = new BackgroundPanel(MunchkinVue.class.getResourceAsStream("resources/bg4.jpg"));
         send_button = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
@@ -185,6 +187,9 @@ public class MunchkinVue extends JFrame {
         buttonIntervenir = new javax.swing.JButton();
         buttonDesequiper = new javax.swing.JButton();
         labelTimer = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         connexion_item = new javax.swing.JMenuItem();
@@ -387,6 +392,23 @@ public class MunchkinVue extends JFrame {
         labelTimer.setText("45");
         jPanel.add(labelTimer, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 170, -1, -1));
 
+        jLabel2.setText("Son active :");
+        jPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 640, -1, 20));
+
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
+        jRadioButton1.setText("Oui");
+        jRadioButton1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jRadioButton1ItemStateChanged(evt);
+            }
+        });
+        jPanel.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 640, -1, -1));
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setText("Non");
+        jPanel.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 640, -1, -1));
+
         jMenuBar1.setBackground(new java.awt.Color(179, 127, 81));
         jMenuBar1.setFont(new java.awt.Font("DejaVu Sans Light", 0, 13));
 
@@ -464,7 +486,8 @@ public class MunchkinVue extends JFrame {
                 miseaJourMainJoueur(msg);
                 break;
             case Message.SOUND:
-                playSound(msg);
+                if(sonActive)
+                    playSound(msg);
                 break;
             case Message.CARTE_EN_COURS:
                 miseaJourCarteEnCours(msg);
@@ -1073,6 +1096,13 @@ else if(this.buttonDesequiper.getText().equals("Annuler")){
 }
 }//GEN-LAST:event_buttonDesequiperActionPerformed
 
+private void jRadioButton1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButton1ItemStateChanged
+if(this.jRadioButton1.isSelected())
+    this.sonActive=true;
+else
+    this.sonActive=false;
+}//GEN-LAST:event_jRadioButton1ItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -1119,6 +1149,7 @@ else if(this.buttonDesequiper.getText().equals("Annuler")){
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonDefausser;
     private javax.swing.JButton buttonDesequiper;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton buttonIntervenir;
     private javax.swing.JButton buttonNon;
     private javax.swing.JButton buttonPoserCarte;
@@ -1126,9 +1157,12 @@ else if(this.buttonDesequiper.getText().equals("Annuler")){
     private javax.swing.JMenuItem connexion_item;
     private javax.swing.JMenuItem deconnexion_Item;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JList jList1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
