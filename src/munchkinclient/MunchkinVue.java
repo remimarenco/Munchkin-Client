@@ -79,9 +79,15 @@ public class MunchkinVue extends JFrame {
     private boolean choisirJoueur=false;
     private HashMap<String,JTextArea> mapInfosJoueurs=new HashMap<String, JTextArea>();
     private HashMap<String,JTextPane> mapTxtToJoueurs=new HashMap<String, JTextPane>();   
-    private int state;
-    private Timer timer;
-    private javax.swing.Timer displayTimer;
+    private int state = Constantes.ACTION_PRET;
+    private Timer timer=new Timer("timer") ;;
+    private javax.swing.Timer displayTimer=new javax.swing.Timer(1000, new ActionListener() {
+
+    		@Override
+    		public void actionPerformed(ActionEvent e) {
+    			labelTimer.setText(Integer.toString((Integer.valueOf(labelTimer.getText()))-1));
+    		}
+    	});;
     
     
     
@@ -253,7 +259,7 @@ public class MunchkinVue extends JFrame {
         jPanel.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 555, 320));
         jPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 388, 32767, -1));
 
-        labelActionPrompt.setText("Action :");
+        labelActionPrompt.setText("Etes vous prêt ?");
         jPanel.add(labelActionPrompt, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 150, -1, -1));
 
         buttonNon.setBackground(new java.awt.Color(168, 137, 59));
@@ -376,7 +382,7 @@ public class MunchkinVue extends JFrame {
         jPanel.add(buttonDesequiper, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 450, 190, 40));
 
         labelTimer.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        labelTimer.setText("30");
+        labelTimer.setText("45");
         jPanel.add(labelTimer, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 170, -1, -1));
 
         jMenuBar1.setBackground(new java.awt.Color(179, 127, 81));
@@ -488,7 +494,6 @@ public class MunchkinVue extends JFrame {
      private void stopQuestionIntervention() {
     	 disableYesNoLabelTimerDisplayTimer();
 	}
-
 	private void changeComponentForground(Component comp,Color col){
          comp.setForeground(col);
      }
@@ -713,14 +718,7 @@ public class MunchkinVue extends JFrame {
      * Met a jour l'action proposé par le serveur
      * @param msg 
      */
-    private void miseajourAction(Message msg) {
-    	displayTimer=new javax.swing.Timer(1000, new ActionListener() {
-
-    		@Override
-    		public void actionPerformed(ActionEvent e) {
-    			labelTimer.setText(Integer.toString((Integer.valueOf(labelTimer.getText()))-1));
-    		}
-    	});
+    private void miseajourAction(Message msg) {    	
     	displayTimer.start();
     	timer=new Timer("timer") ;
     	timer.schedule(new TimerTask(){
@@ -728,7 +726,7 @@ public class MunchkinVue extends JFrame {
     		public void run() {                
     			disableActionButtonAndSendNo();
     		}           
-    	},360*1000);//360 secondes pour des tests a al demande de Simon TODO :remettre à 30
+    	},45*1000);//360 secondes pour des tests a al demande de Simon TODO :remettre à 30
 
     	this.labelActionPrompt.setText(msg.getMessage());
     	this.buttonNon.setEnabled(true);
@@ -805,13 +803,11 @@ public class MunchkinVue extends JFrame {
     
 private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connexion_itemActionPerformed
         try {            
-            Connexion connexion = new Connexion(this,true);
+           Connexion connexion = new Connexion(this,true);
            connexion.setLocationRelativeTo(this);     
            connexion.setVisible(true);
            if (connexion.getEtat()) {
-
-                login = connexion.getLogin();      
-             
+                login = connexion.getLogin();             
                 socket = new Socket(connexion.getServeur(), connexion.getPort());                
                 com = new Communication(socket, this);
                 com.start();                
@@ -819,6 +815,7 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 connected = com.sendMessage(msg);                    
                 this.tabbedPaneInfosJoueurs.removeAll();
                 createTabInfoJouers("Mes Infos");
+                this.buttonYes.setEnabled(connected);
                this.buttonPoserCarte.setEnabled(connected);               
                this.buttonIntervenir.setEnabled(connected);
                this.buttonDefausser.setEnabled(connected); 
@@ -931,7 +928,7 @@ private void buttonNonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
   changeComponentForground(this.buttonYes, Color.black);
   timer.cancel();
   displayTimer.stop();
-  this.labelTimer.setText("30");
+  this.labelTimer.setText("45");
 }//GEN-LAST:event_buttonNonActionPerformed
 
 private void buttonYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonYesActionPerformed
@@ -942,7 +939,7 @@ private void buttonYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
   changeComponentForground(this.buttonYes, Color.black);
   timer.cancel();
   displayTimer.stop();
-  this.labelTimer.setText("30");
+  this.labelTimer.setText("45");
 }//GEN-LAST:event_buttonYesActionPerformed
 
 private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
