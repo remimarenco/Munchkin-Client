@@ -775,9 +775,10 @@ public class MunchkinVue extends JFrame {
      */
     private void disableYesNoLabelTimerDisplayTimer(){        
         this.buttonNon.setEnabled(false);
-        this.buttonYes.setEnabled(false);
+        this.buttonYes.setEnabled(false);       
         this.labelTimer.setText("30");
         displayTimer.stop();
+        timer.cancel();
     }
   
     /**
@@ -924,6 +925,8 @@ public void envoyerCarte(String idCard){
     Message msg= new Message(Message.INTERVENTION, login, "Partie", this.state,idCard);
     com.sendMessage(msg);
     this.disallowClicOnCard();
+    this.buttonDesequiper.setText("Desequiper");
+    this.buttonPoserCarte.setText("Poser une carte");
 }                    
 
 private void send_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_send_buttonActionPerformed

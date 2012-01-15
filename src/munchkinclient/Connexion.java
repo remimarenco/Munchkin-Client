@@ -1,5 +1,6 @@
 package munchkinclient;
 
+import java.awt.event.KeyEvent;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -9,7 +10,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 /**
- * // TODO : A commenter
+ * Fenetre de connexion
  * @author Guillaume Renoult
  */
 public class Connexion extends JDialog {
@@ -86,6 +87,12 @@ public class Connexion extends JDialog {
         });
 
         serveur_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "localhost", "192.168.0.17", "192.168.1.2", "meg4mi.no-ip.org", " ", " " }));
+
+        login_field.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                login_fieldKeyPressed(evt);
+            }
+        });
 
         jLabel2.setText("Login :");
 
@@ -168,9 +175,10 @@ public class Connexion extends JDialog {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
-// TODO add your handling code here:
-    try {
+    
+    
+private void connecter(){
+     try {
             serveur = InetAddress.getByName(serveur_ComboBox.getSelectedItem().toString());
         } catch (UnknownHostException ex) {
             Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
@@ -182,7 +190,10 @@ else
     port=80;
 saisie_effectué=true;
 this.dispose();
-
+}
+    
+private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
+connecter();
 }//GEN-LAST:event_connectButtonActionPerformed
 
 private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -202,6 +213,11 @@ if( this.radioBUttonLocal.isSelected()){
     this.serveur_ComboBox.setEnabled(true);
 }
 }//GEN-LAST:event_radioBUttonLocalItemStateChanged
+
+private void login_fieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_login_fieldKeyPressed
+if(evt.getKeyCode()==KeyEvent.VK_ENTER)
+    connecter();
+}//GEN-LAST:event_login_fieldKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
