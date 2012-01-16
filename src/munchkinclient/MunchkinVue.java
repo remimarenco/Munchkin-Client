@@ -500,11 +500,11 @@ public class MunchkinVue extends JFrame {
                 miseaJourInfosCamps(msg);
                 break;
             case Message.CHOIXCAMP:
-                appendText(jTextPane1,msg.getNick_src() + " : "+msg.getMessage()+"\n" , Color.yellow);
+                appendText(jTextPane1,msg.getNick_src() + " : "+msg.getMessage()+"\n" , Color.red);
                 this.campClicable=true;
                 break;
             case Message.CHOIXJOUEUR:
-                appendText(jTextPane1,msg.getNick_src() + " : "+msg.getMessage()+"\n" , Color.yellow);
+                appendText(jTextPane1,msg.getNick_src() + " : "+msg.getMessage()+"\n" , Color.red);
                 this.choisirJoueur=true;
                 break;
             case Message.INTERVENTION:
@@ -745,7 +745,8 @@ public class MunchkinVue extends JFrame {
      * Met a jour l'action proposé par le serveur
      * @param msg 
      */
-    private void miseajourAction(Message msg) {    	
+    private void miseajourAction(Message msg) {
+        this.labelTimer.setText("45");
     	displayTimer.start();
     	timer=new Timer("timer") ;
     	timer.schedule(new TimerTask(){
