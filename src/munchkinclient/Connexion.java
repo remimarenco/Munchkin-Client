@@ -43,7 +43,15 @@ public class Connexion extends JDialog {
             Font font1= Font.createFont(Font.TRUETYPE_FONT, MunchkinVue.class.getResourceAsStream("resources/CASLANTR.TTF"));
             font1=font1.deriveFont(18f);
             this.jLabel1.setFont(font1);
-            
+            this.jLabel2.setFont(font1);
+            this.jLabel3.setFont(font1);
+            this.buttonBrowse.setFont(font1);
+            this.connectButton.setFont(font1);
+            this.cancelButton.setFont(font1);
+            this.radioBUttonLocal.setFont(font1);
+            this.radioButtonInternet.setFont(font1);
+            this.radioButtonF.setFont(font1);
+            this.radioButtonM.setFont(font1);
             
             
         } catch (FontFormatException ex) {
