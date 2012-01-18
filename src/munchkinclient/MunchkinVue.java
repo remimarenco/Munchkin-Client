@@ -787,10 +787,8 @@ public class MunchkinVue extends JFrame {
      * met a jour la liste des connectés
      * @param liste 
      */    
-    public void miseaJourListe(String liste) {
-
-        
-        listeJoueur=new ArrayList<ImagePanelList>();
+    public void miseaJourListe(String liste) {        
+        listeJoueur.clear();
         StringTokenizer l2 = new StringTokenizer(liste, ";");
         while (l2.hasMoreTokens()) {
             String str= l2.nextToken(); 
