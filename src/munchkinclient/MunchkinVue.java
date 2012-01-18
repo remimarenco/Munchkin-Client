@@ -97,7 +97,8 @@ public class MunchkinVue extends JFrame {
         UIManager.put("nimbusLightBackground", new ColorUIResource(244,233,211));           
         UIManager.put("control", new ColorUIResource(172, 158,123));        
         initComponents();        
-        initFont();        
+        initFont(); 
+        
     }
 
     private void initFont() throws FontFormatException, IOException, URISyntaxException{
@@ -793,11 +794,10 @@ public class MunchkinVue extends JFrame {
         StringTokenizer l2 = new StringTokenizer(liste, ";");
         while (l2.hasMoreTokens()) {
             String str= l2.nextToken(); 
-            ImagePanelList ip=new ImagePanelList(new JLabel(str));
-            //this.listeJoueur.add(str);
-            listeJoueur.add(ip);
             createTabInfoJouers(str);
             createTabJeuxJouers(str);
+            ImagePanelList ip=new ImagePanelList(new JLabel(str));            
+            listeJoueur.add(ip);            
         }
         jList1.setListData(listeJoueur.toArray());
     }
