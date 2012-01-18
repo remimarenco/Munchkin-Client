@@ -4,6 +4,7 @@
  */
 package munchkinclient;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,13 +31,15 @@ public class ImagePanelList extends JPanel {
 
     public ImagePanelList( JLabel nameJoueur) {        
         super(new FlowLayout(FlowLayout.LEFT));
-        this.nameJoueur = nameJoueur;        
+        this.nameJoueur = nameJoueur;   
+        this.nameJoueur.setForeground(Color.white);
         add(this.nameJoueur);
     }
     public ImagePanelList(JLabel image, JLabel nameJoueur) {
-        super(new FlowLayout(FlowLayout.LEFT));
+        super(new FlowLayout(FlowLayout.LEFT));        
         this.image = image;
         this.nameJoueur = nameJoueur;
+        this.nameJoueur.setForeground(Color.white);
         add(this.image);
         add(this.nameJoueur);
     }
