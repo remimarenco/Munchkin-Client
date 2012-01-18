@@ -32,6 +32,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -65,12 +66,10 @@ public class MunchkinVue extends JFrame {
 
     private Communication com = null;
     private Socket socket = null;
-    private String login = null;
-    private String fileName = new String("");
+    private String login = null;    
     private String login_dest = "Partie";
     private JScrollPane jScrollpane;
-    private JTextPane jTextPane2;
-    private ArrayList<ImagePanelList>  listeJoueur=new ArrayList<ImagePanelList>();
+    private JTextPane jTextPane2;    
     private boolean connected = false;
     private boolean nickexist = false;
     private boolean sonActive = true;
@@ -97,8 +96,8 @@ public class MunchkinVue extends JFrame {
         UIManager.put("nimbusLightBackground", new ColorUIResource(244,233,211));           
         UIManager.put("control", new ColorUIResource(172, 158,123));        
         initComponents();        
-        initFont(); 
-        
+        initFont();         
+        this.setIconImage(ImageIO.read(MunchkinVue.class.getResourceAsStream("resources/cartes/1.jpg")));
     }
 
     private void initFont() throws FontFormatException, IOException, URISyntaxException{
@@ -386,7 +385,7 @@ public class MunchkinVue extends JFrame {
         });
         jPanel.add(buttonDesequiper, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 450, 190, 40));
 
-        labelTimer.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        labelTimer.setFont(new java.awt.Font("Tahoma", 0, 18));
         labelTimer.setText("30");
         jPanel.add(labelTimer, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 170, -1, -1));
 
@@ -465,15 +464,12 @@ public class MunchkinVue extends JFrame {
                 jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
                 break;
             case Message.LISTE:                
-                miseaJourListe(msg.getMessage());
+                miseaJourListe(msg.getList());
                 break;            
             case Message.NICKEXIST:
                 nickexist = true;
                 miseaJour(msg);
-                break;
-            case Message.AVATAR:
-                miseaJourListeAvecImage(msg);
-                break;
+                break;            
             case Message.QUESTION:
                 miseajourAction(msg);
                 break;
@@ -787,37 +783,18 @@ public class MunchkinVue extends JFrame {
      * met a jour la liste des connectés
      * @param liste 
      */    
-    public void miseaJourListe(String liste) {        
-        listeJoueur.clear();
-        StringTokenizer l2 = new StringTokenizer(liste, ";");
-        while (l2.hasMoreTokens()) {
-            String str= l2.nextToken(); 
-            createTabInfoJouers(str);
-            createTabJeuxJouers(str);
-            ImagePanelList ip=new ImagePanelList(new JLabel(str));            
-            listeJoueur.add(ip);            
-        }
-        jList1.setListData(listeJoueur.toArray());
-    }
-    
-    
-    private void miseaJourListeAvecImage(Message msg) {
-        ArrayList<ImagePanelList> ancientData=listeJoueur;
-        listeJoueur=new ArrayList<ImagePanelList>();
-        ImagePanelList ip=new ImagePanelList();
-        for(Component c:ancientData)
-            if(c instanceof ImagePanelList)
-                if(!((ImagePanelList)c).getNameJoueur().getText().equals(msg.getNick_src()))
-                    listeJoueur.add((ImagePanelList)c);
-                else{
-                    ip =  new ImagePanelList(msg.getAvatar(), ((ImagePanelList)c).getNameJoueur());  
-                    listeJoueur.add(ip);
-                }       
-        this.jList1.setListData(listeJoueur.toArray());
-    }
-
-    
-    
+    public void miseaJourListe(HashMap<String, JLabel> list) {        
+        ImagePanelList ip=new ImagePanelList(); 
+        ArrayList<ImagePanelList> data=new ArrayList<ImagePanelList>();
+        for(Map.Entry<String,JLabel> m : list.entrySet())
+        {
+            createTabInfoJouers(m.getKey());
+            createTabJeuxJouers(m.getKey());
+            ip=new ImagePanelList(m.getValue(),new JLabel(m.getKey()));
+            data.add(ip);
+        }       
+        jList1.setListData(data.toArray());
+    }   
 
     private JTextArea createTextAreaInfoJoueurs(String name){
         JTextArea txtA= new JTextArea();
@@ -860,9 +837,8 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 socket = new Socket(connexion.getServeur(), connexion.getPort());                
                 com = new Communication(socket, this);
                 com.start();                
-                Message msg = new Message(Message.CONNECT, login,"Partie",String.valueOf(connexion.getSexe()));
-                connected = com.sendMessage(msg);  
-                com.sendMessage(new Message(Message.AVATAR, login, "Partie", connexion.getAvatarLabel()));
+                Message msg = new Message(Message.CONNECT, login,"Partie",String.valueOf(connexion.getSexe()),connexion.getAvatarLabel());
+                connected = com.sendMessage(msg);               
                 this.tabbedPaneInfosJoueurs.removeAll();
                 createTabInfoJouers("Mes Infos");               
                this.buttonPoserCarte.setEnabled(connected);               

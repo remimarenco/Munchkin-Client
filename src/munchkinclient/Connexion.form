@@ -11,7 +11,7 @@
     <Property name="title" type="java.lang.String" value="Connexion"/>
     <Property name="alwaysOnTop" type="boolean" value="true"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[500, 300]"/>
+      <Dimension value="[520, 320]"/>
     </Property>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
