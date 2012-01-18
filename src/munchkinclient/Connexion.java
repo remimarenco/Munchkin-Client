@@ -1,29 +1,60 @@
 package munchkinclient;
 
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.filechooser.FileFilter;
 
 /**
  * Fenetre de connexion
  * @author Guillaume Renoult
  */
 public class Connexion extends JDialog {
+    
+    private String login;
+    private InetAddress serveur;
+    private int port;
+    private boolean saisie_effectué=false;
+    private int sexe=Constantes.SEXE_M;
+    
 
     /** 
      * Creates new form Connexion 
      */
     public Connexion(JFrame parent,boolean b) {
         super(parent,b);
-        initComponents();  
+        try {
+            initComponents();  
+            Font font1= Font.createFont(Font.TRUETYPE_FONT, MunchkinVue.class.getResourceAsStream("resources/CASLANTR.TTF"));
+            font1=font1.deriveFont(18f);
+            this.jLabel1.setFont(font1);
+            
+            
+            
+        } catch (FontFormatException ex) {
+            Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
-    
+ 
     
     // ===== ACCESSEURS & MUTATEURS ===== //
     public boolean getEtat(){ 
@@ -33,6 +64,17 @@ public class Connexion extends JDialog {
     public String getLogin(){ 
         return login; 
     }
+
+    public JLabel getAvatarLabel() {
+        ImageIcon icon=(ImageIcon) avatarLabel.getIcon();
+        Image image= icon.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+        icon = new ImageIcon(image);        
+        return new JLabel(icon);
+    }
+
+    public int getSexe() {
+        return sexe;
+    }    
     
     public InetAddress getServeur(){ 
         return serveur; 
@@ -55,6 +97,7 @@ public class Connexion extends JDialog {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         connectButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
@@ -64,10 +107,15 @@ public class Connexion extends JDialog {
         jLabel1 = new javax.swing.JLabel();
         radioButtonInternet = new javax.swing.JRadioButton();
         radioBUttonLocal = new javax.swing.JRadioButton();
+        jLabel3 = new javax.swing.JLabel();
+        radioButtonM = new javax.swing.JRadioButton();
+        radioButtonF = new javax.swing.JRadioButton();
+        buttonBrowse = new javax.swing.JButton();
+        avatarLabel = new javax.swing.JLabel();
 
         setTitle("Connexion");
         setAlwaysOnTop(true);
-        setMinimumSize(new java.awt.Dimension(350, 250));
+        setMinimumSize(new java.awt.Dimension(500, 300));
         setResizable(false);
 
         connectButton.setText("Connect");
@@ -115,6 +163,31 @@ public class Connexion extends JDialog {
             }
         });
 
+        jLabel3.setText("Sexe :");
+
+        buttonGroup2.add(radioButtonM);
+        radioButtonM.setSelected(true);
+        radioButtonM.setText("Masculin");
+        radioButtonM.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                radioButtonMItemStateChanged(evt);
+            }
+        });
+
+        buttonGroup2.add(radioButtonF);
+        radioButtonF.setText("Feminin");
+
+        buttonBrowse.setText("parcourrir");
+        buttonBrowse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBrowseActionPerformed(evt);
+            }
+        });
+
+        avatarLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/munchkinclient/resources/avatar.jpg"))); // NOI18N
+        avatarLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        avatarLabel.setPreferredSize(new java.awt.Dimension(168, 168));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -123,44 +196,71 @@ public class Connexion extends JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(login_field, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(login_field, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(radioBUttonLocal)
+                                        .addGap(27, 27, 27)
+                                        .addComponent(radioButtonInternet))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(serveur_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(radioButtonM)
+                                        .addGap(10, 10, 10)
+                                        .addComponent(radioButtonF)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                                .addComponent(avatarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(buttonBrowse)
+                        .addGap(52, 52, 52))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(cancelButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
-                        .addComponent(connectButton))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(serveur_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(radioBUttonLocal)
-                        .addGap(27, 27, 27)
-                        .addComponent(radioButtonInternet)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 333, Short.MAX_VALUE)
+                        .addComponent(connectButton)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(radioBUttonLocal)
+                            .addComponent(radioButtonInternet))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(serveur_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(login_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(radioButtonM)
+                            .addComponent(radioButtonF)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(avatarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(radioBUttonLocal)
-                    .addComponent(radioButtonInternet))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(serveur_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(login_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addComponent(buttonBrowse)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(connectButton)
                     .addComponent(cancelButton))
-                .addGap(32, 32, 32))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -171,7 +271,7 @@ public class Connexion extends JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -219,20 +319,57 @@ if(evt.getKeyCode()==KeyEvent.VK_ENTER)
     connecter();
 }//GEN-LAST:event_login_fieldKeyPressed
 
+private void buttonBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBrowseActionPerformed
+JFileChooser f = new JFileChooser();       
+FileFilter filter=new FileFilter() {           
+    public boolean accept(File f) {
+        if(f.isDirectory())
+            return true;
+        else if (f.getName().endsWith(".jpg") || f.getName().endsWith(".png"))
+            return true;                   
+        else
+            return false;
+    }           
+    public String getDescription() {
+        return "Jpg et PNG Files";
+    }
+};      
+f.setFileFilter(filter);
+f.showOpenDialog(this);
+File file=f.getSelectedFile();
+if(file!=null){
+    ImageIcon icon= new ImageIcon(file.getPath());
+    Image img=icon.getImage().getScaledInstance(168, 168, Image.SCALE_SMOOTH);
+    icon=new ImageIcon(img);
+    avatarLabel.setIcon(icon);
+    this.repaint();
+}
+}//GEN-LAST:event_buttonBrowseActionPerformed
+
+private void radioButtonMItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_radioButtonMItemStateChanged
+if(this.radioButtonM.isSelected())
+    this.sexe=Constantes.SEXE_M;
+else
+    this.sexe=Constantes.SEXE_F;
+}//GEN-LAST:event_radioButtonMItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel avatarLabel;
+    private javax.swing.JButton buttonBrowse;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton connectButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField login_field;
     private javax.swing.JRadioButton radioBUttonLocal;
+    private javax.swing.JRadioButton radioButtonF;
     private javax.swing.JRadioButton radioButtonInternet;
+    private javax.swing.JRadioButton radioButtonM;
     private javax.swing.JComboBox serveur_ComboBox;
     // End of variables declaration//GEN-END:variables
-    private String login;
-    private InetAddress serveur;
-    private int port;
-    private boolean saisie_effectué=false;
+
 }

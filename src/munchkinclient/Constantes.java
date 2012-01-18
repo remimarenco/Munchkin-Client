@@ -18,4 +18,11 @@ public class Constantes {
      * Constante Son
      */
     public static final int SOUND_RIRES           = 999;
+    
+    
+     /**
+     * Type de sexe
+     */
+    public static final int SEXE_M = 1;
+    public static final int SEXE_F = 2;
 }

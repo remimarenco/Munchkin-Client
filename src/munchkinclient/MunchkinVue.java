@@ -42,8 +42,10 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -73,7 +75,7 @@ public class MunchkinVue extends JFrame {
     private String login_dest = "Partie";
     private JScrollPane jScrollpane;
     private JTextPane jTextPane2;
-    private int pourcent = 0;
+    private ArrayList<ImagePanelList>  listeJoueur=new ArrayList<ImagePanelList>();
     private boolean connected = false;
     private boolean nickexist = false;
     private boolean sonActive = true;
@@ -105,12 +107,12 @@ public class MunchkinVue extends JFrame {
 
     private void initFont() throws FontFormatException, IOException, URISyntaxException{
         
-        Font font1= Font.createFont(Font.TRUETYPE_FONT, MunchkinVue.class.getResourceAsStream("resources/text.ttf"));
+        Font font1= Font.createFont(Font.TRUETYPE_FONT, MunchkinVue.class.getResourceAsStream("resources/CASLANTR.TTF"));
         Font font2= Font.createFont(Font.TRUETYPE_FONT,MunchkinVue.class.getResourceAsStream("resources/Windlass.ttf"));
         
         font1=font1.deriveFont(18f);
         //font1=font1.deriveFont(Font.BOLD);
-        font2=font2.deriveFont(12f);
+        font2=font2.deriveFont(14f);
         this.jTextPane1.setFont(font1);            
         this.textAreaInfos.setFont(font1);
         this.jList1.setFont(font1);
@@ -124,7 +126,7 @@ public class MunchkinVue extends JFrame {
         for(int i = 0; i < jMenuBar1.getMenuCount(); i++)
             this.applyFontMenu(jMenuBar1.getMenu(0), font2);
         
-       
+       this.jTextField1.setFont(font1);
     }
     
     private void applyFont(JComponent c, Font f){
@@ -159,7 +161,7 @@ public class MunchkinVue extends JFrame {
         send_button = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        jList1 = new ListWithImage();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
@@ -388,8 +390,8 @@ public class MunchkinVue extends JFrame {
         });
         jPanel.add(buttonDesequiper, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 450, 190, 40));
 
-        labelTimer.setFont(new java.awt.Font("Tahoma", 0, 18));
-        labelTimer.setText("45");
+        labelTimer.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        labelTimer.setText("30");
         jPanel.add(labelTimer, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 170, -1, -1));
 
         jLabel2.setText("Son active :");
@@ -403,11 +405,11 @@ public class MunchkinVue extends JFrame {
                 jRadioButton1ItemStateChanged(evt);
             }
         });
-        jPanel.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 640, -1, -1));
+        jPanel.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 640, -1, -1));
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Non");
-        jPanel.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 640, -1, -1));
+        jPanel.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 640, -1, -1));
 
         jMenuBar1.setBackground(new java.awt.Color(179, 127, 81));
         jMenuBar1.setFont(new java.awt.Font("DejaVu Sans Light", 0, 13));
@@ -438,15 +440,15 @@ public class MunchkinVue extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1189, Short.MAX_VALUE)
+            .addGap(0, 1197, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1189, Short.MAX_VALUE))
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1197, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 701, Short.MAX_VALUE)
+            .addGap(0, 705, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE))
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -466,12 +468,15 @@ public class MunchkinVue extends JFrame {
                 miseaJour(msg);
                 jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
                 break;
-            case Message.LISTE:
+            case Message.LISTE:                
                 miseaJourListe(msg.getMessage());
                 break;            
             case Message.NICKEXIST:
                 nickexist = true;
                 miseaJour(msg);
+                break;
+            case Message.AVATAR:
+                miseaJourListeAvecImage(msg);
                 break;
             case Message.QUESTION:
                 miseajourAction(msg);
@@ -746,7 +751,7 @@ public class MunchkinVue extends JFrame {
      * @param msg 
      */
     private void miseajourAction(Message msg) {
-        this.labelTimer.setText("45");
+        this.labelTimer.setText("30");
     	displayTimer.start();
     	timer=new Timer("timer") ;
     	timer.schedule(new TimerTask(){
@@ -754,7 +759,7 @@ public class MunchkinVue extends JFrame {
     		public void run() {                
     			disableActionButtonAndSendNo();
     		}           
-    	},45*1000);//360 secondes pour des tests a al demande de Simon TODO :remettre à 30
+    	},30*1000);//360 secondes pour des tests a al demande de Simon TODO :remettre à 30
 
     	this.labelActionPrompt.setText(msg.getMessage());
     	this.buttonNon.setEnabled(true);
@@ -788,16 +793,38 @@ public class MunchkinVue extends JFrame {
      */    
     public void miseaJourListe(String liste) {
 
-        Vector<String> listData = new Vector<String>();
+        
+        listeJoueur=new ArrayList<ImagePanelList>();
         StringTokenizer l2 = new StringTokenizer(liste, ";");
         while (l2.hasMoreTokens()) {
-            String str= l2.nextToken();
-            listData.add(str);            
+            String str= l2.nextToken(); 
+            ImagePanelList ip=new ImagePanelList(new JLabel(str));
+            //this.listeJoueur.add(str);
+            listeJoueur.add(ip);
             createTabInfoJouers(str);
             createTabJeuxJouers(str);
         }
-        jList1.setListData(listData);
+        jList1.setListData(listeJoueur.toArray());
     }
+    
+    
+    private void miseaJourListeAvecImage(Message msg) {
+        ArrayList<ImagePanelList> ancientData=listeJoueur;
+        listeJoueur=new ArrayList<ImagePanelList>();
+        ImagePanelList ip=new ImagePanelList();
+        for(Component c:ancientData)
+            if(c instanceof ImagePanelList)
+                if(!((ImagePanelList)c).getNameJoueur().getText().equals(msg.getNick_src()))
+                    listeJoueur.add((ImagePanelList)c);
+                else{
+                    ip =  new ImagePanelList(msg.getAvatar(), ((ImagePanelList)c).getNameJoueur());  
+                    listeJoueur.add(ip);
+                }       
+        this.jList1.setListData(listeJoueur.toArray());
+    }
+
+    
+    
 
     private JTextArea createTextAreaInfoJoueurs(String name){
         JTextArea txtA= new JTextArea();
@@ -840,8 +867,9 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 socket = new Socket(connexion.getServeur(), connexion.getPort());                
                 com = new Communication(socket, this);
                 com.start();                
-                Message msg = new Message(Message.CONNECT, login);
-                connected = com.sendMessage(msg);                    
+                Message msg = new Message(Message.CONNECT, login,"Partie",String.valueOf(connexion.getSexe()));
+                connected = com.sendMessage(msg);  
+                com.sendMessage(new Message(Message.AVATAR, login, "Partie", connexion.getAvatarLabel()));
                 this.tabbedPaneInfosJoueurs.removeAll();
                 createTabInfoJouers("Mes Infos");               
                this.buttonPoserCarte.setEnabled(connected);               
@@ -855,7 +883,6 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
                    
                 }
                 if (nickexist) {
-
                     deconnexion_Item.setEnabled(false);
                 } else {
                     deconnexion_Item.setEnabled(true);
@@ -958,7 +985,7 @@ private void buttonNonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
   changeComponentForground(this.buttonYes, Color.black);
   timer.cancel();
   displayTimer.stop();
-  this.labelTimer.setText("45");
+  this.labelTimer.setText("30");
 }//GEN-LAST:event_buttonNonActionPerformed
 
 private void buttonYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonYesActionPerformed
@@ -969,7 +996,7 @@ private void buttonYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
   changeComponentForground(this.buttonYes, Color.black);
   timer.cancel();
   displayTimer.stop();
-  this.labelTimer.setText("45");
+  this.labelTimer.setText("30");
 }//GEN-LAST:event_buttonYesActionPerformed
 
 private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
@@ -1024,14 +1051,17 @@ private void buttonPoserCarteActionPerformed(java.awt.event.ActionEvent evt) {//
 private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         if(evt.getClickCount()==1){
             if(choisirJoueur){
-                com.sendMessage(new Message(Message.CHOIXJOUEUR, login, "Partie",jList1.getSelectedValue().toString() ));
+                com.sendMessage(new Message(Message.CHOIXJOUEUR, login, "Partie",((ImagePanelList)jList1.getSelectedValue()).getNameJoueur().getText()));
                 choisirJoueur=false;
             }
         }            
         else if (evt.getClickCount() == 2) {
-            login_dest = jList1.getSelectedValue().toString();            
-            newTab(login_dest);            
-            //jScrollpane.setViewportView(jTextPane2);
+            
+            if(jList1.getSelectedValue()!=null){
+                login_dest = ((ImagePanelList)jList1.getSelectedValue()).getNameJoueur().getText();           
+                newTab(login_dest);            
+            }
+         
 
         } 
         else if (evt.getButton() == evt.BUTTON3) {
@@ -1043,7 +1073,7 @@ private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
 
                 public void actionPerformed(ActionEvent e) {
                      
-                    login_dest = jList1.getSelectedValue().toString();                    
+                    login_dest = ((ImagePanelList)jList1.getSelectedValue()).getNameJoueur().getText();                 
                     newTab(login_dest);
                     //jScrollpane.setViewportView(jTextPane2);
 
