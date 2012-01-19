@@ -186,16 +186,17 @@ public class MunchkinVue extends JFrame {
         buttonIntervenir = new javax.swing.JButton();
         buttonDesequiper = new javax.swing.JButton();
         labelTimer = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jLabel3 = new javax.swing.JLabel();
-        radioButtonDefileOui = new javax.swing.JRadioButton();
-        radioButtonDefileNon = new javax.swing.JRadioButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         connexion_item = new javax.swing.JMenuItem();
         deconnexion_Item = new javax.swing.JMenuItem();
+        menuOption = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
+        radioBUttonMenuItemSonOui = new javax.swing.JRadioButtonMenuItem();
+        radioBUttonMenuItemSonNon = new javax.swing.JRadioButtonMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        radioBUttonMenuItemDefilOui = new javax.swing.JRadioButtonMenuItem();
+        radioBUttonMenuItemDefilNon = new javax.swing.JRadioButtonMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Munchkin");
@@ -394,40 +395,6 @@ public class MunchkinVue extends JFrame {
         labelTimer.setText("30");
         jPanel.add(labelTimer, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 170, -1, -1));
 
-        jLabel2.setText("Son active :");
-        jPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 620, -1, 20));
-
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Oui");
-        jRadioButton1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jRadioButton1ItemStateChanged(evt);
-            }
-        });
-        jPanel.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 620, -1, -1));
-
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Non");
-        jPanel.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 620, -1, -1));
-
-        jLabel3.setText("Le texte defile :");
-        jPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 660, -1, -1));
-
-        buttonGroupDefilement.add(radioButtonDefileOui);
-        radioButtonDefileOui.setSelected(true);
-        radioButtonDefileOui.setText("Oui");
-        radioButtonDefileOui.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                radioButtonDefileOuiItemStateChanged(evt);
-            }
-        });
-        jPanel.add(radioButtonDefileOui, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 650, -1, -1));
-
-        buttonGroupDefilement.add(radioButtonDefileNon);
-        radioButtonDefileNon.setText("Non");
-        jPanel.add(radioButtonDefileNon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 650, -1, -1));
-
         jMenuBar1.setBackground(new java.awt.Color(179, 127, 81));
         jMenuBar1.setFont(new java.awt.Font("DejaVu Sans Light", 0, 13));
 
@@ -450,6 +417,46 @@ public class MunchkinVue extends JFrame {
         fileMenu.add(deconnexion_Item);
 
         jMenuBar1.add(fileMenu);
+
+        menuOption.setText("Options");
+
+        jMenu1.setText("Activer le Son");
+
+        buttonGroup1.add(radioBUttonMenuItemSonOui);
+        radioBUttonMenuItemSonOui.setSelected(true);
+        radioBUttonMenuItemSonOui.setText("Oui");
+        radioBUttonMenuItemSonOui.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                radioBUttonMenuItemSonOuiItemStateChanged(evt);
+            }
+        });
+        jMenu1.add(radioBUttonMenuItemSonOui);
+
+        buttonGroup1.add(radioBUttonMenuItemSonNon);
+        radioBUttonMenuItemSonNon.setText("Non");
+        jMenu1.add(radioBUttonMenuItemSonNon);
+
+        menuOption.add(jMenu1);
+
+        jMenu2.setText("Defilement du texte");
+
+        buttonGroupDefilement.add(radioBUttonMenuItemDefilOui);
+        radioBUttonMenuItemDefilOui.setSelected(true);
+        radioBUttonMenuItemDefilOui.setText("Oui");
+        radioBUttonMenuItemDefilOui.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                radioBUttonMenuItemDefilOuiItemStateChanged(evt);
+            }
+        });
+        jMenu2.add(radioBUttonMenuItemDefilOui);
+
+        buttonGroupDefilement.add(radioBUttonMenuItemDefilNon);
+        radioBUttonMenuItemDefilNon.setText("Non");
+        jMenu2.add(radioBUttonMenuItemDefilNon);
+
+        menuOption.add(jMenu2);
+
+        jMenuBar1.add(menuOption);
 
         setJMenuBar(jMenuBar1);
 
@@ -1138,19 +1145,19 @@ else if(this.buttonDesequiper.getText().equals("Annuler")){
 }
 }//GEN-LAST:event_buttonDesequiperActionPerformed
 
-private void jRadioButton1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButton1ItemStateChanged
-if(this.jRadioButton1.isSelected())
+private void radioBUttonMenuItemSonOuiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_radioBUttonMenuItemSonOuiItemStateChanged
+if(this.radioBUttonMenuItemSonOui.isSelected())
     this.sonActive=true;
 else
     this.sonActive=false;
-}//GEN-LAST:event_jRadioButton1ItemStateChanged
+}//GEN-LAST:event_radioBUttonMenuItemSonOuiItemStateChanged
 
-private void radioButtonDefileOuiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_radioButtonDefileOuiItemStateChanged
-if(this.radioButtonDefileOui.isSelected())
+private void radioBUttonMenuItemDefilOuiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_radioBUttonMenuItemDefilOuiItemStateChanged
+if(this.radioBUttonMenuItemDefilOui.isSelected())
     this.defilementActif=true;
 else
     this.defilementActif=false;
-}//GEN-LAST:event_radioButtonDefileOuiItemStateChanged
+}//GEN-LAST:event_radioBUttonMenuItemDefilOuiItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -1207,13 +1214,11 @@ else
     private javax.swing.JMenuItem connexion_item;
     private javax.swing.JMenuItem deconnexion_Item;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JList jList1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
@@ -1224,8 +1229,11 @@ else
     private javax.swing.JLabel labelTimer;
     private javax.swing.JList listCampGentil;
     private javax.swing.JList listCampMechant;
-    private javax.swing.JRadioButton radioButtonDefileNon;
-    private javax.swing.JRadioButton radioButtonDefileOui;
+    private javax.swing.JMenu menuOption;
+    private javax.swing.JRadioButtonMenuItem radioBUttonMenuItemDefilNon;
+    private javax.swing.JRadioButtonMenuItem radioBUttonMenuItemDefilOui;
+    private javax.swing.JRadioButtonMenuItem radioBUttonMenuItemSonNon;
+    private javax.swing.JRadioButtonMenuItem radioBUttonMenuItemSonOui;
     private javax.swing.JScrollPane scrollPaneCampGentil;
     private javax.swing.JScrollPane scrollPaneCampMechant;
     private javax.swing.JScrollPane scrollPaneCarteEnCours;
