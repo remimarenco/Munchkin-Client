@@ -540,7 +540,7 @@ public class MunchkinVue extends JFrame {
                  doc.insertString(doc.getLength(), String.valueOf(c),style );
 //TODO Décommenter pour la version finale                 
 //                try {
-//                    Thread.sleep(25);
+//                    Thread.sleep(20);
 //                    jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
 //                } catch (InterruptedException ex) {
 //                    Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
@@ -759,7 +759,7 @@ public class MunchkinVue extends JFrame {
     		public void run() {                
     			disableActionButtonAndSendNo();
     		}           
-    	},30*1000);//360 secondes pour des tests a al demande de Simon TODO :remettre à 30
+    	},30*1000);
 
     	this.labelActionPrompt.setText(msg.getMessage());
     	this.buttonNon.setEnabled(true);
