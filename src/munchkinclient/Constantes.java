@@ -13,6 +13,8 @@ public class Constantes {
     public static final int ACTION_DESEQUIPER 				  = 6;
     public static final int ACTION_CARTE_INTERVENTION_CHOISIE             = 7;
     public static final int ACTION_PRET                                   = 8;
+    public static final int ACTION_CHOIX_CAMP                             = 11;
+    public static final int ACTION_FIN_CHARITE                            = 12;  
     
     /**
      * Constante Son

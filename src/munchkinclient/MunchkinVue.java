@@ -97,7 +97,7 @@ public class MunchkinVue extends JFrame {
         UIManager.put("control", new ColorUIResource(172, 158,123));        
         initComponents();        
         initFont();         
-        this.setIconImage(ImageIO.read(MunchkinVue.class.getResourceAsStream("resources/cartes/1.jpg")));
+        this.setIconImage(ImageIO.read(MunchkinVue.class.getResourceAsStream("resources/munchkin.png")));
     }
 
     private void initFont() throws FontFormatException, IOException, URISyntaxException{
@@ -506,8 +506,16 @@ public class MunchkinVue extends JFrame {
                 break;
             case Message.INTERVENTION:
                 this.state=msg.getAction();
-                if(msg.getAction()==Constantes.ACTION_PRET)
+                if(this.state==Constantes.ACTION_PRET)
                     this.buttonYes.setEnabled(connected);
+                else if(this.state==Constantes.ACTION_DEFAUSSER){
+                    this.buttonDesequiper.setEnabled(false);
+                    this.buttonPoserCarte.setEnabled(false);
+                }
+                else if(this.state==Constantes.ACTION_FIN_CHARITE){
+                    this.buttonDesequiper.setEnabled(true);
+                    this.buttonPoserCarte.setEnabled(true);
+                }
                 break;
             case Message.STOP_QUESTION_INTERVENTION:
             	stopQuestionIntervention();
