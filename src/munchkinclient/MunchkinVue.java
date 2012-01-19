@@ -846,7 +846,8 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 com = new Communication(socket, this);
                 com.start();                
                 Message msg = new Message(Message.CONNECT, login,"Partie",String.valueOf(connexion.getSexe()),connexion.getAvatarLabel());
-                connected = com.sendMessage(msg);               
+                connected = com.sendMessage(msg);      
+                this.setTitle("Munchkin - "+login);
                 this.tabbedPaneInfosJoueurs.removeAll();
                 createTabInfoJouers("Mes Infos");               
                this.buttonPoserCarte.setEnabled(connected);               
