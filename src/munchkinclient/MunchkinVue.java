@@ -701,8 +701,12 @@ public class MunchkinVue extends JFrame {
             c.open(ais);
             c.start();
         } catch (LineUnavailableException ex) {
-            Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedAudioFileException ex) {
+            System.out.println("pas de periph de sortie");
+        } 
+        catch (IllegalArgumentException i){
+            System.out.println("pas de periph de sortie");
+        }
+        catch (UnsupportedAudioFileException ex) {
             Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
