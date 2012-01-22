@@ -17,9 +17,11 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.Socket;
@@ -571,7 +573,7 @@ public class MunchkinVue extends JFrame {
                 for(char c :str.toCharArray()){
                     doc.insertString(doc.getLength(), String.valueOf(c),style );              
                     try {
-                        Thread.sleep(20);
+                        Thread.sleep(10);
                         jTextPane1.setCaretPosition(jTextPane1.getDocument().getLength());
                     } catch (InterruptedException ex) {
                         Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
@@ -830,15 +832,23 @@ public class MunchkinVue extends JFrame {
      * met a jour la liste des connectés
      * @param liste 
      */    
-    public void miseaJourListe(HashMap<String, JLabel> list) {        
+    public void miseaJourListe(HashMap<String, byte[]> list) {        
         ImagePanelList ip=new ImagePanelList(); 
         ArrayList<ImagePanelList> data=new ArrayList<ImagePanelList>();
-        for(Map.Entry<String,JLabel> m : list.entrySet())
+        for(Map.Entry<String,byte[]> m : list.entrySet())
         {
-            createTabInfoJouers(m.getKey());
-            createTabJeuxJouers(m.getKey());
-            ip=new ImagePanelList(m.getValue(),new JLabel(m.getKey()));
-            data.add(ip);
+            try {
+                createTabInfoJouers(m.getKey());
+                createTabJeuxJouers(m.getKey());
+                ByteArrayInputStream bais=new ByteArrayInputStream(m.getValue());
+                ImageIcon icon=new ImageIcon(ImageIO.read(bais));
+                Image image= icon.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+                icon = new ImageIcon(image);                 
+                ip=new ImagePanelList(new JLabel(icon),new JLabel(m.getKey()));
+                data.add(ip);
+            } catch (IOException ex) {
+                Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }       
         jList1.setListData(data.toArray());
     }   
