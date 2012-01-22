@@ -2,23 +2,14 @@ package munchkinclient;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
-import java.awt.Image;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JDialog;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.filechooser.FileFilter;
 
 /**
  * Fenetre de connexion
@@ -43,8 +34,7 @@ public class Connexion extends JDialog {
             font1=font1.deriveFont(18f);
             this.jLabel1.setFont(font1);
             this.jLabel2.setFont(font1);
-            this.jLabel3.setFont(font1);
-            this.buttonBrowse.setFont(font1);
+            this.jLabel3.setFont(font1);           
             this.connectButton.setFont(font1);
             this.cancelButton.setFont(font1);
             this.radioBUttonLocal.setFont(font1);
@@ -70,14 +60,7 @@ public class Connexion extends JDialog {
     
     public String getLogin(){ 
         return login; 
-    }
-
-    public JLabel getAvatarLabel() {
-        ImageIcon icon=(ImageIcon) avatarLabel.getIcon();
-        Image image= icon.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
-        icon = new ImageIcon(image);        
-        return new JLabel(icon);
-    }
+    }   
 
     public int getSexe() {
         return sexe;
@@ -117,7 +100,6 @@ public class Connexion extends JDialog {
         jLabel3 = new javax.swing.JLabel();
         radioButtonM = new javax.swing.JRadioButton();
         radioButtonF = new javax.swing.JRadioButton();
-        buttonBrowse = new javax.swing.JButton();
         avatarLabel = new javax.swing.JLabel();
 
         setTitle("Connexion");
@@ -184,13 +166,6 @@ public class Connexion extends JDialog {
         buttonGroup2.add(radioButtonF);
         radioButtonF.setText("Feminin");
 
-        buttonBrowse.setText("parcourrir");
-        buttonBrowse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonBrowseActionPerformed(evt);
-            }
-        });
-
         avatarLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/munchkinclient/resources/avatar.jpg"))); // NOI18N
         avatarLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         avatarLabel.setPreferredSize(new java.awt.Dimension(168, 168));
@@ -227,9 +202,6 @@ public class Connexion extends JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                                 .addComponent(avatarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(buttonBrowse)
-                        .addGap(52, 52, 52))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(cancelButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 333, Short.MAX_VALUE)
@@ -261,9 +233,7 @@ public class Connexion extends JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(avatarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(buttonBrowse)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(connectButton)
                     .addComponent(cancelButton))
@@ -326,33 +296,6 @@ if(evt.getKeyCode()==KeyEvent.VK_ENTER)
     connecter();
 }//GEN-LAST:event_login_fieldKeyPressed
 
-private void buttonBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBrowseActionPerformed
-JFileChooser f = new JFileChooser();       
-FileFilter filter=new FileFilter() {           
-    public boolean accept(File f) {
-        if(f.isDirectory())
-            return true;
-        else if (f.getName().endsWith(".jpg") || f.getName().endsWith(".png"))
-            return true;                   
-        else
-            return false;
-    }           
-    public String getDescription() {
-        return "Jpg et PNG Files";
-    }
-};      
-f.setFileFilter(filter);
-f.showOpenDialog(this);
-File file=f.getSelectedFile();
-if(file!=null){
-    ImageIcon icon= new ImageIcon(file.getPath());
-    Image img=icon.getImage().getScaledInstance(168, 168, Image.SCALE_SMOOTH);
-    icon=new ImageIcon(img);
-    avatarLabel.setIcon(icon);
-    this.repaint();
-}
-}//GEN-LAST:event_buttonBrowseActionPerformed
-
 private void radioButtonMItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_radioButtonMItemStateChanged
 if(this.radioButtonM.isSelected())
     this.sexe=Constantes.SEXE_M;
@@ -362,7 +305,6 @@ else
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel avatarLabel;
-    private javax.swing.JButton buttonBrowse;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton cancelButton;
