@@ -1,19 +1,19 @@
 package munchkinclient;
 
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.Inet4Address;
+import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -31,6 +31,7 @@ public class Connexion extends JDialog {
     private int port;
     private boolean saisie_effectué=false;
     private int sexe=Constantes.SEXE_M;
+    private BufferedImage img;
     
 
     /** 
@@ -40,6 +41,8 @@ public class Connexion extends JDialog {
         super(parent,b);
         try {
             initComponents();  
+            img= ImageIO.read(MunchkinVue.class.getResourceAsStream("resources/avatar.jpg"));
+            avatarLabel.setIcon(new ImageIcon(img));
             Font font1= Font.createFont(Font.TRUETYPE_FONT, MunchkinVue.class.getResourceAsStream("resources/CASLANTR.TTF"));
             font1=font1.deriveFont(18f);
             this.jLabel1.setFont(font1);
@@ -82,7 +85,12 @@ public class Connexion extends JDialog {
 
     public int getSexe() {
         return sexe;
-    }    
+    }
+
+    public BufferedImage getImg() {        
+        return img;
+    }
+    
     
     public InetAddress getServeur(){ 
         return serveur; 
@@ -345,6 +353,11 @@ FileFilter filter=new FileFilter() {
 f.setFileFilter(filter);
 f.showOpenDialog(this);
 File file=f.getSelectedFile();
+try {
+    img= ImageIO.read(file);
+} catch (IOException ex) {
+    Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
+}
 if(file!=null){
     ImageIcon icon= new ImageIcon(file.getPath());
     Image img=icon.getImage().getScaledInstance(168, 168, Image.SCALE_SMOOTH);

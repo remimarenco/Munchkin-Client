@@ -883,10 +883,8 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 login = connexion.getLogin();             
                 socket = new Socket(connexion.getServeur(), connexion.getPort());                
                 com = new Communication(socket, this);
-                com.start();   
-                ImageIcon ic= (ImageIcon) connexion.getAvatarLabel().getIcon();               
-                
-                    Message msg = new Message(Message.CONNECT, login,"Partie",String.valueOf(connexion.getSexe()),ic);
+                com.start();                             
+                Message msg = new Message(Message.CONNECT, login,"Partie",String.valueOf(connexion.getSexe()),connexion.getImg());
                 connected = com.sendMessage(msg);      
                 this.setTitle("Munchkin - "+login);
                 this.tabbedPaneInfosJoueurs.removeAll();
