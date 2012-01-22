@@ -179,7 +179,6 @@ public class Connexion extends JDialog {
         buttonGroup2.add(radioButtonF);
         radioButtonF.setText("Feminin");
 
-        avatarLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/munchkinclient/resources/avatar.jpg"))); // NOI18N
         avatarLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         avatarLabel.setMaximumSize(new java.awt.Dimension(168, 168));
         avatarLabel.setMinimumSize(new java.awt.Dimension(168, 168));
