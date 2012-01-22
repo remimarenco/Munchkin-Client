@@ -785,6 +785,7 @@ public class MunchkinVue extends JFrame {
         com.sendMessage(new Message(Message.QUESTION, login, login_dest, "Non"));
         this.labelTimer.setText("30");
         displayTimer.stop();
+        timer.cancel();
     }
     
     /**
@@ -898,10 +899,9 @@ private void deconnexion_ItemActionPerformed(java.awt.event.ActionEvent evt) {//
         try {
             Message msg = new Message(Message.DISCONNECT, login);
             com.sendMessage(msg);
-
             connexion_item.setEnabled(true);
             deconnexion_Item.setEnabled(false);
-            connected = false;            
+            connected = false;    
 
 
         } catch (Exception ex) {
