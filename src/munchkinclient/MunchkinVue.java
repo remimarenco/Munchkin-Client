@@ -832,23 +832,15 @@ public class MunchkinVue extends JFrame {
      * met a jour la liste des connectés
      * @param liste 
      */    
-    public void miseaJourListe(HashMap<String, byte[]> list) {        
+    public void miseaJourListe(HashMap<String,JLabel> list) {        
         ImagePanelList ip=new ImagePanelList(); 
         ArrayList<ImagePanelList> data=new ArrayList<ImagePanelList>();
-        for(Map.Entry<String,byte[]> m : list.entrySet())
-        {
-            try {
+        for(Map.Entry<String,JLabel> m : list.entrySet())
+        {            
                 createTabInfoJouers(m.getKey());
-                createTabJeuxJouers(m.getKey());
-                ByteArrayInputStream bais=new ByteArrayInputStream(m.getValue());
-                ImageIcon icon=new ImageIcon(ImageIO.read(bais));
-                Image image= icon.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
-                icon = new ImageIcon(image);                 
-                ip=new ImagePanelList(new JLabel(icon),new JLabel(m.getKey()));
-                data.add(ip);
-            } catch (IOException ex) {
-                Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                createTabJeuxJouers(m.getKey());                
+                ip=new ImagePanelList(m.getValue(),new JLabel(m.getKey()));
+                data.add(ip);           
         }       
         jList1.setListData(data.toArray());
     }   
@@ -894,7 +886,7 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 socket = new Socket(connexion.getServeur(), connexion.getPort());                
                 com = new Communication(socket, this);
                 com.start();                             
-                Message msg = new Message(Message.CONNECT, login,"Partie",String.valueOf(connexion.getSexe()),connexion.getImg());
+                Message msg = new Message(Message.CONNECT, login,"Partie",String.valueOf(connexion.getSexe()),connexion.getAvatarLabel());
                 connected = com.sendMessage(msg);      
                 this.setTitle("Munchkin - "+login);
                 this.tabbedPaneInfosJoueurs.removeAll();
