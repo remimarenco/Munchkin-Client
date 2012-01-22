@@ -26,5 +26,6 @@ public class Constantes {
      * Type de sexe
      */
     public static final int SEXE_M = 1;
-    public static final int SEXE_F = 2;
+    public static final int SEXE_F = 2;  
+  
 }

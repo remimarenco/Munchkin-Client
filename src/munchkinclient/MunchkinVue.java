@@ -20,8 +20,6 @@ import java.awt.FontFormatException;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.Socket;
@@ -29,8 +27,8 @@ import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.StringTokenizer;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -107,7 +105,7 @@ public class MunchkinVue extends JFrame {
 
     private void initFont() throws FontFormatException, IOException, URISyntaxException{
         
-        Font font1= Font.createFont(Font.TRUETYPE_FONT, MunchkinVue.class.getResourceAsStream("resources/CASLANTR.TTF"));
+        Font font1= Font.createFont(Font.TRUETYPE_FONT, MunchkinVue.class.getResourceAsStream("resources/Augusta.ttf"));
         Font font2= Font.createFont(Font.TRUETYPE_FONT,MunchkinVue.class.getResourceAsStream("resources/Windlass.ttf"));
         
         font1=font1.deriveFont(18f);
@@ -180,15 +178,12 @@ public class MunchkinVue extends JFrame {
         scrollPaneMain = new javax.swing.JScrollPane();
         jLabel1 = new javax.swing.JLabel();
         scrollPaneCarteEnCours = new javax.swing.JScrollPane();
-        buttonDefausser = new javax.swing.JButton();
         tabbedPaneCampMechant = new javax.swing.JTabbedPane();
         scrollPaneCampMechant = new javax.swing.JScrollPane();
         listCampMechant = new javax.swing.JList();
         tabbedPaneCampGentil = new javax.swing.JTabbedPane();
         scrollPaneCampGentil = new javax.swing.JScrollPane();
         listCampGentil = new javax.swing.JList();
-        buttonIntervenir = new javax.swing.JButton();
-        buttonDesequiper = new javax.swing.JButton();
         labelTimer = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
@@ -322,7 +317,7 @@ public class MunchkinVue extends JFrame {
                 buttonPoserCarteActionPerformed(evt);
             }
         });
-        jPanel.add(buttonPoserCarte, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 400, 190, 40));
+        jPanel.add(buttonPoserCarte, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 400, 240, 150));
 
         tabbedPaneMainJoueur.setBackground(new java.awt.Color(168, 137, 59));
 
@@ -340,16 +335,6 @@ public class MunchkinVue extends JFrame {
         scrollPaneCarteEnCours.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         scrollPaneCarteEnCours.setHorizontalScrollBar(null);
         jPanel.add(scrollPaneCarteEnCours, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 30, 260, 350));
-
-        buttonDefausser.setBackground(new java.awt.Color(168, 137, 59));
-        buttonDefausser.setText("Defausser");
-        buttonDefausser.setEnabled(false);
-        buttonDefausser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonDefausserActionPerformed(evt);
-            }
-        });
-        jPanel.add(buttonDefausser, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 550, 190, 40));
 
         tabbedPaneCampMechant.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -374,26 +359,6 @@ public class MunchkinVue extends JFrame {
         tabbedPaneCampGentil.addTab("Gentil", scrollPaneCampGentil);
 
         jPanel.add(tabbedPaneCampGentil, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 130, 310));
-
-        buttonIntervenir.setBackground(new java.awt.Color(168, 137, 59));
-        buttonIntervenir.setText("Intervenir");
-        buttonIntervenir.setEnabled(false);
-        buttonIntervenir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonIntervenirActionPerformed(evt);
-            }
-        });
-        jPanel.add(buttonIntervenir, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 500, 190, 40));
-
-        buttonDesequiper.setBackground(new java.awt.Color(168, 137, 59));
-        buttonDesequiper.setText("Desequiper");
-        buttonDesequiper.setEnabled(false);
-        buttonDesequiper.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonDesequiperActionPerformed(evt);
-            }
-        });
-        jPanel.add(buttonDesequiper, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 450, 190, 40));
 
         labelTimer.setFont(new java.awt.Font("Tahoma", 0, 18));
         labelTimer.setText("30");
@@ -468,15 +433,15 @@ public class MunchkinVue extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1197, Short.MAX_VALUE)
+            .addGap(0, 1189, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1197, Short.MAX_VALUE))
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1189, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 705, Short.MAX_VALUE)
+            .addGap(0, 701, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE))
+                .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -539,14 +504,14 @@ public class MunchkinVue extends JFrame {
                 break;
             case Message.INTERVENTION:
                 this.state=msg.getAction();
-                if(this.state==Constantes.ACTION_PRET)
+                if(this.state==Constantes.ACTION_PRET){
+                    this.buttonPoserCarte.setEnabled(connected);
                     this.buttonYes.setEnabled(connected);
-                else if(this.state==Constantes.ACTION_DEFAUSSER){
-                    this.buttonDesequiper.setEnabled(false);
+                }
+                else if(this.state==Constantes.ACTION_DEFAUSSER){                    
                     this.buttonPoserCarte.setEnabled(false);
                 }
-                else if(this.state==Constantes.ACTION_FIN_CHARITE){
-                    this.buttonDesequiper.setEnabled(true);
+                else if(this.state==Constantes.ACTION_FIN_CHARITE){                    
                     this.buttonPoserCarte.setEnabled(true);
                 }
                 break;
@@ -807,7 +772,8 @@ public class MunchkinVue extends JFrame {
     	},30*1000);
 
     	this.labelActionPrompt.setText(msg.getMessage());
-    	this.buttonNon.setEnabled(true);
+        if(!msg.getMessage().equals("Annuler ?"))
+            this.buttonNon.setEnabled(true);
     	this.buttonYes.setEnabled(true);
     	changeComponentForground(this.buttonNon, Color.red);
     	changeComponentForground(this.buttonYes, Color.red);       
@@ -836,18 +802,18 @@ public class MunchkinVue extends JFrame {
      * met a jour la liste des connectés
      * @param liste 
      */    
-    public void miseaJourListe(ArrayList<String> list) {        
+    public void miseaJourListe(LinkedHashMap<String,Integer> list) {        
         ImagePanelList ip=new ImagePanelList(); 
         ArrayList<ImagePanelList> data=new ArrayList<ImagePanelList>();
-        for(String s : list)
+        for(Map.Entry<String,Integer> m : list.entrySet())
         {            
-                createTabInfoJouers(s);
-                createTabJeuxJouers(s);                
+                createTabInfoJouers(m.getKey());
+                createTabJeuxJouers(m.getKey());                
                 try {
-                    ImageIcon icon=new ImageIcon( ImageIO.read(MunchkinVue.class.getResourceAsStream("resources/avatar.jpg")));
-                    Image image= icon.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
-                    icon = new ImageIcon(image);                   
-                    ip=new ImagePanelList(new JLabel(icon),new JLabel(s));
+                    ImageIcon icon=new ImageIcon( ImageIO.read(MunchkinVue.class.getResourceAsStream("resources/"+m.getValue()+".jpg")));  
+                    Image img=icon.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+                    icon=new ImageIcon(img);
+                    ip=new ImagePanelList(new JLabel(icon),new JLabel(m.getKey()));
                 } catch (IOException ex) {
                     Logger.getLogger(MunchkinVue.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -897,15 +863,11 @@ private void connexion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 socket = new Socket(connexion.getServeur(), connexion.getPort());                
                 com = new Communication(socket, this);
                 com.start();                             
-                Message msg = new Message(Message.CONNECT, login,"Partie",String.valueOf(connexion.getSexe()));
+                Message msg = new Message(Message.CONNECT, login,"Partie",String.valueOf(connexion.getSexe()),connexion.getAvatar());
                 connected = com.sendMessage(msg);      
                 this.setTitle("Munchkin - "+login);
                 this.tabbedPaneInfosJoueurs.removeAll();
-                createTabInfoJouers("Mes Infos");               
-               this.buttonPoserCarte.setEnabled(connected);               
-               //this.buttonIntervenir.setEnabled(connected);
-               //this.buttonDefausser.setEnabled(connected); 
-               this.buttonDesequiper.setEnabled(connected);
+                createTabInfoJouers("Mes Infos");              
                this.send_button.setEnabled(connected);
                 try {
                     Thread.sleep(10);
@@ -982,8 +944,7 @@ private void sendMessage(){
 public void envoyerCarte(String idCard){
     Message msg= new Message(Message.INTERVENTION, login, "Partie", this.state,idCard);
     com.sendMessage(msg);
-    this.disallowClicOnCard();
-    this.buttonDesequiper.setText("Desequiper");
+    this.disallowClicOnCard();    
     this.buttonPoserCarte.setText("Poser une carte");
 }                    
 
@@ -1116,24 +1077,6 @@ private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
        
 }//GEN-LAST:event_jList1MouseClicked
 
-private void buttonDefausserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDefausserActionPerformed
-    if(this.buttonDefausser.getText().equals("Defausser")){
-        this.state=Constantes.ACTION_DEFAUSSER;
-        com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_DEFAUSSER));
-        this.buttonDefausser.setText("Annuler");
-    }
-    else if(this.buttonDefausser.getText().equals("Annuler")){
-        disallowClicOnCard();
-        this.buttonDefausser.setText("Defausser");
-    }
-    
-}//GEN-LAST:event_buttonDefausserActionPerformed
-
-private void buttonIntervenirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIntervenirActionPerformed
-    this.state=Constantes.ACTION_INTERVENIR;
-    com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_INTERVENIR));
-}//GEN-LAST:event_buttonIntervenirActionPerformed
-
 private void tabbedPaneCampMechantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabbedPaneCampMechantMouseClicked
 if(campClicable){
     com.sendMessage(new Message(Message.CHOIXCAMP, login, "Partie", tabbedPaneCampMechant.getTitleAt(tabbedPaneCampMechant.getSelectedIndex())));
@@ -1147,18 +1090,6 @@ if(campClicable){
     campClicable=false;
 }
 }//GEN-LAST:event_tabbedPaneCampGentilMouseClicked
-
-private void buttonDesequiperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDesequiperActionPerformed
-if(this.buttonDesequiper.getText().equals("Desequiper")){
-    this.state=Constantes.ACTION_DESEQUIPER;
-    com.sendMessage(new Message(Message.INTERVENTION, login, login_dest, Constantes.ACTION_DESEQUIPER));
-    this.buttonDesequiper.setText("Annuler");
-}
-else if(this.buttonDesequiper.getText().equals("Annuler")){
-    disallowClicOnCard();
-    this.buttonDesequiper.setText("Desequiper");
-}
-}//GEN-LAST:event_buttonDesequiperActionPerformed
 
 private void radioBUttonMenuItemSonOuiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_radioBUttonMenuItemSonOuiItemStateChanged
 if(this.radioBUttonMenuItemSonOui.isSelected())
@@ -1218,11 +1149,8 @@ else
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonDefausser;
-    private javax.swing.JButton buttonDesequiper;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroupDefilement;
-    private javax.swing.JButton buttonIntervenir;
     private javax.swing.JButton buttonNon;
     private javax.swing.JButton buttonPoserCarte;
     private javax.swing.JButton buttonYes;
